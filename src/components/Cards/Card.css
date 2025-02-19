@@ -13,7 +13,7 @@
   gap: 1rem;
 
   padding: 1rem;
-  width: 19rem;
+  width: 25rem;
   background-color: hsla(240, 15%, 9%, 1);
   background-image: radial-gradient(
       at 88% 40%,
@@ -28,6 +28,8 @@
 
   border-radius: 1rem;
   box-shadow: 0px -16px 24px 0px rgba(255, 255, 255, 0.25) inset;
+  margin: 0 auto; /* Center the card */
+  margin-top: 1rem;
 }
 
 .card .card__border {
@@ -88,9 +90,9 @@
 
 .card .card_title__container .card_paragraph {
   margin-top: 0.25rem;
-  width: 65%;
+  width: 100%;
 
-  font-size: 0.5rem;
+  font-size: 1rem; /* Increase text size */
   color: var(--paragraph);
 }
 
@@ -105,7 +107,7 @@
 .card .card__list {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem; /* Add spacing between items */
 }
 
 .card .card__list .card__list_item {
@@ -134,7 +136,7 @@
 }
 
 .card .card__list .card__list_item .list_text {
-  font-size: 0.75rem;
+  font-size: 1rem; /* Increase text size */
   color: var(--white);
 }
 
