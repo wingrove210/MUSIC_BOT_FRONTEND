@@ -1,0 +1,54 @@
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  padding: 0 20px;
+  position: relative;
+}
+
+.logo-container {
+  height: 60px;
+  width: 60px;
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+}
+
+.menu-wrapper {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+  z-index: 1000; /* Ensure the menu button is on top */
+}
+
+.menu-icon {
+  position: relative;
+  width: 30px;
+  height: 20px;
+}
+
+.menu-icon-bar {
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: #fff;
+  margin: 4px 0;
+  transition: 0.3s;
+}
+
+.menu-icon.open .top {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-icon.open .middle {
+  opacity: 0;
+}
+
+.menu-icon.open .bottom {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
