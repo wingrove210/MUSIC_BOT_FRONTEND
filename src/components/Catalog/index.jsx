@@ -37,7 +37,7 @@ export default function Catalog() {
     if (currentTrack) {
       currentTrack.pause();
     }
-    const audio = new Audio(`http://127.0.0.1:8000/${track.url}`);
+    const audio = new Audio(`http://192.168.0.101:8000/${track.url}`);
     audio.play();
     setCurrentTrack(audio);
     setCurrentTrackDetails(track);

@@ -1,10 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Plyr from 'plyr';
 import 'plyr/dist/plyr.css';
 import './index.css';
 
 function Video() {
+  const [videoUrl, setVideoUrl] = useState('');
+
   useEffect(() => {
+    // Fetch the video URL from the API
+    fetch('http://127.0.0.1:8000/videos/1')
+      .then(response => response.json())
+      .then(data => {
+        setVideoUrl(data.url);
+      })
+      .catch(error => console.error('Error fetching video URL:', error));
+
     const player = new Plyr('#player', {
       autoplay: true
     });
@@ -48,11 +58,15 @@ function Video() {
 
   return (
     <div className="container">
-      <video controls crossOrigin="anonymous" playsInline poster="/poster.png" id="player">
-        <source src="/IMG_8015.MP4" type="video/mp4" size="576" />
-        <track kind="captions" label="English" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt" default />
-        <track kind="captions" label="Français" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt" />
-      </video>
+      {videoUrl ? (
+        <video controls crossOrigin="anonymous" playsInline poster="/poster.png" id="player">
+          <source src={videoUrl} type="video/mp4" size="576" />
+          <track kind="captions" label="English" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt" default />
+          <track kind="captions" label="Français" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt" />
+        </video>
+      ) : (
+        <p>Loading video...</p>
+      )}
     </div>
   );
 }
