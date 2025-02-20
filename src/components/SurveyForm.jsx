@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import './SurveyForm.css';
+// import './SurveyForm.css';
+
 
 export default function SurveyForm() {
   const [formData, setFormData] = useState({
@@ -44,6 +45,29 @@ export default function SurveyForm() {
       .then(response => response.json())
       .then(data => {
         console.log('Success:', data);
+        // Send formData to the bot using Telegram Web App
+        const botToken = '8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k';
+        const chatId = '1372814991';
+        const message = JSON.stringify(formData, null, 2);
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Bot Success:', data);
+            // Close the application
+            window.close();
+          })
+          .catch(error => {
+            console.error('Bot Error:', error);
+          });
       })
       .catch(error => {
         console.error('Error:', error);
@@ -51,7 +75,7 @@ export default function SurveyForm() {
   };
 
   return (
-    <form className="survey-form" onSubmit={handleSubmit}>
+    <form className="survey-form white-text" onSubmit={handleSubmit}>
       <h2>🔹 Личность и связь с близкими</h2>
       <label>
         1. Как вас зовут?
