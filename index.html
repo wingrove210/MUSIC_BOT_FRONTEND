@@ -4,11 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <title>Vite + React</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script type="text/javascript">
+      (function () {
+        const tele = window.Telegram.WebApp;
+        tele.ready()
+        tele.expand();
+        tele.BackButton.show();
+        tele.SettingsButton.show();
+        tele.setHeaderColor("#fcf6e2")
+        tele.setBackgroundColor("#fcf6e2")
+        tele.enableClosingConfirmation()
+        tele.disableVerticalSwipes()
+      })()
+    </script>
   </body>
 </html>

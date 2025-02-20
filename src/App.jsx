@@ -8,11 +8,8 @@ const tg = window.Telegram ? window.Telegram.WebApp : null;
 
 function App() {
   useEffect(() => {
-    if (tg) {
-      tg.ready();
-      tg.setHeaderColor('bg_color', '#FF0000');
-    }
-  }, []);
+    tg.ready();
+    }, []);
   return (
     <Router>
         <Routes>
