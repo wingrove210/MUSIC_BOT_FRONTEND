@@ -4,6 +4,7 @@ import './index.css';
 import TrackBlock from "../TrackBlock";
 import Player from "../Player";
 import LoadingScreen from "../LoadingScreen";
+import ErrorPreloader from "../ErrorPreloader"; // Import the new ErrorPreloader component
 
 export default function Catalog() {
   const [products, setProducts] = useState([]);
@@ -20,7 +21,7 @@ export default function Catalog() {
         setLoading(false);
       })
       .catch((err) => {
-        setError("Ошибка при загрузке товаров");
+        setError(true); // Set error to true
         setLoading(false);
         console.log(err);
       });
@@ -71,7 +72,7 @@ export default function Catalog() {
 
   if (showLoadingScreen) return <LoadingScreen />;
   if (loading) return <p>Загрузка товаров...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (error) return <ErrorPreloader />; // Display the ErrorPreloader component
 
   return (
     <div className="recommended-songs">
