@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Card.css';
 
 export default function BaseCard() {
@@ -22,7 +23,7 @@ export default function BaseCard() {
       <p className="card_paragraph">
         👉 Для тех, кто хочет простой, но душевный музыкальный подарок.
       </p>
-      <button className="button">Заказать</button>
+      <Link to="/survey" className="button">Заказать</Link>
     </div>
   );
 }
