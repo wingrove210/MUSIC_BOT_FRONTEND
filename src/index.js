@@ -4,8 +4,9 @@ import App from './App';
 import './index.css';
 
 // Initialize Telegram Web App SDK
-window.Telegram.WebApp.ready();
-window.Telegram.WebApp.setHeaderColor('bg_color', '#FFFF00');
+window.Telegram.WebApp.ready(() => {
+  window.Telegram.WebApp.setHeaderColor('bg_color', '#FFFF00');
+});
 
 const container = document.getElementById('root');
 const root = createRoot(container);
