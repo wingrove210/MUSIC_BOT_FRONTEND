@@ -7,24 +7,24 @@ export default function SurveyForm() {
     name: '',
     recipient: '',
     relationship: '',
-    timeApart: '',
-    lastDayTogether: '',
-    firstWords: '',
-    hardestPart: '',
-    stayingConnected: '',
-    cherishedMoments: '',
-    supportiveWords: '',
-    sourceOfStrength: '',
-    specialThing: '',
-    cherishedThings: '',
-    describeLovedOnes: '',
-    unspokenWords: '',
-    sharedDream: '',
-    reunionMoment: '',
-    emotionalTone: '',
-    musicalStyle: '',
-    essentialWords: '',
-    desiredEmotions: ''
+    // timeApart: '',
+    // lastDayTogether: '',
+    // firstWords: '',
+    // hardestPart: '',
+    // stayingConnected: '',
+    // cherishedMoments: '',
+    // supportiveWords: '',
+    // sourceOfStrength: '',
+    // specialThing: '',
+    // cherishedThings: '',
+    // describeLovedOnes: '',
+    // unspokenWords: '',
+    // sharedDream: '',
+    // reunionMoment: '',
+    // emotionalTone: '',
+    // musicalStyle: '',
+    // essentialWords: '',
+    // desiredEmotions: ''
   });
 
   const handleChange = (e) => {
@@ -48,24 +48,6 @@ export default function SurveyForm() {
 👤 *Имя:* ${formData.name}  
 🎵 *Кому песня:* ${formData.recipient}  
 ❤️ *Кто они для вас:* ${formData.relationship}  
-⏳ *Давно в разлуке:* ${formData.timeApart}  
-📅 *Последний день вместе:* ${formData.lastDayTogether}  
-💬 *Первые слова:* ${formData.firstWords}  
-😢 *Сложности в разлуке:* ${formData.hardestPart}  
-📞 *Как поддерживаете связь:* ${formData.stayingConnected}  
-✨ *Дорогие моменты:* ${formData.cherishedMoments}  
-📝 *Слова поддержки:* ${formData.supportiveWords}  
-💪 *Источник сил:* ${formData.sourceOfStrength}  
-🎁 *Важный предмет:* ${formData.specialThing}  
-🏡 *Дорогие мелочи:* ${formData.cherishedThings}  
-🫂 *Близкие в 3 словах:* ${formData.describeLovedOnes}  
-💖 *Неуспетые слова:* ${formData.unspokenWords}  
-🌍 *Общая мечта:* ${formData.sharedDream}  
-🎉 *Встреча после разлуки:* ${formData.reunionMoment}  
-🎼 *Эмоции в песне:* ${formData.emotionalTone}  
-🎵 *Музыкальный стиль:* ${formData.musicalStyle}  
-🗣 *Важные слова:* ${formData.essentialWords}  
-😊 *Какие эмоции вызвать:* ${formData.desiredEmotions}  
       `;
 
       const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -104,8 +86,8 @@ export default function SurveyForm() {
       <label>Расскажите, кто эти люди для вас:</label>
       <textarea name="relationship" value={formData.relationship} onChange={handleChange}></textarea>
 
-      <label>3. Как долго вы в разлуке?</label>
-      <input type="text" name="timeApart" value={formData.timeApart} onChange={handleChange} />
+      {/* <label>3. Как долго вы в разлуке?</label>
+      <input type="text" name="timeApart" value={formData.timeApart} onChange={handleChange} /> */}
 
       <button type="submit">Отправить</button>
     </form>
