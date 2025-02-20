@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import './SurveyForm.css';
 const TelegramWebApp = window.Telegram.WebApp;
 
 export default function SurveyForm() {
