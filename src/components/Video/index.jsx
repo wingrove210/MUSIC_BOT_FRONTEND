@@ -58,15 +58,16 @@ function Video() {
 
   return (
     <div className="container">
-      {videoUrl ? (
+      {/* {videoUrl ? ( */}
         <video controls crossOrigin="anonymous" playsInline poster="/poster.png" id="player">
-          <source src={videoUrl} type="video/mp4" size="576" />
+          {/* <source src={videoUrl} type="video/mp4" size="576" /> */}
+          <source src="/IMG_8015.MP4" type="video/mp4" size="576" />
           <track kind="captions" label="English" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt" default />
           <track kind="captions" label="Français" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt" />
         </video>
-      ) : (
-        <p>Loading video...</p>
-      )}
+      {/* // ) : (
+      //   <p>Loading video...</p>
+      // )} */}
     </div>
   );
 }
