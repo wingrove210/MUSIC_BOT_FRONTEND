@@ -36,15 +36,7 @@ export default function SurveyForm() {
     e.preventDefault();
 
     try {
-      // 📌 Отправляем данные на сервер (если нужно)
-      await fetch('http://127.0.0.1:8000/survey', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-
-      // 📌 Отправляем данные боту
-      const botToken = 'ВАШ_ТОКЕН';
+      const botToken = '8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k';
       const chatId = TelegramWebApp.initDataUnsafe.user?.id; // Получаем ID пользователя
       if (!chatId) {
         alert("Ошибка: Не удалось получить ваш Telegram ID.");
