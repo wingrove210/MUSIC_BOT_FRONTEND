@@ -3,9 +3,16 @@ import Home from "./routes/Home";
 import Detail from "./routes/Detail";
 import Pricing from "./routes/Pricing";
 import SurveyForm from './components/Survey/SurveyForm';
+import { useEffect } from "react";
+const tg = window.Telegram ? window.Telegram.WebApp : null;
 
 function App() {
-
+  useEffect(() => {
+    if (tg) {
+      tg.ready();
+      tg.setHeaderColor('bg_color', '#FF0000');
+    }
+  }, []);
   return (
     <Router>
         <Routes>
