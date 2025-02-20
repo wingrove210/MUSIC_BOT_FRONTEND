@@ -7,9 +7,9 @@ function formatDuration(duration) {
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
-function TrackBlock({ product, onClick }) {
+function TrackBlock({ product, onClick, isPlaying }) {
   return (
-    <div className="song" onClick={onClick}>
+    <div className={`song ${isPlaying ? 'playing' : ''}`} onClick={onClick}>
       <div className="song-img">
         <img src={product.image} alt={product.name} className="h-12 w-full bg-black" />
         <div className="overlay">
@@ -38,6 +38,7 @@ TrackBlock.propTypes = {
     url: PropTypes.string.isRequired,
   }).isRequired,
   onClick: PropTypes.func,
+  isPlaying: PropTypes.bool,
 };
 
 export default TrackBlock;

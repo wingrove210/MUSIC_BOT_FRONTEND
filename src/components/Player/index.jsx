@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward, faPlay, faPause, faForward } from '@fortawesome/free-solid-svg-icons';
 
-export default function Player({ track, audio }) {
+export default function Player({ track, audio, onPrevious, onNext }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -85,7 +85,7 @@ export default function Player({ track, audio }) {
             </div>
             <div id="player-controls">
               <div className="control">
-                <div className="button" id="play-previous">
+                <div className="button" id="play-previous" onClick={onPrevious}>
                   <FontAwesomeIcon icon={faBackward} className="icon" />
                 </div>
               </div>
@@ -95,7 +95,7 @@ export default function Player({ track, audio }) {
                 </div>
               </div>
               <div className="control">
-                <div className="button" id="play-next">
+                <div className="button" id="play-next" onClick={onNext}>
                   <FontAwesomeIcon icon={faForward} className="icon" />
                 </div>
               </div>
@@ -115,4 +115,6 @@ Player.propTypes = {
     image: PropTypes.string,
   }).isRequired,
   audio: PropTypes.instanceOf(Audio).isRequired,
+  onPrevious: PropTypes.func.isRequired,
+  onNext: PropTypes.func.isRequired,
 };

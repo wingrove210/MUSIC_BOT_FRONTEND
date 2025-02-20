@@ -43,6 +43,24 @@ export default function Catalog() {
     setCurrentTrackDetails(track);
   };
 
+  const playPreviousTrack = () => {
+    if (currentTrackDetails) {
+      const currentIndex = products.findIndex(product => product.id === currentTrackDetails.id);
+      if (currentIndex > 0) {
+        playTrack(products[currentIndex - 1]);
+      }
+    }
+  };
+
+  const playNextTrack = () => {
+    if (currentTrackDetails) {
+      const currentIndex = products.findIndex(product => product.id === currentTrackDetails.id);
+      if (currentIndex < products.length - 1) {
+        playTrack(products[currentIndex + 1]);
+      }
+    }
+  };
+
   useEffect(() => {
     return () => {
       if (currentTrack) {
@@ -60,10 +78,22 @@ export default function Catalog() {
       <h1>Recommended Songs</h1>
       <div className="song-container">
         {products.map((product) => (
-          <TrackBlock key={product.id} product={product} onClick={() => playTrack(product)} />
+          <TrackBlock
+            key={product.id}
+            product={product}
+            onClick={() => playTrack(product)}
+            isPlaying={currentTrackDetails && currentTrackDetails.id === product.id}
+          />
         ))}
       </div>
-      {currentTrackDetails && <Player track={currentTrackDetails} audio={currentTrack} />}
+      {currentTrackDetails && (
+        <Player
+          track={currentTrackDetails}
+          audio={currentTrack}
+          onPrevious={playPreviousTrack}
+          onNext={playNextTrack}
+        />
+      )}
     </div>
   );
 }

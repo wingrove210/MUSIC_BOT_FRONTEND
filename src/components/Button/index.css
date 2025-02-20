@@ -1,25 +1,24 @@
 /* From Uiverse.io by MuhammadHasann */ 
 .button_generate {
-    --black-700: hsla(0 0% 12% / 1);
-    --border_radius: 9999px;
-    --transtion: 0.3s ease-in-out;
-    --offset: 2px;
-    cursor: pointer;
-    position: absolute;
-    display: flex
+  --black-700: hsla(0 0% 12% / 1);
+  --border_radius: 9999px;
+  --transtion: 0.3s ease-in-out;
+  --offset: 2px;
+  cursor: pointer;
+  position: fixed;
+  display: flex
 ;
-    align-items: center;
-    gap: 0.5rem;
-    transform-origin: center;
-    padding: 1rem 2rem;
-    background-color: transparent;
-    border: none;
-    border-radius: var(--border_radius);
-    transform: scale(calc(1 +(var(--active, 0)* 0.1)));
-    transition: transform var(--transtion);
-    bottom: 120px;
-    /* margin: 0 auto; */
-    left: 130px;
+  align-items: center;
+  gap: 0.5rem;
+  transform-origin: center;
+  padding: 1rem 2rem;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--border_radius);
+  transform: translateX(-50%) scale(calc(1 +(var(--active, 0)* 0.1)));
+  transition: transform var(--transtion);
+  right: 25%;
+  bottom: 20%;
 }
   
   .button_generate::before {
@@ -177,4 +176,3 @@
     font-size: 1rem;
     color: transparent;
   }
-  

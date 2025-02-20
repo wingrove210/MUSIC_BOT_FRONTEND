@@ -58,7 +58,7 @@
   padding: 0;
   margin: 0;
   z-index: 99;
-  padding-top: 50px;
+  padding-top: 70px;
 }
 
 .menu li {
@@ -67,5 +67,6 @@
 
 .menu li a {
   text-decoration: none;
-  color: #000;
+  color: #fff;
+  font-size: 30px;
 }
