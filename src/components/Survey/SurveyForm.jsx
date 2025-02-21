@@ -115,7 +115,7 @@ export default function SurveyForm() {
     <div className='h-15'>
        <BackButton/>
     </div>
-    <form className="px-5 py-5" onSubmit={handleSubmit}>
+    <form className="px-5 py-10" onSubmit={handleSubmit}>
       <h2>Кто заполняет форму?</h2>
       <div>
         <label className='white_label'>
@@ -309,7 +309,7 @@ export default function SurveyForm() {
         </div>
         <div>
           <label className='white_label'>📝 Другое:</label>
-          <div className="w-full max-w-xs p-5 bg-white rounded-lg font-mono">
+          <div className="w-full p-5 bg-white rounded-lg font-mono">
             <input
               type="text"
               name="otherText"
@@ -323,7 +323,7 @@ export default function SurveyForm() {
         </div>
       </div>
 
-      <button type="submit">Отправить</button>
+      <button type="submit" className='w-full bg-green-900 py-3 mt-3 rounded-2xl'>Отправить</button>
     </form>
     </>
   );
