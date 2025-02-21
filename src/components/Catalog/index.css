@@ -3,7 +3,9 @@
 img {
   width: 100%;
 }
-
+.all_songs_text{
+  font-family: 'Monomakh';
+}
 /* SONGS */
 .recommended-songs {
   padding-left: 20px;

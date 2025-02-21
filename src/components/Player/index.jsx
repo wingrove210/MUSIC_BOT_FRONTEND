@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward, faPlay, faPause, faForward } from '@fortawesome/free-solid-svg-icons';
-
+import svo_photo from '/svo_photo.jpg';
 export default function Player({ track, audio, onPrevious, onNext }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
@@ -77,9 +77,9 @@ export default function Player({ track, audio, onPrevious, onNext }) {
           <div id="player-content">
             <div id="album-art">
               {track.image ? (
-                <img src={track.image} className="active" alt={track.name} />
+                <img src={track.image} className="active" alt={track.name} onError={(e) => e.target.src = svo_photo} />
               ) : (
-                <div className="placeholder" style={{ backgroundColor: 'gray', width: '100%', height: '100%' }}></div>
+                <img src={svo_photo} className="placeholder" alt="default" />
               )}
               <div id="buffer-box">Buffering ...</div>
             </div>

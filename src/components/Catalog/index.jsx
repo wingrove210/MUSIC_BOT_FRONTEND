@@ -5,7 +5,7 @@ import TrackBlock from "../TrackBlock";
 import Player from "../Player";
 import LoadingScreen from "../LoadingScreen";
 import ErrorPreloader from "../ErrorPreloader"; // Import the new ErrorPreloader component
-
+import EmptyItems from "../EmptyItems";
 export default function Catalog() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -70,22 +70,25 @@ export default function Catalog() {
     };
   }, [currentTrack]);
 
-  if (showLoadingScreen) return <LoadingScreen />;
-  if (loading) return <p>Загрузка товаров...</p>;
-  if (error) return <ErrorPreloader />; // Display the ErrorPreloader component
-
+  if (showLoadingScreen || (loading && products.length === 0)) return <LoadingScreen />;
+  if (error) return <ErrorPreloader />;
+  if(products.length === 0) console.log('No products found');
   return (
     <div className="recommended-songs">
-      <h1>Recommended Songs</h1>
+      <h1 className="text-2xl all_songs_text">Примеры наших работ :</h1>
       <div className="song-container">
-        {products.map((product) => (
-          <TrackBlock
-            key={product.id}
-            product={product}
-            onClick={() => playTrack(product)}
-            isPlaying={currentTrackDetails && currentTrackDetails.id === product.id}
-          />
-        ))}
+        {products.length === 0 ? (
+          <EmptyItems />
+        ) : (
+          products.map((product) => (
+            <TrackBlock
+              key={product.id}
+              product={product}
+              onClick={() => playTrack(product)}
+              isPlaying={currentTrackDetails && currentTrackDetails.id === product.id}
+            />
+          ))
+        )}
       </div>
       {currentTrackDetails && (
         <Player

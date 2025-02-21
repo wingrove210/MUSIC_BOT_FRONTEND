@@ -30,7 +30,7 @@
   right: 15px;
   left: 15px;
   padding: 13px 22px 10px 184px;
-  background-color: #1C1C1D;
+  background-color: rgba(28, 28, 29, 0.8);
   border-radius: 15px 15px 0 0;
   transition: 0.3s ease top;
   z-index: 20;
@@ -123,7 +123,7 @@
   bottom: 0;
   left: 0;
   width: 0;
-  background-color: #fd6d94;
+  background-color: hwb(86 28% 27%);
   transition: 0.2s ease width;
   z-index: 1;
 }
@@ -177,8 +177,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  z-index: -1;
 }
 
 #album-art img.active {

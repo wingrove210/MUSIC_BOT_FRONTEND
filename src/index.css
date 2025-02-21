@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Monomakh';
+  src: url('./fonts/Monomakh/Monomakh-Regular.ttf') format('woff2'),
+       url('./fonts/Monomakh/Monomakh-Regular.ttf') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   font-family: "Nunito", sans-serif;
   min-height: 100vh;

@@ -2,40 +2,143 @@ import './Card.css';
 
 export default function PremiumCard() {
   return (
-    <div className="card">
-      <div className="card__border"></div>
-      <div className="card_title__container">
-        <span className="card_title">«Премиум» – 85 000₽</span>
-        <p className="card_paragraph">
-        ✅  Вы получите сразу ТРИ ВЕРСИИ ПЕСНИ:
-          <br />
-          ✅  Грубый, матёрый, воинственный голос с хрипотцой – сила, пробивающая сквозь бетон.
-          <br />
-          ✅  Глубокая вокальная подача – прочувствованная, мощная, передающая эмоции.
-          <br />
-          ✅  Эксклюзив от артиста KSON – самый низкий голос на эстраде, известный артист лично исполнит трек для вашего героя.
-        </p>
-        <p className="card_paragraph">
-          В итоге в этом пакете вы получаете:
-          <br />
-          Всё из «Расширенного»
-          <br />
-          ✅  3 версии трека
-          <br />
-          ✅  Ваш голос или персональное послание в треке
-          <br />
-          ✅  Озвучка позывного или имени легендарным голосом
-          <br />
-          ✅  Профессиональная запись с несколькими звукорежиссёрами и сонграйтерами
-          <br />
-          ✅  Авторский подход – мы превратим историю солдата в шедевр
-        </p>
+    <div className="w-full pt-10 px-10 pb-8 mt-5" style={{ backgroundColor: 'rgba(28, 28, 29, 0.55)', borderRadius: '1.5rem' }}>
+      <div className="text-center mb-6">
+        <h5 className="text-2xl font-semibold text-white mb-3 font_monarch_1">«Премиум»</h5>
+        <span className="block text-5xl font-bold text-white mb-3">85 000₽</span>
+        <span className="block text-gray-300 font-medium mb-6">Для тех, кто хочет больше, чем  трек.</span>
+        <a
+          className="relative group inline-block w-full py-4 px-6 text-center text-gray-50 hover:text-gray-900 bg-[#7CA200] font-semibold rounded-full overflow-hidden transition duration-200"
+          href="#"
+        >
+          <div
+            className="absolute top-0 right-full w-full h-full bg-white transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"
+          ></div>
+          <span className="relative">Заказать</span>
+        </a>
       </div>
-      <hr className="line" />
-      <p className="card_paragraph">
-        🔥 Для тех, кто хочет больше, чем трек.
-      </p>
-      <button className="button">Заказать</button>
+      <ul>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Вы получите сразу ТРИ ВЕРСИИ ПЕСНИ:</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Грубый, матёрый, воинственный голос с хрипотцой – сила, пробивающая сквозь бетон.</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Глубокая вокальная подача – прочувствованная, мощная, передающая эмоции.</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Эксклюзив от артиста KSON – самый низкий голос на эстраде, известный артист лично исполнит трек для вашего героя.</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Всё из «Расширенного»</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">3 версии трека</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Ваш голос или персональное послание в треке</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Озвучка позывного или имени легендарным голосом</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Профессиональная запись с несколькими звукорежиссёрами и сонграйтерами</span>
+        </li>
+        <li className="flex items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Авторский подход – мы превратим историю солдата в шедевр</span>
+        </li>
+      </ul>
     </div>
   );
 }

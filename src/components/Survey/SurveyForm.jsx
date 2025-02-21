@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './SurveyForm.css';
+import BackButton from '../ButtonBack';
 const TelegramWebApp = window.Telegram.WebApp;
 
 export default function SurveyForm() {
@@ -98,6 +99,10 @@ export default function SurveyForm() {
   };
 
   return (
+    <>
+    <div className='h-15'>
+       <BackButton/>
+    </div>
     <form className="survey-form" onSubmit={handleSubmit}>
       <h2>🔹 Личность и связь с близкими</h2>
       <label>1. Как вас зовут?</label>
@@ -169,5 +174,6 @@ export default function SurveyForm() {
 
       <button type="submit">Отправить</button>
     </form>
+    </>
   );
 }

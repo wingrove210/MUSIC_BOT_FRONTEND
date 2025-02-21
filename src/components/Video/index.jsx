@@ -8,7 +8,7 @@ function Video() {
 
   useEffect(() => {
     // Fetch the video URL from the API
-    fetch('http://127.0.0.1:8000/videos/1')
+    fetch('http://127.0.0.1:8000/videos/2')
       .then(response => response.json())
       .then(data => {
         setVideoUrl(data.url);

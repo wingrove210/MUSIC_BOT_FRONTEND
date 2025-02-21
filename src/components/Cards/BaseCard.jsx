@@ -1,29 +1,85 @@
-import { Link } from 'react-router-dom';
 import './Card.css';
+import { Link } from 'react-router-dom';
 
 export default function BaseCard() {
   return (
-    <div className="card">
-      <div className="card__border"></div>
-      <div className="card_title__container">
-        <span className="card_title">«Базовый» – 5 990₽</span>
-        <p className="card_paragraph">
-          ✅ Музыка и вокал по вашему запросу
-          <br />
-          ✅ Текст по вашим ответам
-          <br />
-          ✅ Базовая обработка звука
-          <br />
-          ✅ Готовый MP3-файл
-          <br />
-          ✅ Короткий трек (куплет + припев)
-        </p>
+    <div className="w-full pt-10 px-10 pb-8 mt-5" style={{ backgroundColor: 'rgba(28, 28, 29, 0.55)', borderRadius: '1.5rem' }}>
+      <div className="text-center mb-6">
+        <h5 className="text-2xl font-semibold text-white mb-3 font_monarch_1">«Базовый»</h5>
+        <span className="block text-5xl font-bold text-white mb-3">5 990₽</span>
+        <span className="block text-gray-300 font-medium mb-6">Для тех, кто хочет простой, но душевный музыкальный подарок.</span>
+        <Link
+          className="relative group inline-block w-full py-4 px-6 text-center text-gray-50 hover:text-gray-900 bg-[#7CA200] font-semibold rounded-full overflow-hidden transition duration-200"
+          to="/survey"
+        >
+          <div
+            className="absolute top-0 right-full w-full h-full bg-white transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"
+          ></div>
+          <span className="relative">Заказать</span>
+        </Link>
       </div>
-      <hr className="line" />
-      <p className="card_paragraph">
-        👉 Для тех, кто хочет простой, но душевный музыкальный подарок.
-      </p>
-      <Link to="/survey" className="button">Заказать</Link>
+      <ul>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Музыка и вокал по вашему запросу</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Текст по вашим ответам</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Базовая обработка звука</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Готовый MP3-файл</span>
+        </li>
+        <li className="flex mb-4 items-center">
+          <svg
+            className="w-6 h-6 fill-current text-white"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
+            ></path>
+          </svg>
+          <span className="ml-2 text-white">Короткий трек (куплет + припев)</span>
+        </li>
+      </ul>
     </div>
   );
 }
