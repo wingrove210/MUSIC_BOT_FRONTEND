@@ -6,68 +6,42 @@ import './index.css';
 function Video() {
   const [videoUrl, setVideoUrl] = useState('');
 
+  // Fetch video URL on mount.
   useEffect(() => {
-    // Fetch the video URL from the API
     fetch('https://patriot-music.online/videos/2')
       .then(response => response.json())
       .then(data => {
         setVideoUrl(data.url);
       })
       .catch(error => console.error('Error fetching video URL:', error));
+  }, []);
 
-    const player = new Plyr('#player', {
-      autoplay: true
-    });
-
-    // Expose
+  // Initialize Plyr once the video URL is available.
+  useEffect(() => {
+    if (!videoUrl) return;
+    const player = new Plyr('#player', { autoplay: true });
     window.player = player;
-
-    // Bind event listener
+    // Bind event listeners.
     function on(selector, type, callback) {
       const element = document.querySelector(selector);
       if (element) {
         element.addEventListener(type, callback, false);
       }
     }
-
-    // Play
-    on('.js-play', 'click', () => {
-      player.play();
-    });
-
-    // Pause
-    on('.js-pause', 'click', () => {
-      player.pause();
-    });
-
-    // Stop
-    on('.js-stop', 'click', () => {
-      player.stop();
-    });
-
-    // Rewind
-    on('.js-rewind', 'click', () => {
-      player.rewind();
-    });
-
-    // Forward
-    on('.js-forward', 'click', () => {
-      player.forward();
-    });
-  }, []);
+    on('.js-play', 'click', () => { player.play(); });
+    on('.js-pause', 'click', () => { player.pause(); });
+    on('.js-stop', 'click', () => { player.stop(); });
+    on('.js-rewind', 'click', () => { player.rewind(); });
+    on('.js-forward', 'click', () => { player.forward(); });
+  }, [videoUrl]);
 
   return (
     <div className="container">
-      {/* {videoUrl ? ( */}
-        <video controls crossOrigin="anonymous" playsInline poster="/poster.png" id="player">
-          <source src={videoUrl} type="video/mp4" size="576" />
-          {/* <source src="/IMG_8015.MP4" type="video/mp4" size="576" /> */}
-          <track kind="captions" label="English" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt" default />
-          <track kind="captions" label="Français" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt" />
-        </video>
-      {/* // ) : (
-      //   <p>Loading video...</p>
-      // )} */}
+      <video controls crossOrigin="anonymous" playsInline poster="/poster.png" id="player">
+        <source src={videoUrl} type="video/mp4" size="576" />
+      </video>
+      {/* Added play button */}
+      <button className="js-play">Play</button>
     </div>
   );
 }
