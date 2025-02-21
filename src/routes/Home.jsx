@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/tracks")
+      .get("https://patriot-music.online/tracks")
       .then((response) => {
         setProducts(response.data);
         setLoading(false);
@@ -33,7 +33,7 @@ export default function Home() {
     if (currentTrack) {
       currentTrack.pause();
     }
-    const audio = new Audio(`http://127.0.0.1:8000/${track.url}`);
+    const audio = new Audio(`https://patriot-music.online/${track.url}`);
     audio.play();
     setCurrentTrack(audio);
     // setCurrentTrackDetails(track);

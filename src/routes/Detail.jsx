@@ -9,7 +9,7 @@ export default function Detail() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/tracks/${id}`)
+    axios.get(`https://patriot-music.online/tracks/${id}`)
       .then((response) => {
         setProduct(response.data);
         setLoading(false);
@@ -33,7 +33,7 @@ export default function Detail() {
       <p><strong>Album:</strong> {product.album}</p>
       <p><strong>Genre:</strong> {product.genre}</p>
       <audio controls className="w-full mt-4">
-        <source src={`http://127.0.0.1:8000/${product.url}`} type="audio/mpeg" />
+        <source src={`https://patriot-music.online/${product.url}`} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
       {/* Добавим другие детали товара */}
