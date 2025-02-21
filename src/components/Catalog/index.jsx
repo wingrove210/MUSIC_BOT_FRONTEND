@@ -90,8 +90,8 @@ export default function Catalog() {
             />
           ))
         )}
-        <Button />
       </div>
+      <Button />
       {currentTrackDetails && (
         <Player
           track={currentTrackDetails}
