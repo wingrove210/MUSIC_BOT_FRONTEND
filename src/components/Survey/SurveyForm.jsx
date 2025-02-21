@@ -120,49 +120,133 @@ export default function SurveyForm() {
           <BackButton/>
         </div>
         <form className="px-5 py-10" onSubmit={handleSubmit}>
-          <h2>Кто заполняет форму?</h2>
-          <div>
-            <label className='white_label'>
-              <input className="text-white" type="radio" name="formRole" value="Я солдат, хочу песню о себе" checked={formData.formRole === "Я солдат, хочу песню о себе"} onChange={handleChange} />
+          {/* Updated custom radio group for formRole */}
+          <div className="w-full px-4 py-5 bg-white flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)]">
+            <legend className="text-lg font-semibold mb-3 select-none text-black">1.1 Кто заполняет форму?</legend>
+            <label
+              htmlFor="option1"
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.formRole === "Я солдат, хочу песню о себе" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, formRole: "Я солдат, хочу песню о себе" })}
+            >
+              <div className="w-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 ${formData.formRole === "Я солдат, хочу песню о себе" ? "text-blue-500" : "text-gray-300"}`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
               Я солдат, хочу песню о себе
             </label>
-          </div>
-          <div>
-            <label className='white_label'>
-              <input type="radio" name="formRole" value="Я близкий человека (жена, мать, отец, друг)" checked={formData.formRole === "Я близкий человека (жена, мать, отец, друг)"} onChange={handleChange} />
+            <label
+              htmlFor="option2"
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.formRole === "Я близкий человека (жена, мать, отец, друг)" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, formRole: "Я близкий человека (жена, мать, отец, друг)" })}
+            >
+              <div className="w-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 ${formData.formRole === "Я близкий человека (жена, мать, отец, друг)" ? "text-blue-500" : "text-gray-300"}`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
               Я близкий человека (жена, мать, отец, друг)
             </label>
-          </div>
-          <div>
-            <label className='white_label'>
-              <input type="radio" name="formRole" value="Я сослуживец" checked={formData.formRole === "Я сослуживец"} onChange={handleChange} />
+            <label
+              htmlFor="option3"
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.formRole === "Я сослуживец" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, formRole: "Я сослуживец" })}
+            >
+              <div className="w-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 ${formData.formRole === "Я сослуживец" ? "text-blue-500" : "text-gray-300"}`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
               Я сослуживец
             </label>
           </div>
 
-          <h2>Для кого создаётся песня?</h2>
-          <div>
-            <label className='white_label'>
-              <input type="radio" name="songFor" value="Для солдата на передовой" checked={formData.songFor === "Для солдата на передовой"} onChange={handleChange} />
+
+          <div className="w-full mb-5 px-4 py-5 bg-white flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)] mt-5">
+            <legend className="text-lg font-semibold mb-3 select-none text-black">2.2 Для кого создаётся песня?</legend>
+            <label
+              htmlFor="option1_song"
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.songFor === "Для солдата на передовой" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, songFor: "Для солдата на передовой" })}
+            >
+              <div className="w-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 ${formData.songFor === "Для солдата на передовой" ? "text-blue-500" : "text-gray-300"}`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+              </div>
               Для солдата на передовой
             </label>
-          </div>
-          <div>
-            <label className='white_label'>
-              <input type="radio" name="songFor" value="От солдата близким" checked={formData.songFor === "От солдата близким"} onChange={handleChange} />
+            <label
+              htmlFor="option2_song"
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.songFor === "От солдата близким" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, songFor: "От солдата близким" })}
+            >
+              <div className="w-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 ${formData.songFor === "От солдата близким" ? "text-blue-500" : "text-gray-300"}`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+              </div>
               От солдата близким
             </label>
-          </div>
-          <div>
-            <label className='white_label'>
-              <input type="radio" name="songFor" value="Чтобы увековечить свою историю" checked={formData.songFor === "Чтобы увековечить свою историю"} onChange={handleChange} />
+            <label
+              htmlFor="option3_song"
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.songFor === "Чтобы увековечить свою историю" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, songFor: "Чтобы увековечить свою историю" })}
+            >
+              <div className="w-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 ${formData.songFor === "Чтобы увековечить свою историю" ? "text-blue-500" : "text-gray-300"}`}
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+              </div>
               Чтобы увековечить свою историю
             </label>
           </div>
 
-          <h2>О герое</h2>
+          <h2 className='text-2xl text-center'>О герое</h2>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono">
+            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
             <label>1. Как его зовут? Какое у него позывное?</label>
               <input
                 type="text"
@@ -189,7 +273,7 @@ export default function SurveyForm() {
             </div>
           </div>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono">
+            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
             <label>3. Есть ли у него особая вещь, символ или талисман? Почему это важно?</label>
               <textarea
                 name="heroItem"
@@ -202,9 +286,9 @@ export default function SurveyForm() {
             </div>
           </div>
 
-          <h2>О службе</h2>
+          <h2 className='text-2xl text-center'>О службе</h2>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono">
+            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
             <label>4. Чем он занимается на передовой?</label>
               <textarea
                 name="job"
@@ -217,7 +301,7 @@ export default function SurveyForm() {
             </div>
           </div>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono">
+            <div className="w-full p-5 bg-white rounded-lg font-mono  mt-5 mb-5">
               <label>5. С какой техникой или оружием он работает?</label>
               <textarea
                 name="equipment"
@@ -230,9 +314,9 @@ export default function SurveyForm() {
             </div>
           </div>
 
-          <h2>О характере, мотивации и команде</h2>
+          <h2 className='text-2xl text-center'>О характере, мотивации и команде</h2>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono">
+            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
             <label>6. Что даёт ему силу и мотивацию? Какие качества ценит?</label>
               <textarea
                 name="motivation"
@@ -245,7 +329,7 @@ export default function SurveyForm() {
             </div>
           </div>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono">
+            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
             <label>7. Кто его боевые товарищи?</label>
               <textarea
                 name="comrades"
@@ -258,9 +342,9 @@ export default function SurveyForm() {
             </div>
           </div>
 
-          <h2>Личное послание в песню</h2>
+          <h2 className='text-2xl text-center'>Личное послание в песню</h2>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono">
+            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
             <label>8. Какие моменты из жизни героя должны прозвучать?</label>
               <textarea
                 name="moments"
@@ -273,7 +357,7 @@ export default function SurveyForm() {
             </div>
           </div>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono">
+            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
             <label>9. Какие слова, цитаты или обещания важно включить?</label>
               <textarea
                 name="words"
