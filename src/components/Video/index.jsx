@@ -40,8 +40,6 @@ function Video() {
       <video controls crossOrigin="anonymous" playsInline poster="/poster.png" id="player">
         <source src={videoUrl} type="video/mp4" size="576" />
       </video>
-      {/* Added play button */}
-      <button className="js-play">Play</button>
     </div>
   );
 }
