@@ -6,7 +6,7 @@ const TelegramWebApp = window.Telegram.WebApp;
 
 export default function SurveyForm() {
   // Возвращаем состояние к исходному: popup открыто сразу
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
   const [formData, setFormData] = useState({
     formRole: '',         // Кто заполняет форму?
