@@ -5,7 +5,7 @@
   --transtion: 0.3s ease-in-out;
   --offset: 2px;
   cursor: pointer;
-  position: fixed;
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -16,7 +16,7 @@
   border-radius: var(--border_radius);
   transform: translateX(-50%) scale(calc(1 +(var(--active, 0)* 0.1)));
   transition: transform var(--transtion);
-  right: 25%;
+  /* right: 25%; */
   /* bottom: 20%; */
   /* margin-top: 35px; */
   width: 210px;
