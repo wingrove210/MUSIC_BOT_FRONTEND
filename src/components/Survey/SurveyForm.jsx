@@ -5,6 +5,9 @@ import Reciepie from '../Reciepie'; // new import
 const TelegramWebApp = window.Telegram.WebApp;
 
 export default function SurveyForm() {
+  // Возвращаем состояние к исходному: popup открыто сразу
+  const [showPopup, setShowPopup] = useState(true);
+
   const [formData, setFormData] = useState({
     formRole: '',         // Кто заполняет форму?
     songFor: '',          // Для кого создаётся песня?
@@ -25,7 +28,6 @@ export default function SurveyForm() {
     },
     otherText: ''
   });
-  const [showPopup, setShowPopup] = useState(false); // Changed initial state: start with no popup.
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -89,7 +91,7 @@ export default function SurveyForm() {
         body: JSON.stringify({
           chat_id: chatId,
           text: message,
-          parse_mode: "MarkdownV2",
+          parse_mode: "Markdown",
           reply_markup: {
             inline_keyboard: [
               [{ text: "Оплатить 51000₽", url: "https://t.me/telegramAdmin" }]
@@ -99,16 +101,12 @@ export default function SurveyForm() {
       });
 
       const result = await response.json();
-      console.log("Telegram API response:", result);
-
       if (result.ok) {
-        // Instead of alert and closing the WebApp, show the popup modal.
+        // Показать popup вместо закрытия WebApp.
         setShowPopup(true);
-        // TelegramWebApp.close(); // leave bot logic unchanged (if needed, you may comment out)
       } else {
         alert("❌ Ошибка при отправке данных.");
       }
-
     } catch (error) {
       console.error("Ошибка:", error);
       alert("❌ Не удалось отправить данные.");
