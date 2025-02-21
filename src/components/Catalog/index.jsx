@@ -6,6 +6,7 @@ import Player from "../Player";
 import LoadingScreen from "../LoadingScreen";
 import ErrorPreloader from "../ErrorPreloader"; // Import the new ErrorPreloader component
 import EmptyItems from "../EmptyItems";
+import Button from "../Button";
 export default function Catalog() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -89,6 +90,7 @@ export default function Catalog() {
             />
           ))
         )}
+        <Button />
       </div>
       {currentTrackDetails && (
         <Player

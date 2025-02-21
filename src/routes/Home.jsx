@@ -5,7 +5,7 @@ import Video from "../components/Video";
 import Catalog from "../components/Catalog";
 import Player from "../components/Player";
 import '../index.css';
-import Button from "../components/Button";
+// import Button from "../components/Button";
 import Layout from '../components/Layout';
 
 export default function Home() {
@@ -58,7 +58,7 @@ export default function Home() {
         ) : (
           <Catalog products={products} playTrack={playTrack} />
         )}
-        <Button />
+        {/* <Button /> */}
         <Player/>
       </div>
     </Layout>
