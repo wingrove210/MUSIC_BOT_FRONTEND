@@ -25,7 +25,7 @@ export default function SurveyForm() {
     },
     otherText: ''
   });
-  const [showPopup, setShowPopup] = useState(true); // new state
+  const [showPopup, setShowPopup] = useState(false); // Changed initial state: start with no popup.
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -89,7 +89,7 @@ export default function SurveyForm() {
         body: JSON.stringify({
           chat_id: chatId,
           text: message,
-          parse_mode: "Markdown",
+          parse_mode: "MarkdownV2",
           reply_markup: {
             inline_keyboard: [
               [{ text: "Оплатить 51000₽", url: "https://t.me/telegramAdmin" }]
@@ -99,6 +99,8 @@ export default function SurveyForm() {
       });
 
       const result = await response.json();
+      console.log("Telegram API response:", result);
+
       if (result.ok) {
         // Instead of alert and closing the WebApp, show the popup modal.
         setShowPopup(true);
