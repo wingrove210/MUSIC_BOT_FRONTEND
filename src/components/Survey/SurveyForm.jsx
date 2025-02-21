@@ -94,7 +94,7 @@ export default function SurveyForm() {
           parse_mode: "Markdown",
           reply_markup: {
             inline_keyboard: [
-              [{ text: "Оплатить 51000₽", url: "https://t.me/telegramAdmin" }]
+              [{ text: "Оплатить 51000₽", url: "https://t.me/PATRIOT_MNGR" }]
             ]
           }
         })

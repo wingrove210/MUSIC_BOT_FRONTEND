@@ -7,7 +7,7 @@ export default function Menu({ isOpen }) {
     <div className={`menu-content ${isOpen ? 'open' : ''}`}>
       <ul className="menu">
         <li><Link to="/">Главная</Link></li>
-        <li><Link to="/">Тех.Поддержка</Link></li>
+        <li><a href="https://t.me/PATRIOT_MNGR">Тех.Поддержка</a></li>
         <li><Link to="/">FAQ</Link></li>
         <MenuBlock/>
       </ul>
