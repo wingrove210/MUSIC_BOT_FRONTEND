@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./index.css";
 export default function Button() {
   return (
-    <div className="flex justify-center w-full h-10">
+    <div className="flex justify-center w-full h-10 items-center">
       <div className="flex justify-center w-full h-10">
         <Link to="/pricing">
           <button className="button_generate">
