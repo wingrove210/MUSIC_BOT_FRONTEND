@@ -25,7 +25,7 @@ export default function SurveyForm() {
     },
     otherText: ''
   });
-  const [showPopup, setShowPopup] = useState(false); // new state
+  const [showPopup, setShowPopup] = useState(true); // new state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -92,7 +92,7 @@ export default function SurveyForm() {
           parse_mode: "Markdown",
           reply_markup: {
             inline_keyboard: [
-              [{ text: "Оплатить 51000", callback_data: "pay_51000" }]
+              [{ text: "Оплатить 51000₽", url: "https://t.me/telegramAdmin" }]
             ]
           }
         })
@@ -348,22 +348,12 @@ export default function SurveyForm() {
         >
           <div 
             style={{
-              background: "#fff",
-              padding: "20px",
+              // background: "#fff",
+              // padding: "20px",
               borderRadius: "8px",
               position: "relative"
             }}
           >
-            <button 
-              onClick={() => setShowPopup(false)} 
-              style={{
-                position: "absolute",
-                top: "10px",
-                left: "10px"
-              }}
-            >
-              Назад
-            </button>
             <Reciepie/>
           </div>
         </div>
