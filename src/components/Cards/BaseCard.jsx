@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function BaseCard() {
   return (
-    <div className="w-full pt-10 px-10 pb-8 mt-5" style={{ backgroundColor: 'rgba(28, 28, 29, 0.55)', borderRadius: '1.5rem' }}>
+    <div className="w-full pt-10 px-8 pb-8 mt-5" style={{ backgroundColor: 'rgba(28, 28, 29, 0.55)', borderRadius: '1.5rem' }}>
       <div className="text-center mb-6">
         <h5 className="text-2xl font-semibold text-white mb-3 font_monarch_1">«Базовый»</h5>
         <span className="block text-5xl font-bold text-white mb-3">5 990₽</span>
@@ -29,7 +29,7 @@ export default function BaseCard() {
               d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
             ></path>
           </svg>
-          <span className="ml-2 text-white">Музыка и вокал по вашему запросу</span>
+          <span className="ml-2 text-white w-100">Музыка и вокал по вашему запросу</span>
         </li>
         <li className="flex mb-4 items-center">
           <svg

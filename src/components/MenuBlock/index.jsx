@@ -56,7 +56,7 @@ export default function MenuBlock() {
             className="link"
             data-social="telegram"
             aria-label="Telegram"
-            href="https://telegram.org/"
+            href="https://t.me/patriot_musik"
           >
             <svg viewBox="0 0 100 100" version="1.1">
               <path

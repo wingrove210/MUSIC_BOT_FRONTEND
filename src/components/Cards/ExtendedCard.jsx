@@ -2,7 +2,7 @@ import './Card.css';
 import { Link } from 'react-router-dom';
 export default function ExtendedCard() {
   return (
-    <div className="w-full pt-10 px-10 pb-8 mt-5" style={{ backgroundColor: 'rgba(28, 28, 29, 0.55)', borderRadius: '1.5rem' }}>
+    <div className="w-full pt-10 px-8 pb-8 mt-5" style={{ backgroundColor: 'rgba(28, 28, 29, 0.55)', borderRadius: '1.5rem' }}>
       <div className="text-center mb-6">
         <h5 className="text-2xl font-semibold text-white mb-3 font_monarch_1">«Расширенный»</h5>
         <span className="block text-5xl font-bold text-white mb-3">11 990₽</span>
