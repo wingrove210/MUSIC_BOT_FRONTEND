@@ -103,74 +103,116 @@ export default function SurveyForm() {
     <div className='h-15'>
        <BackButton/>
     </div>
-    <form className="survey-form" onSubmit={handleSubmit}>
+    <form className="survey-form px-5 py-5" onSubmit={handleSubmit}>
       <h2>🔹 Личность и связь с близкими</h2>
-      <label>1. Как вас зовут?</label>
-      <input type="text" name="name" value={formData.name} onChange={handleChange} />
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">1. Как вас зовут?</label>
+        <input className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter text here" />
+      </div>
 
-      <label>2. Кому вы отправляете эту песню?</label>
-      <input type="text" name="recipient" value={formData.recipient} onChange={handleChange} />
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="recipient">2. Кому вы отправляете эту песню?</label>
+        <input className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" type="text" name="recipient" value={formData.recipient} onChange={handleChange} placeholder="Enter text here" />
+      </div>
 
-      <label>Расскажите, кто эти люди для вас:</label>
-      <textarea name="relationship" value={formData.relationship} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="relationship">Расскажите, кто эти люди для вас:</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="relationship" value={formData.relationship} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>3. Как долго вы в разлуке?</label>
-      <input type="text" name="timeApart" value={formData.timeApart} onChange={handleChange} />
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="timeApart">3. Как долго вы в разлуке?</label>
+        <input className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" type="text" name="timeApart" value={formData.timeApart} onChange={handleChange} placeholder="Enter text here" />
+      </div>
 
-      <label>4. Как вы вспоминаете последний день, проведённый вместе перед разлукой?</label>
-      <textarea name="lastDayTogether" value={formData.lastDayTogether} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastDayTogether">4. Как вы вспоминаете последний день, проведённый вместе перед разлукой?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="lastDayTogether" value={formData.lastDayTogether} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>5. Если бы сейчас вы могли обнять своих близких, что бы сказали им в первую очередь?</label>
-      <textarea name="firstWords" value={formData.firstWords} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstWords">5. Если бы сейчас вы могли обнять своих близких, что бы сказали им в первую очередь?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="firstWords" value={formData.firstWords} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
       <h2>🔹 Чувства, разлука и поддержка</h2>
-      <label>6. Что для вас самое сложное в разлуке с домом и близкими?</label>
-      <textarea name="hardestPart" value={formData.hardestPart} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="hardestPart">6. Что для вас самое сложное в разлуке с домом и близкими?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="hardestPart" value={formData.hardestPart} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>7. Как вы сохраняете связь с теми, кого любите, несмотря на расстояние?</label>
-      <textarea name="stayingConnected" value={formData.stayingConnected} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="stayingConnected">7. Как вы сохраняете связь с теми, кого любите, несмотря на расстояние?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="stayingConnected" value={formData.stayingConnected} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>8. Какие совместные моменты с близкими согревают ваше сердце в трудные минуты?</label>
-      <textarea name="cherishedMoments" value={formData.cherishedMoments} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cherishedMoments">8. Какие совместные моменты с близкими согревают ваше сердце в трудные минуты?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="cherishedMoments" value={formData.cherishedMoments} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>9. Есть ли слова или фразы, сказанные вашими близкими, которые до сих пор поддерживают вас?</label>
-      <textarea name="supportiveWords" value={formData.supportiveWords} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="supportiveWords">9. Есть ли слова или фразы, сказанные вашими близкими, которые до сих пор поддерживают вас?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="supportiveWords" value={formData.supportiveWords} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>10. Что даёт вам силы и надежду, пока вы ждёте встречи с домом?</label>
-      <textarea name="sourceOfStrength" value={formData.sourceOfStrength} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="sourceOfStrength">10. Что даёт вам силы и надежду, пока вы ждёте встречи с домом?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="sourceOfStrength" value={formData.sourceOfStrength} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
       <h2>🔹 Символика и значимые воспоминания</h2>
-      <label>11. Есть ли особенная вещь или место, которое всегда напоминает вам о ваших близких?</label>
-      <textarea name="specialThing" value={formData.specialThing} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="specialThing">11. Есть ли особенная вещь или место, которое всегда напоминает вам о ваших близких?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="specialThing" value={formData.specialThing} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>12. Какие мелочи из жизни дома вам особенно дороги?</label>
-      <textarea name="cherishedThings" value={formData.cherishedThings} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cherishedThings">12. Какие мелочи из жизни дома вам особенно дороги?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="cherishedThings" value={formData.cherishedThings} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>13. Как бы вы описали своих близких тремя словами?</label>
-      <textarea name="describeLovedOnes" value={formData.describeLovedOnes} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="describeLovedOnes">13. Как бы вы описали своих близких тремя словами?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="describeLovedOnes" value={formData.describeLovedOnes} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
       <h2>🔹 Откровенные и глубокие признания</h2>
-      <label>14. Что вы хотели бы сказать своим близким, но пока не успели выразить?</label>
-      <textarea name="unspokenWords" value={formData.unspokenWords} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="unspokenWords">14. Что вы хотели бы сказать своим близким, но пока не успели выразить?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="unspokenWords" value={formData.unspokenWords} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>15. Есть ли у вас мечта или общее видение будущего, которое поддерживает вас в разлуке?</label>
-      <textarea name="sharedDream" value={formData.sharedDream} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="sharedDream">15. Есть ли у вас мечта или общее видение будущего, которое поддерживает вас в разлуке?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="sharedDream" value={formData.sharedDream} onChange={handleChange} placeholder="Enter text здесь"></textarea>
+      </div>
 
-      <label>16. Как вы видите момент встречи с близкими после возвращения домой?</label>
-      <textarea name="reunionMoment" value={formData.reunionMoment} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="reunionMoment">16. Как вы видите момент встречи с близкими после возвращения домой?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="reunionMoment" value={formData.reunionMoment} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
       <h2>🔹 Музыкальное настроение и стиль</h2>
-      <label>17. Какой эмоциональный настрой вы хотите передать через свою песню?</label>
-      <textarea name="emotionalTone" value={formData.emotionalTone} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="emotionalTone">17. Какой эмоциональный настрой вы хотите передать через свою песню?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="emotionalTone" value={formData.emotionalTone} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>18. В каком музыкальном стиле вы бы хотели исполнить эту песню?</label>
-      <textarea name="musicalStyle" value={formData.musicalStyle} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="musicalStyle">18. В каком музыкальном стиле вы бы хотели исполнить эту песню?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="musicalStyle" value={formData.musicalStyle} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>19. Есть ли слова или фразы, без которых ваша песня не будет полной?</label>
-      <textarea name="essentialWords" value={formData.essentialWords} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="musicalStyle">19. Есть ли слова или фразы, без которых ваша песня не будет полной?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="musicalStyle" value={formData.musicalStyle} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
-      <label>20. Какие эмоции вы хотите подарить своим близким, когда они услышат эту песню?</label>
-      <textarea name="desiredEmotions" value={formData.desiredEmotions} onChange={handleChange}></textarea>
+      <div className="w-full p-5 bg-white rounded-lg font-mono">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="musicalStyle">20. Какие эмоции вы хотите подарить своим близким, когда они услышат эту песню?</label>
+        <textarea className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100" name="musicalStyle" value={formData.musicalStyle} onChange={handleChange} placeholder="Enter text here"></textarea>
+      </div>
 
       <button type="submit">Отправить</button>
     </form>

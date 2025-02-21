@@ -15,7 +15,7 @@ export default function Catalog() {
   const [showLoadingScreen, setShowLoadingScreen] = useState(true);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/tracks")
+    axios.get("https://patriot-music.online/tracks")
       .then((response) => {
         setProducts(response.data);
         setLoading(false);
@@ -38,7 +38,7 @@ export default function Catalog() {
     if (currentTrack) {
       currentTrack.pause();
     }
-    const audio = new Audio(`http://127.0.0.1:8000/${track.url}`);
+    const audio = new Audio(`https://patriot-music.online/${track.url}`);
     audio.play();
     setCurrentTrack(audio);
     setCurrentTrackDetails(track);

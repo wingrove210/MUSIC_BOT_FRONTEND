@@ -11,7 +11,12 @@
   padding: 10px 20px;
   cursor: pointer;
 }
-
+input{
+  color: black;
+}
+textarea{
+  color: black;
+}
 
 .menu ul {
   list-style: none;

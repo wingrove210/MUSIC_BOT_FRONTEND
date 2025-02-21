@@ -1,4 +1,4 @@
-.survey-form {
+/* .survey-form {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
@@ -14,7 +14,6 @@
 .survey-form label {
   display: block;
   margin-bottom: 10px;
-  color: #fff;
 }
 
 .survey-form input,
@@ -25,12 +24,18 @@
   margin-bottom: 5px;
   border: 1px solid #ddd;
   border-radius: 4px;
-}
+} */
 
 .survey-form .error {
   color: red;
   font-size: 0.875rem;
   margin-top: 5px;
+}
+
+/* Placeholder text color */
+.survey-form input::placeholder,
+.survey-form textarea::placeholder {
+  color: black;
 }
 
 .survey-form button {
