@@ -13,7 +13,7 @@ export default function SurveyForm({ price }) {
   const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
   const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
   console.log('User data:', formDataFromRedux);
-  const [showPopup, setShowPopup] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [formData, setFormData] = useState({
     formRole: '',         // Кто заполняет форму?
@@ -198,7 +198,7 @@ export default function SurveyForm({ price }) {
         <div className='h-15'>
           <BackButton/>
         </div>
-        <form className="px-5 py-10" onSubmit={handleSubmit}>
+        <form className="px-5 py-10 pb-[550px]" onSubmit={handleSubmit}>
           {/* Updated custom radio group for formRole */}
           <h2 className='text-2xl text-center mb-5 font-header_form'>Для кого</h2>
           <div className="w-full px-4 py-5 bg-white flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)]">

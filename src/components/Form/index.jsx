@@ -33,38 +33,54 @@ export default function Form() {
             <p className="form-heading">Ваши контакты</p>
             <div className="form-field">
               <input
-                required=""
+                required
                 placeholder="Имя"
                 className="input-field"
                 type="text"
                 name="name"
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("Пожалуйста, заполните поле 'Имя'")
+                }
+                onInput={(e) => e.target.setCustomValidity('')}
               />
             </div>
             <div className="form-field">
               <input
-                required=""
+                required
                 placeholder="Email"
                 className="input-field"
                 type="email"
                 name="email"
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("Пожалуйста, заполните поле 'Email'")
+                }
+                onInput={(e) => e.target.setCustomValidity('')}
               />
             </div>
             <div className="form-field">
               <input
-                required=""
+                required
                 placeholder="Номер телефона"
                 className="input-field"
                 type="text"
                 name="phone"
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("Пожалуйста, заполните поле 'Номер телефона'")
+                }
+                onInput={(e) => e.target.setCustomValidity('')}
               />
             </div>
             <div className="form-field">
               <input
-                required=""
+                required
                 placeholder="Телеграм"
                 className="input-field"
                 type="text"
                 name="telegram"
+                onInvalid={(e) =>
+                  e.target.setCustomValidity("Пожалуйста, заполните поле 'Телеграм'")
+                }
+                onInput={(e) => e.target.setCustomValidity('')}
               />
             </div>
             <button type="submit" className="sendMessage-btn">Отправить</button>
