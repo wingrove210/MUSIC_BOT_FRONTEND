@@ -23,13 +23,18 @@ export default function SurveyForm({ price }) {
     motivation: '',
     comrades: '',
     moments: '',
-    words: '',
+    words: '', // already used in question 9
     additionalChecks: {
       remembrance: false,
       personalMessage: false,
       specialPhrases: false,
       futureMessage: false
     },
+    // New fields for "Что ещё нужно передать?"
+    remembranceText: '',
+    personalMessageText: '',
+    specialPhrasesText: '',
+    futureMessageText: '',
     otherText: ''
   });
 
@@ -38,16 +43,16 @@ export default function SurveyForm({ price }) {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      additionalChecks: {
-        ...prev.additionalChecks,
-        [name]: checked
-      }
-    }));
-  };
+  // const handleCheckboxChange = (e) => {
+  //   const { name, checked } = e.target;
+  //   setFormData(prev => ({
+  //     ...prev,
+  //     additionalChecks: {
+  //       ...prev.additionalChecks,
+  //       [name]: checked
+  //     }
+  //   }));
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -378,47 +383,55 @@ export default function SurveyForm({ price }) {
             </div>
           </div>
           <div>
-            <label className='white_label'>10. Что ещё нужно передать? (Выберите и/или добавьте своё)</label>
-            <div>
-              <label className='white_label'>
-                <input type="checkbox" name="remembrance" checked={formData.additionalChecks.remembrance} onChange={handleCheckboxChange} />
-                Воспоминания о службе
-              </label>
-            </div>
-            <div>
-              <label className='white_label'>
-                <input type="checkbox" name="personalMessage" checked={formData.additionalChecks.personalMessage} onChange={handleCheckboxChange} />
-                Личное обращение (к семье, друзьям, товарищам)
-              </label>
-            </div>
-            <div>
-              <label className='white_label'>
-                <input type="checkbox" name="specialPhrases" checked={formData.additionalChecks.specialPhrases} onChange={handleCheckboxChange} />
-                Особые фразы, цитаты
-              </label>
-            </div>
-            <div>
-              <label className='white_label'>
-                <input type="checkbox" name="futureMessage" checked={formData.additionalChecks.futureMessage} onChange={handleCheckboxChange} />
-                Послание в будущее
-              </label>
-            </div>
-            <div>
-              <label className='white_label'>📝 Другое:</label>
-              <div className="w-full p-5 bg-white rounded-lg font-mono">
-                <input
-                  type="text"
-                  name="otherText"
-                  value={formData.otherText}
-                  onChange={handleChange}
-                  placeholder="Ваш текст"
-                  className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
-                  id="otherText-input"
-                />
-              </div>
-            </div>
+             <h2 className='text-2xl text-center font-header_form'>Что ещё нужно передать?</h2>
+            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
+            <label className='font-semibold text-lg'>Воспоминания о службе</label>
+              <textarea
+                name="remembranceText"
+                value={formData.remembranceText}
+                onChange={handleChange}
+                placeholder="Введите воспоминания о службе"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
+                required
+              />
+              <label className='font-semibold text-lg'>Личное обращение</label>
+              <textarea
+                name="personalMessageText"
+                value={formData.personalMessageText}
+                onChange={handleChange}
+                placeholder="Введите личное обращение"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
+                required
+              />
+              <label className='font-semibold text-lg'>Особые фразы, цитаты</label>
+              <textarea
+                name="specialPhrasesText"
+                value={formData.specialPhrasesText}
+                onChange={handleChange}
+                placeholder="Введите особые фразы или цитаты"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
+                required
+              />
+              <label className='font-semibold text-lg'>Послание в будущее</label>
+              <textarea
+                name="futureMessageText"
+                value={formData.futureMessageText}
+                onChange={handleChange}
+                placeholder="Введите послание в будущее"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
+                required
+              />
+              <label className='font-semibold text-lg'>📝 Другое:</label>
+              <textarea
+                name="otherText"
+                value={formData.otherText}
+                onChange={handleChange}
+                placeholder="Ваш текст"
+                className="mt-5 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
+                required
+              />
+            </div>   
           </div>
-
           <button type="submit" className='w-full bg-green-900 py-3 mt-3 rounded-2xl'>Отправить</button>
         </form>
       </div>
