@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
 import './SurveyForm.css';
 import BackButton from '../ButtonBack';
 import Reciepie from '../Reciepie'; // new import
+import PropTypes from "prop-types";
 const TelegramWebApp = window.Telegram.WebApp;
 
-export default function SurveyForm() {
-  // Возвращаем состояние к исходному: popup открыто сразу
+export default function SurveyForm({ price }) {
+  const location = useLocation();
+  const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
+  
   const [showPopup, setShowPopup] = useState(false);
-
+  const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [formData, setFormData] = useState({
     formRole: '',         // Кто заполняет форму?
     songFor: '',          // Для кого создаётся песня?
@@ -94,7 +98,7 @@ export default function SurveyForm() {
           parse_mode: "Markdown",
           reply_markup: {
             inline_keyboard: [
-              [{ text: "Оплатить 51000₽", url: "https://t.me/PATRIOT_MNGR" }]
+              [{ text: `Оплатить ${totalPrice}₽`, url: "https://t.me/PATRIOT_MNGR" }]
             ]
           }
         })
@@ -112,7 +116,10 @@ export default function SurveyForm() {
       alert("❌ Не удалось отправить данные.");
     }
   };
-
+  useEffect(() => {
+    setTotalPrice(queryPrice);
+    console.log('Total price:', totalPrice);
+  }, [queryPrice]);
   return (
     <>
       <div className={showPopup ? "blur-background" : ""}>
@@ -122,7 +129,7 @@ export default function SurveyForm() {
         <form className="px-5 py-10" onSubmit={handleSubmit}>
           {/* Updated custom radio group for formRole */}
           <h2 className='text-2xl text-center mb-5 font-header_form'>Для кого</h2>
-          <div className="w-full px-4 py-5 bg-card flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)]">
+          <div className="w-full px-4 py-5 bg-white flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)]">
             <legend className="text-lg font-semibold mb-3 select-none text-black">1 Кто заполняет форму?</legend>
             <label
               htmlFor="option1"
@@ -439,10 +446,14 @@ export default function SurveyForm() {
               position: "relative"
             }}
           >
-            <Reciepie/>
+            <Reciepie price={totalPrice}/>
           </div>
         </div>
       )}
     </>
   );
 }
+
+SurveyForm.propTypes = {
+  price: PropTypes.number
+};

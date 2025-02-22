@@ -3,7 +3,7 @@ import EmptyItems from "../EmptyItems/index";
 export default function LoadingScreen() {
   return (
     <div className="loading-screen">
-      <EmptyItems className="t-1/2 relative" />
+      <EmptyItems className="top-[-100px]" />
     </div>
   );
 }

@@ -9,7 +9,7 @@ export default function ExtendedCard() {
         <span className="block text-gray-300 font-medium mb-6">Для тех, кто хочет более проработанный и стильный трек.</span>
         <Link
           className="relative group inline-block w-full py-4 px-6 text-center text-gray-50 hover:text-gray-900 bg-[#7CA200] font-semibold rounded-full overflow-hidden transition duration-200"
-          to="/form"
+          to="/survey?price=11990"
         >
           <div
             className="absolute top-0 right-full w-full h-full bg-white transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"

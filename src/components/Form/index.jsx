@@ -1,6 +1,8 @@
 import "./index.css";
 import { Link } from "react-router-dom";
-export default function Form() {
+import PropTypes from 'prop-types';
+export default function Form({ isVisible, onClose, children }) {
+  if (!isVisible) return null;
   return (
     <div className="flex justify-center items-center h-[100vh]">
       <div className="form-card1">
@@ -51,3 +53,8 @@ export default function Form() {
     </div>
   );
 }
+Form.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};

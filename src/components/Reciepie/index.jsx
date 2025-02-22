@@ -1,12 +1,14 @@
 import "./index.css";
 import { Link } from "react-router-dom";
-export default function Reciepie() {
+import PropTypes from "prop-types";
+
+export default function Reciepie({ price }) { // updated to receive price prop
   return (
     <div className="h-screen flex justify-center items-center flex-col gap-5">
       <div className="receipt">
         <p className="shop-name">Набор Базовый</p>
         <p className="info">
-        Ваш заказ принят , скоро мы с вами свяжемся!
+          Ваш заказ принят, скоро мы с вами свяжемся!
           <br />
           Дата: 12/27/2025
           <br />
@@ -52,14 +54,18 @@ export default function Reciepie() {
 
         <div className="total">
           <p>Итого:</p>
-          <p>5990₽</p>
+          <p>{price}₽</p> {/* Updated to display dynamic tariff price */}
         </div>
 
         <p className="thanks">Спасибо за заявку мы свяжемся с вами</p>
       </div>
       <Link to="/" className="w-full h-10 bg-green-900 text-center flex justify-center items-center rounded-2xl">
-          Назад
+        Назад
       </Link>
     </div>
   );
 }
+
+Reciepie.propTypes = {
+  price: PropTypes.number
+};
