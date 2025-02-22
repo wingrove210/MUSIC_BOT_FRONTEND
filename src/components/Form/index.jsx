@@ -2,10 +2,13 @@ import "./index.css";
 import { useDispatch } from "react-redux";
 import { updateForm } from "../../redux/form/slice";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Form() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // Add state for error popup
+  const [showError, setShowError] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -98,6 +101,6 @@ export default function Form() {
           </div>
         </div>
       )}
-    </>
+     </div>
   );
 }
