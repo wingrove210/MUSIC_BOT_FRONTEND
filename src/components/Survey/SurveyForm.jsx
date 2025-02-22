@@ -5,12 +5,14 @@ import BackButton from '../ButtonBack';
 import Reciepie from '../Reciepie'; // new import
 import PropTypes from "prop-types";
 import { useSelector } from 'react-redux';
+import { selectForm } from '../../redux/form/selectors';
 const TelegramWebApp = window.Telegram.WebApp;
 
 export default function SurveyForm({ price }) {
   const location = useLocation();
   const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
-  const { userData } = useSelector((state) => state.form);
+  const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
+  console.log('User data:', formDataFromRedux);
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [formData, setFormData] = useState({
@@ -61,20 +63,24 @@ export default function SurveyForm({ price }) {
     try {
       // Define adminBotToken before using it
       const adminBotToken = '7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0';
+
       const botToken = '8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k';
       const chatId = TelegramWebApp.initDataUnsafe.user?.id; // Получаем ID пользователя
       if (!chatId) {
         alert("Ошибка: Не удалось получить ваш Telegram ID.");
         return;
       }
-      const adminMessage = `
-      📋 *Новая анкета*  
-      Имя: ${userData.name}
-      Email: ${userData.email}
-      Телефон: ${userData.phone}
-      Телеграм: ${userData.telegram}
+
 
       
+      const adminMessage = `
+      📋 *Новая анкета*  
+      Имя: ${formDataFromRedux.name}
+      Email: ${formDataFromRedux.email}
+      Телефон: ${formDataFromRedux.phone}
+      Телеграм: ${formDataFromRedux.telegram}
+
+
       • Кто заполняет форму: ${formData.formRole}  
       • Для кого создаётся песня: ${formData.songFor}  
       
@@ -101,34 +107,34 @@ export default function SurveyForm({ price }) {
          Послание в будущее: ${formData.additionalChecks.futureMessage ? '✓' : '✗'}
          Другое: ${formData.otherText}
             `;
-      const message = `
-📋 *Новая анкета*  
-• Кто заполняет форму: ${formData.formRole}  
-• Для кого создаётся песня: ${formData.songFor}  
-
-*О герое*  
-1. Имя и позывное: ${formData.heroName}  
-2. Родина: ${formData.heroOrigin}  
-3. Особая вещь/символ: ${formData.heroItem}  
-
-*О службе*  
-4. Чем занимается на передовой: ${formData.job}  
-5. Техника/оружие: ${formData.equipment}  
-
-*О характере, мотивации и команде*  
-6. Что даёт силу и мотивацию: ${formData.motivation}  
-7. Боевые товарищи: ${formData.comrades}  
-
-*Личное послание в песню*  
-8. Моменты из жизни героя: ${formData.moments}  
-9. Важные слова или цитаты: ${formData.words}  
-10. Дополнительно: 
-   Воспоминания о службе: ${formData.additionalChecks.remembrance ? '✓' : '✗'}
-   Личное обращение: ${formData.additionalChecks.personalMessage ? '✓' : '✗'}
-   Особые фразы: ${formData.additionalChecks.specialPhrases ? '✓' : '✗'}
-   Послание в будущее: ${formData.additionalChecks.futureMessage ? '✓' : '✗'}
-   Другое: ${formData.otherText}
-      `;
+            const message = `
+      📋 *Ваша анкета*  
+      • Кто заполняет форму: ${formData.formRole}  
+      • Для кого создаётся песня: ${formData.songFor}  
+      
+      *О герое*  
+      1. Имя и позывное: ${formData.heroName}  
+      2. Родина: ${formData.heroOrigin}  
+      3. Особая вещь/символ: ${formData.heroItem}  
+      
+      *О службе*  
+      4. Чем занимается на передовой: ${formData.job}  
+      5. Техника/оружие: ${formData.equipment}  
+      
+      *О характере, мотивации и команде*  
+      6. Что даёт силу и мотивацию: ${formData.motivation}  
+      7. Боевые товарищи: ${formData.comrades}  
+      
+      *Личное послание в песню*  
+      8. Моменты из жизни героя: ${formData.moments}  
+      9. Важные слова или цитаты: ${formData.words}  
+      10. Дополнительно: 
+         Воспоминания о службе: ${formData.additionalChecks.remembrance ? '✓' : '✗'}
+         Личное обращение: ${formData.additionalChecks.personalMessage ? '✓' : '✗'}
+         Особые фразы: ${formData.additionalChecks.specialPhrases ? '✓' : '✗'}
+         Послание в будущее: ${formData.additionalChecks.futureMessage ? '✓' : '✗'}
+         Другое: ${formData.otherText}
+            `;
        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -138,21 +144,25 @@ export default function SurveyForm({ price }) {
           parse_mode: "Markdown",
           reply_markup: {
             inline_keyboard: [
-              [{ text: `Оплатить ${totalPrice}₽`, url: "https://t.me/PATRIOT_MNGR" }]
-            ]
-          }
-        })
-      });
-      console.log(typeof chatId);
+              [
+                {
+                  text: `Оплатить ${totalPrice}₽`,
+                  url: "https://t.me/PATRIOT_MNGR",
+                },
+              ],
+            ],
+          },
+        }),
+      }).then((res) => console.log(res.json()));
       const response1 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: 6398268582,
+          chat_id: 1372814991,
           text: adminMessage,
           parse_mode: "Markdown",
         }),
-      });
+      }).then((res) => console.log(res.json()));
       const response2 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -161,7 +171,7 @@ export default function SurveyForm({ price }) {
           text: adminMessage,
           parse_mode: "Markdown",
         }),
-      });
+      }).then((res) => console.log(res.json()));
       const result = await response.json();
       if (result.ok & response1.ok & response2.ok) {
         alert("✅ Данные успешно отправлены.");
@@ -287,7 +297,7 @@ export default function SurveyForm({ price }) {
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293а1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
               От солдата близким
@@ -304,7 +314,7 @@ export default function SurveyForm({ price }) {
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293а1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
               Чтобы увековечить свою историю
