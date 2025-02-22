@@ -1,12 +1,23 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
-export default function Button() {
+import Form from "../Form";
 
-  const 
+export default function Button() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
-    <div className="flex justify-center w-full h-10 items-center">
+    <div className={`flex justify-center w-full h-10 items-center`}>
       <div className="flex justify-center w-full h-10">
+        <Link to="#" onClick={handleButtonClick}>
           <button className="button_generate">
             <div className="dots_border"></div>
             <svg
@@ -42,7 +53,15 @@ export default function Button() {
             </svg>
             <span className="text_button">Создать трек</span>
           </button>
+        </Link>
       </div>
+      {isModalOpen && (
+        <div className="backdrop-blur-xs z-201 bg-transparent bg-opacity-50 absolute top-0 left-0 w-full h-full flex justify-center items-center" onClick={handleCloseModal}>
+          <div onClick={(e) => e.stopPropagation()}>
+            <Form />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

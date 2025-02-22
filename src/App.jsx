@@ -14,7 +14,7 @@ function App() {
     tg.setHeaderColor("#4a592c")
     }, []);
   return (
-    <Router>
+          <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="details/:id" element={<Detail/>}></Route>
@@ -23,8 +23,8 @@ function App() {
           <Route path="/reciepie" element={<Reciepie />}/>
           <Route path="/form" element={<Form/>}/>
         </Routes>
-    </Router>
-  );
+      </Router>
+        );
 }
 
 export default App;

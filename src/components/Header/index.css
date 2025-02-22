@@ -24,7 +24,7 @@
   top: 15px;
   left: 15px;
   cursor: pointer;
-  z-index: 1000; /* Ensure the menu button is on top */
+  z-index: 200; /* Ensure the menu button is on top */
 }
 
 .menu-icon {
