@@ -5,13 +5,14 @@ import BackButton from '../ButtonBack';
 import Reciepie from '../Reciepie'; // new import
 import PropTypes from "prop-types";
 import { useSelector } from 'react-redux';
+import { selectForm } from '../../redux/form/selectors';
 const TelegramWebApp = window.Telegram.WebApp;
 
 export default function SurveyForm({ price }) {
   const location = useLocation();
   const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
-  const { userData } = useSelector((state) => state.form);
-  
+  const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
+  console.log('User data:', formDataFromRedux);
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [formData, setFormData] = useState({
@@ -74,12 +75,12 @@ export default function SurveyForm({ price }) {
       
       const adminMessage = `
       📋 *Новая анкета*  
-      Имя: ${userData.name}
-      Email: ${userData.email}
-      Телефон: ${userData.phone}
-      Телеграм: ${userData.telegram}
+      Имя: ${formDataFromRedux.name}
+      Email: ${formDataFromRedux.email}
+      Телефон: ${formDataFromRedux.phone}
+      Телеграм: ${formDataFromRedux.telegram}
 
-      
+
       • Кто заполняет форму: ${formData.formRole}  
       • Для кого создаётся песня: ${formData.songFor}  
       
@@ -296,7 +297,7 @@ export default function SurveyForm({ price }) {
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293а1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
               От солдата близким
@@ -313,7 +314,7 @@ export default function SurveyForm({ price }) {
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293а1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
               Чтобы увековечить свою историю

@@ -1,17 +1,18 @@
 import "./index.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateForm } from "../../redux/form/slice";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Form() {
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.form);
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     dispatch(updateForm(data));
+    navigate("/pricing");
   };
 
   return (
@@ -27,7 +28,6 @@ export default function Form() {
                 className="input-field"
                 type="text"
                 name="name"
-                defaultValue={userData.name}
               />
             </div>
             <div className="form-field">
@@ -37,7 +37,6 @@ export default function Form() {
                 className="input-field"
                 type="email"
                 name="email"
-                defaultValue={userData.email}
               />
             </div>
             <div className="form-field">
@@ -47,7 +46,6 @@ export default function Form() {
                 className="input-field"
                 type="text"
                 name="phone"
-                defaultValue={userData.phone}
               />
             </div>
             <div className="form-field">
@@ -57,11 +55,9 @@ export default function Form() {
                 className="input-field"
                 type="text"
                 name="telegram"
-                defaultValue={userData.telegram}
               />
             </div>
-            <Link to="/pricing" className="sendMessage-btn"><button type="submit" className="">Отправить</button></Link>
-            
+            <button type="submit" className="sendMessage-btn">Отправить</button>
           </form>
         </div>
       </div>
