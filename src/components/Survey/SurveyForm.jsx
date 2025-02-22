@@ -4,12 +4,13 @@ import './SurveyForm.css';
 import BackButton from '../ButtonBack';
 import Reciepie from '../Reciepie'; // new import
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 const TelegramWebApp = window.Telegram.WebApp;
 
 export default function SurveyForm({ price }) {
   const location = useLocation();
   const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
-  
+  const { userData } = useSelector((state) => state.form);
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [formData, setFormData] = useState({
@@ -58,13 +59,48 @@ export default function SurveyForm({ price }) {
     e.preventDefault();
 
     try {
+      // Define adminBotToken before using it
+      const adminBotToken = '7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0';
       const botToken = '8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k';
       const chatId = TelegramWebApp.initDataUnsafe.user?.id; // Получаем ID пользователя
       if (!chatId) {
         alert("Ошибка: Не удалось получить ваш Telegram ID.");
         return;
       }
+      const adminMessage = `
+      📋 *Новая анкета*  
+      Имя: ${userData.name}
+      Email: ${userData.email}
+      Телефон: ${userData.phone}
+      Телеграм: ${userData.telegram}
 
+      
+      • Кто заполняет форму: ${formData.formRole}  
+      • Для кого создаётся песня: ${formData.songFor}  
+      
+      *О герое*  
+      1. Имя и позывное: ${formData.heroName}  
+      2. Родина: ${formData.heroOrigin}  
+      3. Особая вещь/символ: ${formData.heroItem}  
+      
+      *О службе*  
+      4. Чем занимается на передовой: ${formData.job}  
+      5. Техника/оружие: ${formData.equipment}  
+      
+      *О характере, мотивации и команде*  
+      6. Что даёт силу и мотивацию: ${formData.motivation}  
+      7. Боевые товарищи: ${formData.comrades}  
+      
+      *Личное послание в песню*  
+      8. Моменты из жизни героя: ${formData.moments}  
+      9. Важные слова или цитаты: ${formData.words}  
+      10. Дополнительно: 
+         Воспоминания о службе: ${formData.additionalChecks.remembrance ? '✓' : '✗'}
+         Личное обращение: ${formData.additionalChecks.personalMessage ? '✓' : '✗'}
+         Особые фразы: ${formData.additionalChecks.specialPhrases ? '✓' : '✗'}
+         Послание в будущее: ${formData.additionalChecks.futureMessage ? '✓' : '✗'}
+         Другое: ${formData.otherText}
+            `;
       const message = `
 📋 *Новая анкета*  
 • Кто заполняет форму: ${formData.formRole}  
