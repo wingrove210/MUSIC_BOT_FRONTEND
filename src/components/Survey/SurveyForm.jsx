@@ -12,7 +12,7 @@ export default function SurveyForm({ price }) {
   const queryPrice =
     Number(new URLSearchParams(location.search).get("price")) || price;
   const userData = useSelector((state) => state.form);
-
+  const chatId = TelegramWebApp.initDataUnsafe.user?.id; // Получаем ID пользователя
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [formData, setFormData] = useState({
@@ -63,7 +63,7 @@ export default function SurveyForm({ price }) {
     try {
       const botToken = "8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k";
       const adminBotToken = "7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0";
-      const chatId = TelegramWebApp.initDataUnsafe.user?.id; // Получаем ID пользователя
+      
       if (!chatId) {
         alert("Ошибка: Не удалось получить ваш Telegram ID.");
         return;
@@ -209,6 +209,7 @@ Email: ${userData.email}
       <div className={showPopup ? "blur-background" : ""}>
         <div className="h-15">
           <BackButton />
+          <h1>{chatId}</h1>
         </div>
         <form className="px-5 py-10" onSubmit={handleSubmit}>
           {/* Updated custom radio group for formRole */}
