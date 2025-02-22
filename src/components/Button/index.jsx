@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import "./index.css";
 export default function Button() {
+
+  const 
+
   return (
     <div className="flex justify-center w-full h-10 items-center">
       <div className="flex justify-center w-full h-10">
-        <Link to="/pricing">
           <button className="button_generate">
             <div className="dots_border"></div>
             <svg
@@ -40,7 +42,6 @@ export default function Button() {
             </svg>
             <span className="text_button">Создать трек</span>
           </button>
-        </Link>
       </div>
     </div>
   );
