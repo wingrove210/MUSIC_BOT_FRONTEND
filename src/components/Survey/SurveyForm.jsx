@@ -148,17 +148,16 @@ Email: ${userData.email}
             ],
           },
         }),
-      });
-      console.log(typeof chatId);
+      }).then((res) => console.log(res.json()));
       const response1 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: 6398268582,
+          chat_id: 1372814991,
           text: adminMessage,
           parse_mode: "Markdown",
         }),
-      });
+      }).then((res) => console.log(res.json()));
       const response2 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -167,7 +166,7 @@ Email: ${userData.email}
           text: adminMessage,
           parse_mode: "Markdown",
         }),
-      });
+      }).then((res) => console.log(res.json()));
       const result = await response.json();
       if (result.ok & response1.ok & response2.ok) {
         alert("✅ Данные успешно отправлены.");
