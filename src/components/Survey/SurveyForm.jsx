@@ -173,7 +173,7 @@ Email: ${userData.email}
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: 1372814991,
+          chat_id: 6398268582,
           text: adminMessage,
           parse_mode: "Markdown",
           reply_markup: {
