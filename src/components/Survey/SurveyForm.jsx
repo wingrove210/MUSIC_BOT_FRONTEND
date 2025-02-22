@@ -430,9 +430,7 @@ Email: ${userData.email}
           <h2 className="text-2xl text-center font-header_form">О герое</h2>
           <div>
             <div className="w-full p-5 bg-white rounded-lg mt-5 mb-5">
-              <label className="font-semibold text-lg">
-                1. Как его зовут? Какое у него позывное?
-              </label>
+            <label className='font-semibold text-lg'>1. Как его зовут? Какое у него позывное?</label>
               <input
                 type="text"
                 name="heroName"
@@ -446,9 +444,7 @@ Email: ${userData.email}
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono">
-              <label className="font-semibold text-lg">
-                2. Откуда он родом?
-              </label>
+              <label className='font-semibold text-lg'>2. Откуда он родом?</label>
               <textarea
                 name="heroOrigin"
                 value={formData.heroOrigin}
@@ -461,10 +457,7 @@ Email: ${userData.email}
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg mt-5 mb-5 font-semibold">
-              <label className="font-semibold text-lg">
-                3. Есть ли у него особая вещь, символ или талисман? Почему это
-                важно?
-              </label>
+            <label className='font-semibold text-lg'>3. Есть ли у него особая вещь, символ или талисман? Почему это важно?</label>
               <textarea
                 name="heroItem"
                 value={formData.heroItem}
@@ -479,9 +472,7 @@ Email: ${userData.email}
           <h2 className="text-2xl text-center font-header_form">О службе</h2>
           <div>
             <div className="w-full p-5 bg-white rounded-lg mt-5 mb-5">
-              <label className="font-semibold text-lg">
-                4. Чем он занимается на передовой?
-              </label>
+            <label className='font-semibold text-lg'>4. Чем он занимается на передовой?</label>
               <textarea
                 name="job"
                 value={formData.job}
@@ -494,9 +485,7 @@ Email: ${userData.email}
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono  mt-5 mb-5">
-              <label className="font-semibold text-lg">
-                5. С какой техникой или оружием он работает?
-              </label>
+              <label className='font-semibold text-lg'>5. С какой техникой или оружием он работает?</label>
               <textarea
                 name="equipment"
                 value={formData.equipment}
@@ -513,9 +502,7 @@ Email: ${userData.email}
           </h2>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-              <label className="font-semibold text-lg">
-                6. Что даёт ему силу и мотивацию? Какие качества ценит?
-              </label>
+            <label className='font-semibold text-lg'>6. Что даёт ему силу и мотивацию? Какие качества ценит?</label>
               <textarea
                 name="motivation"
                 value={formData.motivation}
@@ -528,10 +515,8 @@ Email: ${userData.email}
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-              <label className="font-semibold text-lg">
-                7. Кто его боевые товарищи?
-              </label>
-              <textarea
+            <label className='font-semibold text-lg'>7. Кто его боевые товарищи?</label>
+              <textarea 
                 name="comrades"
                 value={formData.comrades}
                 onChange={handleChange}
@@ -547,9 +532,7 @@ Email: ${userData.email}
           </h2>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-              <label className="font-semibold text-lg">
-                8. Какие моменты из жизни героя должны прозвучать?
-              </label>
+            <label className='font-semibold text-lg'>8. Какие моменты из жизни героя должны прозвучать?</label>
               <textarea
                 name="moments"
                 value={formData.moments}
@@ -562,9 +545,7 @@ Email: ${userData.email}
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-              <label className="font-semibold text-lg">
-                9. Какие слова, цитаты или обещания важно включить?
-              </label>
+            <label className='font-semibold text-lg'>9. Какие слова, цитаты или обещания важно включить?</label>
               <textarea
                 name="words"
                 value={formData.words}
