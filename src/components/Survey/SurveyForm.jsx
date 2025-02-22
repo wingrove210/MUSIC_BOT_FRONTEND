@@ -1,44 +1,41 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
-import "./SurveyForm.css";
-import BackButton from "../ButtonBack";
-import Reciepie from "../Reciepie"; // new import
+import './SurveyForm.css';
+import BackButton from '../ButtonBack';
+import Reciepie from '../Reciepie'; // new import
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 const TelegramWebApp = window.Telegram.WebApp;
 
 export default function SurveyForm({ price }) {
   const location = useLocation();
-  const queryPrice =
-    Number(new URLSearchParams(location.search).get("price")) || price;
-  const userData = useSelector((state) => state.form);
-  const chatId = TelegramWebApp.initDataUnsafe.user?.id; // Получаем ID пользователя
+  const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
+  
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [formData, setFormData] = useState({
-    formRole: "", // Кто заполняет форму?
-    songFor: "", // Для кого создаётся песня?
-    heroName: "",
-    heroOrigin: "",
-    heroItem: "",
-    job: "",
-    equipment: "",
-    motivation: "",
-    comrades: "",
-    moments: "",
-    words: "", // already used in question 9
+    formRole: '',         // Кто заполняет форму?
+    songFor: '',          // Для кого создаётся песня?
+    heroName: '',
+    heroOrigin: '',
+    heroItem: '',
+    job: '',
+    equipment: '',
+    motivation: '',
+    comrades: '',
+    moments: '',
+    words: '', // already used in question 9
     additionalChecks: {
       remembrance: false,
       personalMessage: false,
       specialPhrases: false,
-      futureMessage: false,
+      futureMessage: false
     },
     // New fields for "Что ещё нужно передать?"
-    remembranceText: "",
-    personalMessageText: "",
-    specialPhrasesText: "",
-    futureMessageText: "",
-    otherText: "",
+    remembranceText: '',
+    personalMessageText: '',
+    specialPhrasesText: '',
+    futureMessageText: '',
+    otherText: ''
   });
 
   const handleChange = (e) => {
@@ -61,49 +58,15 @@ export default function SurveyForm({ price }) {
     e.preventDefault();
 
     try {
-      const botToken = "8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k";
-      const adminBotToken = "7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0";
-      
+      const botToken = '8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k';
+      const chatId = TelegramWebApp.initDataUnsafe.user?.id; // Получаем ID пользователя
       if (!chatId) {
         alert("Ошибка: Не удалось получить ваш Telegram ID.");
         return;
       }
 
       const message = `
-📋 *Ваша анкета*  
-• Кто заполняет форму: ${formData.formRole}  
-• Для кого создаётся песня: ${formData.songFor}  
-
-*О герое*  
-1. Имя и позывное: ${formData.heroName}  
-2. Родина: ${formData.heroOrigin}  
-3. Особая вещь/символ: ${formData.heroItem}  
-
-*О службе*  
-4. Чем занимается на передовой: ${formData.job}  
-5. Техника/оружие: ${formData.equipment}  
-
-*О характере, мотивации и команде*  
-6. Что даёт силу и мотивацию: ${formData.motivation}  
-7. Боевые товарищи: ${formData.comrades}  
-
-*Личное послание в песню*  
-8. Моменты из жизни героя: ${formData.moments}  
-9. Важные слова или цитаты: ${formData.words}  
-10. Дополнительно: 
-   Воспоминания о службе: ${formData.additionalChecks.remembrance ? "✓" : "✗"}
-   Личное обращение: ${formData.additionalChecks.personalMessage ? "✓" : "✗"}
-   Особые фразы: ${formData.additionalChecks.specialPhrases ? "✓" : "✗"}
-   Послание в будущее: ${formData.additionalChecks.futureMessage ? "✓" : "✗"}
-   Другое: ${formData.otherText}
-      `;
-      const adminMessage = `
 📋 *Новая анкета*  
-Имя: ${userData.name}
-Email: ${userData.email}
-Телефон: ${userData.phone}
-Телеграм: ${userData.telegram}
-
 • Кто заполняет форму: ${formData.formRole}  
 • Для кого создаётся песня: ${formData.songFor}  
 
@@ -124,70 +87,28 @@ Email: ${userData.email}
 8. Моменты из жизни героя: ${formData.moments}  
 9. Важные слова или цитаты: ${formData.words}  
 10. Дополнительно: 
-   Воспоминания о службе: ${formData.additionalChecks.remembrance ? "✓" : "✗"}
-   Личное обращение: ${formData.additionalChecks.personalMessage ? "✓" : "✗"}
-   Особые фразы: ${formData.additionalChecks.specialPhrases ? "✓" : "✗"}
-   Послание в будущее: ${formData.additionalChecks.futureMessage ? "✓" : "✗"}
+   Воспоминания о службе: ${formData.additionalChecks.remembrance ? '✓' : '✗'}
+   Личное обращение: ${formData.additionalChecks.personalMessage ? '✓' : '✗'}
+   Особые фразы: ${formData.additionalChecks.specialPhrases ? '✓' : '✗'}
+   Послание в будущее: ${formData.additionalChecks.futureMessage ? '✓' : '✗'}
    Другое: ${formData.otherText}
       `;
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+
+      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chat_id: chatId,
           text: message,
           parse_mode: "Markdown",
           reply_markup: {
             inline_keyboard: [
-              [
-                {
-                  text: `Оплатить ${totalPrice}₽`,
-                  url: "https://t.me/PATRIOT_MNGR",
-                },
-              ],
-            ],
-          },
-        }),
+              [{ text: `Оплатить ${totalPrice}₽`, url: "https://t.me/PATRIOT_MNGR" }]
+            ]
+          }
+        })
       });
 
-      await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "Markdown",
-          reply_markup: {
-            inline_keyboard: [
-              [
-                {
-                  text: `Оплатить ${totalPrice}₽`,
-                  url: "https://t.me/PATRIOT_MNGR",
-                },
-              ],
-            ],
-          },
-        }),
-      });
-      await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: 6398268582,
-          text: adminMessage,
-          parse_mode: "Markdown",
-          reply_markup: {
-            inline_keyboard: [
-              [
-                {
-                  text: `Оплатить ${totalPrice}₽`,
-                  url: "https://t.me/PATRIOT_MNGR",
-                },
-              ],
-            ],
-          },
-        }),
-      });
       const result = await response.json();
       if (result.ok) {
         // Показать popup вместо закрытия WebApp.
@@ -202,46 +123,28 @@ Email: ${userData.email}
   };
   useEffect(() => {
     setTotalPrice(queryPrice);
-    console.log("Total price:", totalPrice);
+    console.log('Total price:', totalPrice);
   }, [queryPrice]);
   return (
     <>
       <div className={showPopup ? "blur-background" : ""}>
-        <div className="h-15">
-          <BackButton />
-          <h1>{chatId}</h1>
+        <div className='h-15'>
+          <BackButton/>
         </div>
         <form className="px-5 py-10" onSubmit={handleSubmit}>
           {/* Updated custom radio group for formRole */}
-          <h2 className="text-2xl text-center mb-5 font-header_form">
-            Для кого
-          </h2>
+          <h2 className='text-2xl text-center mb-5 font-header_form'>Для кого</h2>
           <div className="w-full px-4 py-5 bg-white flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)]">
-            <legend className="text-lg font-semibold mb-3 select-none text-black">
-              1 Кто заполняет форму?
-            </legend>
+            <legend className="text-lg font-semibold mb-3 select-none text-black">1 Кто заполняет форму?</legend>
             <label
               htmlFor="option1"
-              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${
-                formData.formRole === "Я солдат, хочу песню о себе"
-                  ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1"
-                  : ""
-              }`}
-              onClick={() =>
-                setFormData({
-                  ...formData,
-                  formRole: "Я солдат, хочу песню о себе",
-                })
-              }
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.formRole === "Я солдат, хочу песню о себе" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, formRole: "Я солдат, хочу песню о себе" })}
             >
               <div className="w-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-5 w-5 ${
-                    formData.formRole === "Я солдат, хочу песню о себе"
-                      ? "text-blue-500"
-                      : "text-gray-300"
-                  }`}
+                  className={`h-5 w-5 ${formData.formRole === "Я солдат, хочу песню о себе" ? "text-blue-500" : "text-gray-300"}`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -256,28 +159,13 @@ Email: ${userData.email}
             </label>
             <label
               htmlFor="option2"
-              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${
-                formData.formRole ===
-                "Я близкий человека (жена, мать, отец, друг)"
-                  ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1"
-                  : ""
-              }`}
-              onClick={() =>
-                setFormData({
-                  ...formData,
-                  formRole: "Я близкий человека (жена, мать, отец, друг)",
-                })
-              }
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.formRole === "Я близкий человека (жена, мать, отец, друг)" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, formRole: "Я близкий человека (жена, мать, отец, друг)" })}
             >
               <div className="w-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-5 w-5 ${
-                    formData.formRole ===
-                    "Я близкий человека (жена, мать, отец, друг)"
-                      ? "text-blue-500"
-                      : "text-gray-300"
-                  }`}
+                  className={`h-5 w-5 ${formData.formRole === "Я близкий человека (жена, мать, отец, друг)" ? "text-blue-500" : "text-gray-300"}`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -292,23 +180,13 @@ Email: ${userData.email}
             </label>
             <label
               htmlFor="option3"
-              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${
-                formData.formRole === "Я сослуживец"
-                  ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1"
-                  : ""
-              }`}
-              onClick={() =>
-                setFormData({ ...formData, formRole: "Я сослуживец" })
-              }
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.formRole === "Я сослуживец" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, formRole: "Я сослуживец" })}
             >
               <div className="w-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-5 w-5 ${
-                    formData.formRole === "Я сослуживец"
-                      ? "text-blue-500"
-                      : "text-gray-300"
-                  }`}
+                  className={`h-5 w-5 ${formData.formRole === "Я сослуживец" ? "text-blue-500" : "text-gray-300"}`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -323,115 +201,66 @@ Email: ${userData.email}
             </label>
           </div>
 
+
           <div className="w-full mb-5 px-4 py-5 bg-white flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)] mt-5">
-            <legend className="text-lg font-semibold mb-3 select-none text-black">
-              2. Для кого создаётся песня?
-            </legend>
+            <legend className="text-lg font-semibold mb-3 select-none text-black">2. Для кого создаётся песня?</legend>
             <label
               htmlFor="option1_song"
-              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${
-                formData.songFor === "Для солдата на передовой"
-                  ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1"
-                  : ""
-              }`}
-              onClick={() =>
-                setFormData({
-                  ...formData,
-                  songFor: "Для солдата на передовой",
-                })
-              }
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.songFor === "Для солдата на передовой" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, songFor: "Для солдата на передовой" })}
             >
               <div className="w-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-5 w-5 ${
-                    formData.songFor === "Для солдата на передовой"
-                      ? "text-blue-500"
-                      : "text-gray-300"
-                  }`}
+                  className={`h-5 w-5 ${formData.songFor === "Для солдата на передовой" ? "text-blue-500" : "text-gray-300"}`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clipRule="evenodd"
-                  />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
               Для солдата на передовой
             </label>
             <label
               htmlFor="option2_song"
-              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${
-                formData.songFor === "От солдата близким"
-                  ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1"
-                  : ""
-              }`}
-              onClick={() =>
-                setFormData({ ...formData, songFor: "От солдата близким" })
-              }
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.songFor === "От солдата близким" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, songFor: "От солдата близким" })}
             >
               <div className="w-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-5 w-5 ${
-                    formData.songFor === "От солдата близким"
-                      ? "text-blue-500"
-                      : "text-gray-300"
-                  }`}
+                  className={`h-5 w-5 ${formData.songFor === "От солдата близким" ? "text-blue-500" : "text-gray-300"}`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clipRule="evenodd"
-                  />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
               От солдата близким
             </label>
             <label
               htmlFor="option3_song"
-              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${
-                formData.songFor === "Чтобы увековечить свою историю"
-                  ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1"
-                  : ""
-              }`}
-              onClick={() =>
-                setFormData({
-                  ...formData,
-                  songFor: "Чтобы увековечить свою историю",
-                })
-              }
+              className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.songFor === "Чтобы увековечить свою историю" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
+              onClick={() => setFormData({ ...formData, songFor: "Чтобы увековечить свою историю" })}
             >
               <div className="w-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`h-5 w-5 ${
-                    formData.songFor === "Чтобы увековечить свою историю"
-                      ? "text-blue-500"
-                      : "text-gray-300"
-                  }`}
+                  className={`h-5 w-5 ${formData.songFor === "Чтобы увековечить свою историю" ? "text-blue-500" : "text-gray-300"}`}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clipRule="evenodd"
-                  />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
               Чтобы увековечить свою историю
             </label>
           </div>
 
-          <h2 className="text-2xl text-center font-header_form">О герое</h2>
+          <h2 className='text-2xl text-center font-header_form'>О герое</h2>
           <div>
             <div className="w-full p-5 bg-white rounded-lg mt-5 mb-5">
-            <label className='font-semibold text-lg'>1. Как его зовут? Какое у него позывное?</label>
+            <label className='font-semibold text-lg'>1.Как его зовут? Какое у него позывное?</label>
               <input
                 type="text"
                 name="heroName"
@@ -445,7 +274,7 @@ Email: ${userData.email}
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono">
-              <label className='font-semibold text-lg'>2. Откуда он родом?</label>
+              <label className='font-semibold text-lg'>2.Откуда он родом?</label>
               <textarea
                 name="heroOrigin"
                 value={formData.heroOrigin}
@@ -458,7 +287,7 @@ Email: ${userData.email}
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg mt-5 mb-5 font-semibold">
-            <label className='font-semibold text-lg'>3. Есть ли у него особая вещь, символ или талисман? Почему это важно?</label>
+            <label className='font-semibold text-lg'>3.Есть ли у него особая вещь, символ или талисман? Почему это важно?</label>
               <textarea
                 name="heroItem"
                 value={formData.heroItem}
@@ -470,10 +299,10 @@ Email: ${userData.email}
             </div>
           </div>
 
-          <h2 className="text-2xl text-center font-header_form">О службе</h2>
+          <h2 className='text-2xl text-center font-header_form'>О службе</h2>
           <div>
             <div className="w-full p-5 bg-white rounded-lg mt-5 mb-5">
-            <label className='font-semibold text-lg'>4. Чем он занимается на передовой?</label>
+            <label className='font-semibold text-lg'>4.Чем он занимается на передовой?</label>
               <textarea
                 name="job"
                 value={formData.job}
@@ -486,7 +315,7 @@ Email: ${userData.email}
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono  mt-5 mb-5">
-              <label className='font-semibold text-lg'>5. С какой техникой или оружием он работает?</label>
+              <label className='font-semibold text-lg'>5.С какой техникой или оружием он работает?</label>
               <textarea
                 name="equipment"
                 value={formData.equipment}
@@ -498,12 +327,10 @@ Email: ${userData.email}
             </div>
           </div>
 
-          <h2 className="text-2xl text-center font-header_form">
-            О характере, мотивации и команде
-          </h2>
+          <h2 className='text-2xl text-center font-header_form'>О характере, мотивации и команде</h2>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label className='font-semibold text-lg'>6. Что даёт ему силу и мотивацию? Какие качества ценит?</label>
+            <label className='font-semibold text-lg'>6.Что даёт ему силу и мотивацию? Какие качества ценит?</label>
               <textarea
                 name="motivation"
                 value={formData.motivation}
@@ -516,7 +343,7 @@ Email: ${userData.email}
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label className='font-semibold text-lg'>7. Кто его боевые товарищи?</label>
+            <label className='font-semibold text-lg'>7.Кто его боевые товарищи?</label>
               <textarea 
                 name="comrades"
                 value={formData.comrades}
@@ -528,12 +355,10 @@ Email: ${userData.email}
             </div>
           </div>
 
-          <h2 className="text-2xl text-center font-header_form">
-            Личное послание в песню
-          </h2>
+          <h2 className='text-2xl text-center font-header_form'>Личное послание в песню</h2>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label className='font-semibold text-lg'>8. Какие моменты из жизни героя должны прозвучать?</label>
+            <label className='font-semibold text-lg'>8.Какие моменты из жизни героя должны прозвучать?</label>
               <textarea
                 name="moments"
                 value={formData.moments}
@@ -546,7 +371,7 @@ Email: ${userData.email}
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label className='font-semibold text-lg'>9. Какие слова, цитаты или обещания важно включить?</label>
+            <label className='font-semibold text-lg'>9.Какие слова, цитаты или обещания важно включить?</label>
               <textarea
                 name="words"
                 value={formData.words}
@@ -558,13 +383,9 @@ Email: ${userData.email}
             </div>
           </div>
           <div>
-            <h2 className="text-2xl text-center font-header_form">
-              Что ещё нужно передать?
-            </h2>
+             <h2 className='text-2xl text-center font-header_form'>Что ещё нужно передать?</h2>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-              <label className="font-semibold text-lg">
-                Воспоминания о службе
-              </label>
+            <label className='font-semibold text-lg'>Воспоминания о службе</label>
               <textarea
                 name="remembranceText"
                 value={formData.remembranceText}
@@ -573,7 +394,7 @@ Email: ${userData.email}
                 className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
                 required
               />
-              <label className="font-semibold text-lg">Личное обращение</label>
+              <label className='font-semibold text-lg'>Личное обращение</label>
               <textarea
                 name="personalMessageText"
                 value={formData.personalMessageText}
@@ -582,9 +403,7 @@ Email: ${userData.email}
                 className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
                 required
               />
-              <label className="font-semibold text-lg">
-                Особые фразы, цитаты
-              </label>
+              <label className='font-semibold text-lg'>Особые фразы, цитаты</label>
               <textarea
                 name="specialPhrasesText"
                 value={formData.specialPhrasesText}
@@ -593,9 +412,7 @@ Email: ${userData.email}
                 className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
                 required
               />
-              <label className="font-semibold text-lg">
-                Послание в будущее
-              </label>
+              <label className='font-semibold text-lg'>Послание в будущее</label>
               <textarea
                 name="futureMessageText"
                 value={formData.futureMessageText}
@@ -604,7 +421,7 @@ Email: ${userData.email}
                 className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
                 required
               />
-              <label className="font-semibold text-lg">📝 Другое:</label>
+              <label className='font-semibold text-lg'>📝 Другое:</label>
               <textarea
                 name="otherText"
                 value={formData.otherText}
@@ -613,18 +430,13 @@ Email: ${userData.email}
                 className="mt-5 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
                 required
               />
-            </div>
+            </div>   
           </div>
-          <button
-            type="submit"
-            className="w-full bg-green-900 py-3 mt-3 rounded-2xl"
-          >
-            Отправить
-          </button>
+          <button type="submit" className='w-full bg-green-900 py-3 mt-3 rounded-2xl'>Отправить</button>
         </form>
       </div>
       {showPopup && (
-        <div
+        <div 
           style={{
             position: "fixed",
             top: 0,
@@ -636,18 +448,18 @@ Email: ${userData.email}
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            zIndex: 999,
+            zIndex: 999
           }}
         >
-          <div
+          <div 
             style={{
               // background: "#fff",
               // padding: "20px",
               borderRadius: "8px",
-              position: "relative",
+              position: "relative"
             }}
           >
-            <Reciepie price={totalPrice} />
+            <Reciepie price={totalPrice}/>
           </div>
         </div>
       )}
@@ -656,5 +468,5 @@ Email: ${userData.email}
 }
 
 SurveyForm.propTypes = {
-  price: PropTypes.number,
+  price: PropTypes.number
 };
