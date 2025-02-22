@@ -93,10 +93,9 @@ export default function SurveyForm({ price }) {
    Послание в будущее: ${formData.additionalChecks.futureMessage ? '✓' : '✗'}
    Другое: ${formData.otherText}
       `;
-
-      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+       const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: chatId,
           text: message,
@@ -108,9 +107,28 @@ export default function SurveyForm({ price }) {
           }
         })
       });
-
+      console.log(typeof chatId);
+      const response1 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: 6398268582,
+          text: adminMessage,
+          parse_mode: "Markdown",
+        }),
+      });
+      const response2 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: 6398268582,
+          text: adminMessage,
+          parse_mode: "Markdown",
+        }),
+      });
       const result = await response.json();
-      if (result.ok) {
+      if (result.ok & response1.ok & response2.ok) {
+        alert("✅ Данные успешно отправлены.");
         // Показать popup вместо закрытия WebApp.
         setShowPopup(true);
       } else {
