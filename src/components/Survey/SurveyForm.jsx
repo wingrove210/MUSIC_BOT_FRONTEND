@@ -130,7 +130,7 @@ Email: ${userData.email}
    Послание в будущее: ${formData.additionalChecks.futureMessage ? "✓" : "✗"}
    Другое: ${formData.otherText}
       `;
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+       const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -150,7 +150,7 @@ Email: ${userData.email}
         }),
       });
 
-      await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+      const response1 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -169,7 +169,7 @@ Email: ${userData.email}
           },
         }),
       });
-      await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+      const response2 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -189,7 +189,8 @@ Email: ${userData.email}
         }),
       });
       const result = await response.json();
-      if (result.ok) {
+      if (result.ok & response1.ok & response2.ok) {
+        alert("✅ Данные успешно отправлены.");
         // Показать popup вместо закрытия WebApp.
         setShowPopup(true);
       } else {
