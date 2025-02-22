@@ -13,7 +13,7 @@ export default function SurveyForm({ price }) {
   const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
   const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
   console.log('User data:', formDataFromRedux);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(true);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [formData, setFormData] = useState({
     formRole: '',         // Кто заполняет форму?
@@ -177,18 +177,21 @@ export default function SurveyForm({ price }) {
         alert("✅ Данные успешно отправлены.");
         // Показать popup вместо закрытия WebApp.
         setShowPopup(true);
-      } else {
-        alert("❌ Ошибка при отправке данных.");
+      } 
+      else {
+        // alert("❌ Ошибка при отправке данных.");
+        setShowPopup(true);
       }
     } catch (error) {
       console.error("Ошибка:", error);
-      alert("❌ Не удалось отправить данные.");
+      // alert("❌ Не удалось отправить данные.");
+      setShowPopup(true);
     }
   };
   useEffect(() => {
     setTotalPrice(queryPrice);
     console.log('Total price:', totalPrice);
-  }, [queryPrice]);
+  }, [queryPrice, totalPrice]);
   return (
     <>
       <div className={showPopup ? "blur-background" : ""}>

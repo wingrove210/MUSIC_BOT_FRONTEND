@@ -59,9 +59,11 @@ export default function Reciepie({ price }) { // updated to receive price prop
 
         <p className="thanks">Спасибо за заявку мы свяжемся с вами</p>
       </div>
+      <a className="w-full h-10 bg-green-900 text-center flex justify-center items-center rounded-2xl" href="https://t.me/PATRIOT_MNGR">Оплатить</a>
       <Link to="/" className="w-full h-10 bg-green-900 text-center flex justify-center items-center rounded-2xl">
         Назад
       </Link>
+
     </div>
   );
 }
