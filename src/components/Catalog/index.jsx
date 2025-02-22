@@ -39,7 +39,7 @@ export default function Catalog() {
     if (currentTrack) {
       currentTrack.pause();
     }
-    const audio = new Audio(`https://patriot-music.online/${track.url}`);
+    const audio = new Audio(`${track.url}`);
     audio.play();
     setCurrentTrack(audio);
     setCurrentTrackDetails(track);

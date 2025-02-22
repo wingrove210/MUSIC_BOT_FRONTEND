@@ -1,7 +1,7 @@
 import "./index.css";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-export default function Form({ isVisible, onClose, children }) {
+export default function Form({ isVisible }) {
   if (!isVisible) return null;
   return (
     <div className="flex justify-center items-center h-[100vh]">
