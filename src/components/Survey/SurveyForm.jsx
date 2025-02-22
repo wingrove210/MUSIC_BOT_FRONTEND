@@ -157,16 +157,6 @@ Email: ${userData.email}
           chat_id: 6398268582,
           text: adminMessage,
           parse_mode: "Markdown",
-          reply_markup: {
-            inline_keyboard: [
-              [
-                {
-                  text: `Оплатить ${totalPrice}₽`,
-                  url: "https://t.me/PATRIOT_MNGR",
-                },
-              ],
-            ],
-          },
         }),
       });
       const response2 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
