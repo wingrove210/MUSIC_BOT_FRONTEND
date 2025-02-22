@@ -1,11 +1,9 @@
 import "./index.css";
-
+import EmptyItems from "../EmptyItems/index";
 export default function LoadingScreen() {
   return (
     <div className="loading-screen">
-      <div className="loader">
-        <div className="inner"></div>
-      </div>
+      <EmptyItems className="t-1/2 relative" />
     </div>
   );
 }

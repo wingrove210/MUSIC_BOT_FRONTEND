@@ -8,7 +8,7 @@ export default function Menu({ isOpen }) {
       <ul className="menu">
         <li><Link to="/">Главная</Link></li>
         <li><a href="https://t.me/PATRIOT_MNGR">Тех.Поддержка</a></li>
-        <li><Link to="/">FAQ</Link></li>
+        <li><a href="https://t.me/PATRIOT_MNGR">FAQ</a></li>
         <MenuBlock/>
       </ul>
     </div>

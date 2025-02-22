@@ -4,50 +4,58 @@ export default function Reciepie() {
   return (
     <div className="h-screen flex justify-center items-center flex-col gap-5">
       <div className="receipt">
-        <p className="shop-name">UI Market</p>
+        <p className="shop-name">Набор Базовый</p>
         <p className="info">
-          1234 Market Street, Suite 101
+        Ваш заказ принят , скоро мы с вами свяжемся!
           <br />
-          City, State ZIP
+          Дата: 12/27/2025
           <br />
-          Date: 12/27/2025
-          <br />
-          Time: 03:15 PM
+          Время: 03:15 PM
         </p>
 
         <table>
           <thead>
             <tr>
-              <th>Item</th>
-              <th>Qty</th>
-              <th>Price</th>
+              <th>Преимущества</th>
+              <th>№</th>
+              <th>Цена</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Item 1</td>
-              <td>2</td>
+              <td>Музыка и вокал по вашему запросу</td>
+              <td>1</td>
               <td>$20.00</td>
             </tr>
             <tr>
-              <td>Item 2</td>
-              <td>1</td>
+              <td>Текст по вашим ответам</td>
+              <td>2</td>
               <td>$10.00</td>
             </tr>
             <tr>
-              <td>Item 3</td>
+              <td>Базовая обработка звука</td>
               <td>3</td>
+              <td>$15.00</td>
+            </tr>
+            <tr>
+              <td>Готовый MP3-файл</td>
+              <td>4</td>
+              <td>$15.00</td>
+            </tr>
+            <tr>
+              <td>Короткий трек (куплет + припев)</td>
+              <td>5</td>
               <td>$15.00</td>
             </tr>
           </tbody>
         </table>
 
         <div className="total">
-          <p>Total:</p>
-          <p>$45.00</p>
+          <p>Итого:</p>
+          <p>5990₽</p>
         </div>
 
-        <p className="thanks">Thank you for shopping with us!</p>
+        <p className="thanks">Спасибо за заявку мы свяжемся с вами</p>
       </div>
       <Link to="/" className="w-full h-10 bg-green-900 text-center flex justify-center items-center rounded-2xl">
           Назад

@@ -121,8 +121,9 @@ export default function SurveyForm() {
         </div>
         <form className="px-5 py-10" onSubmit={handleSubmit}>
           {/* Updated custom radio group for formRole */}
-          <div className="w-full px-4 py-5 bg-white flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)]">
-            <legend className="text-lg font-semibold mb-3 select-none text-black">1.1 Кто заполняет форму?</legend>
+          <h2 className='text-2xl text-center mb-5 font-header_form'>Для кого</h2>
+          <div className="w-full px-4 py-5 bg-card flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)]">
+            <legend className="text-lg font-semibold mb-3 select-none text-black">1 Кто заполняет форму?</legend>
             <label
               htmlFor="option1"
               className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.formRole === "Я солдат, хочу песню о себе" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
@@ -190,7 +191,7 @@ export default function SurveyForm() {
 
 
           <div className="w-full mb-5 px-4 py-5 bg-white flex flex-col gap-3 rounded-md shadow-[0px_0px_15px_rgba(0,0,0,0.09)] mt-5">
-            <legend className="text-lg font-semibold mb-3 select-none text-black">2.2 Для кого создаётся песня?</legend>
+            <legend className="text-lg font-semibold mb-3 select-none text-black">2. Для кого создаётся песня?</legend>
             <label
               htmlFor="option1_song"
               className={`font-medium h-14 relative hover:bg-zinc-100 flex items-center px-3 gap-3 rounded-lg select-none ${formData.songFor === "Для солдата на передовой" ? "text-blue-500 bg-blue-50 ring-blue-300 ring-1" : ""}`}
@@ -244,127 +245,127 @@ export default function SurveyForm() {
             </label>
           </div>
 
-          <h2 className='text-2xl text-center'>О герое</h2>
+          <h2 className='text-2xl text-center font-header_form'>О герое</h2>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label>1. Как его зовут? Какое у него позывное?</label>
+            <div className="w-full p-5 bg-white rounded-lg mt-5 mb-5">
+            <label className='font-semibold text-lg'>1. Как его зовут? Какое у него позывное?</label>
               <input
                 type="text"
                 name="heroName"
                 value={formData.heroName}
                 onChange={handleChange}
                 placeholder="Например: Алексей, «Барс»"
-                className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
                 id="heroName-input"
               />
             </div>
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono">
-              <label>2. Откуда он родом?</label>
+              <label className='font-semibold text-lg'>2. Откуда он родом?</label>
               <textarea
                 name="heroOrigin"
                 value={formData.heroOrigin}
                 onChange={handleChange}
                 placeholder="Например: Город Курган, вырос на берегу Тобола"
-                className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
                 id="heroOrigin-textarea"
               />
             </div>
           </div>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label>3. Есть ли у него особая вещь, символ или талисман? Почему это важно?</label>
+            <div className="w-full p-5 bg-white rounded-lg mt-5 mb-5 font-semibold">
+            <label className='font-semibold text-lg'>3. Есть ли у него особая вещь, символ или талисман? Почему это важно?</label>
               <textarea
                 name="heroItem"
                 value={formData.heroItem}
                 onChange={handleChange}
                 placeholder="Например: Кулон с именем дочери"
-                className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
                 id="heroItem-textarea"
               />
             </div>
           </div>
 
-          <h2 className='text-2xl text-center'>О службе</h2>
+          <h2 className='text-2xl text-center font-header_form'>О службе</h2>
           <div>
-            <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label>4. Чем он занимается на передовой?</label>
+            <div className="w-full p-5 bg-white rounded-lg mt-5 mb-5">
+            <label className='font-semibold text-lg'>4. Чем он занимается на передовой?</label>
               <textarea
                 name="job"
                 value={formData.job}
                 onChange={handleChange}
                 placeholder="Например: Разведчик в группе наблюдения"
-                className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
                 id="job-textarea"
               />
             </div>
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono  mt-5 mb-5">
-              <label>5. С какой техникой или оружием он работает?</label>
+              <label className='font-semibold text-lg'>5. С какой техникой или оружием он работает?</label>
               <textarea
                 name="equipment"
                 value={formData.equipment}
                 onChange={handleChange}
                 placeholder="Например: Снайпер с винтовкой СВД"
-                className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
                 id="equipment-textarea"
               />
             </div>
           </div>
 
-          <h2 className='text-2xl text-center'>О характере, мотивации и команде</h2>
+          <h2 className='text-2xl text-center font-header_form'>О характере, мотивации и команде</h2>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label>6. Что даёт ему силу и мотивацию? Какие качества ценит?</label>
+            <label className='font-semibold text-lg'>6. Что даёт ему силу и мотивацию? Какие качества ценит?</label>
               <textarea
                 name="motivation"
                 value={formData.motivation}
                 onChange={handleChange}
                 placeholder="Например: Вера в победу и поддержка родных"
-                className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
                 id="motivation-textarea"
               />
             </div>
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label>7. Кто его боевые товарищи?</label>
-              <textarea
+            <label className='font-semibold text-lg'>7. Кто его боевые товарищи?</label>
+              <textarea 
                 name="comrades"
                 value={formData.comrades}
                 onChange={handleChange}
                 placeholder="Например: Традиции и ритуалы в сплочённой команде"
-                className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
                 id="comrades-textarea"
               />
             </div>
           </div>
 
-          <h2 className='text-2xl text-center'>Личное послание в песню</h2>
+          <h2 className='text-2xl text-center font-header_form'>Личное послание в песню</h2>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label>8. Какие моменты из жизни героя должны прозвучать?</label>
+            <label className='font-semibold text-lg'>8. Какие моменты из жизни героя должны прозвучать?</label>
               <textarea
                 name="moments"
                 value={formData.moments}
                 onChange={handleChange}
                 placeholder="Например: Первые дни на службе, победы и трудности"
-                className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
                 id="moments-textarea"
               />
             </div>
           </div>
           <div>
             <div className="w-full p-5 bg-white rounded-lg font-mono mt-5 mb-5">
-            <label>9. Какие слова, цитаты или обещания важно включить?</label>
+            <label className='font-semibold text-lg'>9. Какие слова, цитаты или обещания важно включить?</label>
               <textarea
                 name="words"
                 value={formData.words}
                 onChange={handleChange}
                 placeholder="Например: «Брат за брата, никто не забыт!»"
-                className="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
                 id="words-textarea"
               />
             </div>

@@ -8,7 +8,7 @@ export default function MenuBlock() {
             className="link"
             data-social="spotify"
             aria-label="Spotify"
-            href="https://www.spotify.com/"
+            href="https://t.me/patriot_musik"
           >
             <svg viewBox="0 0 100 100" version="1.1">
               <path
@@ -24,7 +24,7 @@ export default function MenuBlock() {
             className="link"
             data-social="pinterest"
             aria-label="Pinterest"
-            href="https://www.pinterest.com/"
+            href="https://t.me/patriot_musik"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" version="1.1">
               <path
@@ -40,7 +40,7 @@ export default function MenuBlock() {
             className="link"
             data-social="dribbble"
             aria-label="Dribbble"
-            href="https://dribbble.com/"
+            href="https://t.me/patriot_musik"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" version="1.1">
               <path

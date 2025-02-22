@@ -5,6 +5,7 @@ import Pricing from "./routes/Pricing";
 import SurveyForm from './components/Survey/SurveyForm';
 import { useEffect } from "react";
 import Reciepie from "./components/Reciepie";
+import Form from "./components/Form";
 const tg = window.Telegram ? window.Telegram.WebApp : null;
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/survey" element={<SurveyForm />} />
           <Route path="/reciepie" element={<Reciepie />}/>
+          <Route path="/form" element={<Form/>}/>
         </Routes>
     </Router>
   );
