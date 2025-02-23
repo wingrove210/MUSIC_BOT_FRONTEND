@@ -26,7 +26,7 @@ export default function Form() {
   };
 
   return (
-    <div className="flex justify-center items-center h-[300px] mt-[70%] absolute z-500 w-full top-0 left-0 ">
+    <div className="flex justify-center items-center h-[420px] mt-[50%] absolute z-500 w-full top-0 left-0 ">
       <div className="form-card1">
         <div className="form-card2">
           <form className="form" onSubmit={handleSubmit}>
