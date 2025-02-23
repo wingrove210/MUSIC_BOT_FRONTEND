@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,122 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <title>Vite + React</title>
-    <style>
-      /* Стили для кастомного хедера */
-      .custom-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 56px; /* Высота хедера как в Telegram */
-        padding: 0 16px;
-        background-color: #ffffff00; /* Белый фон */
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень для разделения */
-        position: fixed;
-        width: 100vw;
-        left: 0;
-        top: 0;
-        z-index: 1000; /* Чтобы хедер был поверх контента */
-      }
-
-      .custom-header .back-button {
-        font-size: 18px;
-        font-weight: 500;
-        color: white; /* Цвет ссылки Telegram */
-        cursor: pointer;
-        background-color: #46464680;
-        padding: 0.3rem 0.6rem;
-        border-radius: 1000px;
-        z-index: 10000;
-      }
-
-      .custom-header .back-button::before {
-        content: "×"; /* Стрелка назад */
-        margin-right: 8px;
-      }
-
-      .custom-header .title {
-        font-size: 17px;
-        font-weight: bold;
-        color: white; /* Черный цвет текста */
-        flex-grow: 1;
-        text-align: center;
-        position: fixed;
-        width: 100vw;
-      }
-
-      .custom-header .actions {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
-
-      .custom-header .actions button {
-        background: none;
-        border: none;
-        color: #fff; /* Цвет кнопок Telegram */
-        font-size: 18px;
-        cursor: pointer;
-      }
-
-      /* Темная тема */
-      body.dark-theme {
-        background-color: #1e1e1e;
-        color: #ffffff;
-      }
-
-      body.dark-theme .custom-header {
-        background-color: #1e1e1e;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-      }
-
-      body.dark-theme .custom-header .back-button,
-      body.dark-theme .custom-header .actions button {
-        color: #90caf9; /* Цвет ссылки в темной теме */
-      }
-
-      body.dark-theme .custom-header .title {
-        color: #ffffff;
-      }
-    </style>
   </head>
   <body>
-    <script>
-      // Проверяем наличие Telegram Web App API
-      if (window.Telegram) {
-        const tg = window.Telegram.WebApp;
-
-        // Устанавливаем прозрачный цвет для хедера
-        tg.setHeaderColor("#ffffff00"); // rgba(255, 255, 255, 0) - полностью прозрачный белый
-
-        // Инициализация приложения
-        tg.ready();
-
-        // Проверка темы
-        if (tg.colorScheme === "dark") {
-          document.body.classList.add("dark-theme");
-        }
-
-        function goBack() {
-          if (window.Telegram) {
-            window.Telegram.WebApp.close();
-          }
-        }
-      } else {
-        console.error("Telegram Web App API is not available");
-      }
-    </script>
-
-    <!-- Кастомный хедер -->
-    <div class="custom-header">
-      <div class="back-button" onclick="goBack()">Закрыть</div>
-      <div class="title">PATRIOT BOT</div>
-      <!-- <div class="actions">
-        <button>⋮</button>
-      </div> -->
-    </div>
-
-    <!-- Ваш контент -->
-    <div id="root" style="padding: 20px; margin-top: 56px"></div>
+    <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
