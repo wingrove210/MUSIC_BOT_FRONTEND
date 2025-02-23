@@ -12,6 +12,7 @@ export default function Button() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    console.log('close modal');
   };
 
   return (
@@ -56,12 +57,14 @@ export default function Button() {
         </Link>
       </div>
       {isModalOpen && (
-        <div className="backdrop-blur-xs z-201 bg-transparent bg-opacity-50 top-0 left-0 w-full h-full flex justify-center items-center fixed" onClick={handleCloseModal}>
-          <div onClick={(e) => e.stopPropagation()}>
-            <Form />
-          </div>
-        </div>
-      )}
+  <div
+    className="backdrop-blur-xs z-201 bg-transparent bg-opacity-50 top-0 left-0 w-full h-full flex justify-center items-center fixed"
+    onClick={handleCloseModal}>
+    <div onClick={(e) => e.stopPropagation()}>
+      <Form />
+    </div>
+  </div>
+)}
     </div>
   );
 }
