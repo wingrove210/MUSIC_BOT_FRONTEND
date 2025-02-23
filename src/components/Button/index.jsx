@@ -56,7 +56,7 @@ export default function Button() {
         </Link>
       </div>
       {isModalOpen && (
-        <div className="backdrop-blur-xs z-201 bg-transparent bg-opacity-50 absolute top-0 left-0 w-full h-full flex justify-center items-center" onClick={handleCloseModal}>
+        <div className="backdrop-blur-xs z-201 bg-transparent bg-opacity-50 top-0 left-0 w-full h-full flex justify-center items-center fixed" onClick={handleCloseModal}>
           <div onClick={(e) => e.stopPropagation()}>
             <Form />
           </div>

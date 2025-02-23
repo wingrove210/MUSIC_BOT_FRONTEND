@@ -8,6 +8,9 @@ import { useSelector } from 'react-redux';
 import { selectForm } from '../../redux/form/selectors';
 const TelegramWebApp = window.Telegram.WebApp;
 
+// Declare a common field class for uniform styling.
+const fieldClass = "mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100";
+
 export default function SurveyForm({ price }) {
   const location = useLocation();
   const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
@@ -300,7 +303,7 @@ export default function SurveyForm({ price }) {
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293а1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
               От солдата близким
@@ -317,7 +320,7 @@ export default function SurveyForm({ price }) {
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293а1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.707a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
               Чтобы увековечить свою историю
@@ -334,8 +337,9 @@ export default function SurveyForm({ price }) {
                 value={formData.heroName}
                 onChange={handleChange}
                 placeholder="Например: Алексей, «Барс»"
-                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className={fieldClass} // updated
                 id="heroName-input"
+                required
               />
             </div>
           </div>
@@ -347,8 +351,9 @@ export default function SurveyForm({ price }) {
                 value={formData.heroOrigin}
                 onChange={handleChange}
                 placeholder="Например: Город Курган, вырос на берегу Тобола"
-                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className={fieldClass} // updated
                 id="heroOrigin-textarea"
+                required
               />
             </div>
           </div>
@@ -360,8 +365,9 @@ export default function SurveyForm({ price }) {
                 value={formData.heroItem}
                 onChange={handleChange}
                 placeholder="Например: Кулон с именем дочери"
-                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className={fieldClass} // updated
                 id="heroItem-textarea"
+                required
               />
             </div>
           </div>
@@ -375,8 +381,9 @@ export default function SurveyForm({ price }) {
                 value={formData.job}
                 onChange={handleChange}
                 placeholder="Например: Разведчик в группе наблюдения"
-                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className={fieldClass} // updated
                 id="job-textarea"
+                required
               />
             </div>
           </div>
@@ -388,8 +395,9 @@ export default function SurveyForm({ price }) {
                 value={formData.equipment}
                 onChange={handleChange}
                 placeholder="Например: Снайпер с винтовкой СВД"
-                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className={fieldClass} // updated
                 id="equipment-textarea"
+                required
               />
             </div>
           </div>
@@ -403,8 +411,9 @@ export default function SurveyForm({ price }) {
                 value={formData.motivation}
                 onChange={handleChange}
                 placeholder="Например: Вера в победу и поддержка родных"
-                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className={fieldClass} // updated
                 id="motivation-textarea"
+                required
               />
             </div>
           </div>
@@ -416,8 +425,9 @@ export default function SurveyForm({ price }) {
                 value={formData.comrades}
                 onChange={handleChange}
                 placeholder="Например: Традиции и ритуалы в сплочённой команде"
-                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className={fieldClass} // updated
                 id="comrades-textarea"
+                required
               />
             </div>
           </div>
@@ -431,8 +441,9 @@ export default function SurveyForm({ price }) {
                 value={formData.moments}
                 onChange={handleChange}
                 placeholder="Например: Первые дни на службе, победы и трудности"
-                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className={fieldClass} // updated
                 id="moments-textarea"
+                required
               />
             </div>
           </div>
@@ -444,8 +455,9 @@ export default function SurveyForm({ price }) {
                 value={formData.words}
                 onChange={handleChange}
                 placeholder="Например: «Брат за брата, никто не забыт!»"
-                className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100"
+                className={fieldClass} // updated
                 id="words-textarea"
+                required
               />
             </div>
           </div>
@@ -459,7 +471,6 @@ export default function SurveyForm({ price }) {
                 onChange={handleChange}
                 placeholder="Введите воспоминания о службе"
                 className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
-                required
               />
               <label className='font-semibold text-lg'>Личное обращение</label>
               <textarea
@@ -468,7 +479,6 @@ export default function SurveyForm({ price }) {
                 onChange={handleChange}
                 placeholder="Введите личное обращение"
                 className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
-                required
               />
               <label className='font-semibold text-lg'>Особые фразы, цитаты</label>
               <textarea
@@ -477,7 +487,6 @@ export default function SurveyForm({ price }) {
                 onChange={handleChange}
                 placeholder="Введите особые фразы или цитаты"
                 className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
-                required
               />
               <label className='font-semibold text-lg'>Послание в будущее</label>
               <textarea
@@ -486,7 +495,6 @@ export default function SurveyForm({ price }) {
                 onChange={handleChange}
                 placeholder="Введите послание в будущее"
                 className="mt-6 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
-                required
               />
               <label className='font-semibold text-lg'>📝 Другое:</label>
               <textarea
@@ -495,7 +503,6 @@ export default function SurveyForm({ price }) {
                 onChange={handleChange}
                 placeholder="Ваш текст"
                 className="mt-5 text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg"
-                required
               />
             </div>   
           </div>
