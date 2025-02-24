@@ -8,15 +8,37 @@ export default function Player({ track, audio, onPrevious, onNext }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isSeeking, setIsSeeking] = useState(false);
 
-  // New function: calculate seek position upon click
-  const handleSeek = (e) => {
+  // Utility function to compute new time based on event
+  const computeNewTime = (e) => {
     if (!audio || !duration) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const newTime = (clickX / rect.width) * duration;
-    audio.currentTime = newTime;
-    setCurrentTime(newTime);
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const offsetX = clientX - rect.left;
+    return (offsetX / rect.width) * duration;
+  };
+
+  const onSeekStart = (e) => {
+    setIsSeeking(true);
+    const newTime = computeNewTime(e);
+    if (newTime !== undefined) {
+      audio.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
+  const onSeekMove = (e) => {
+    if (!isSeeking) return;
+    const newTime = computeNewTime(e);
+    if (newTime !== undefined) {
+      audio.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
+  const onSeekEnd = () => {
+    setIsSeeking(false);
   };
 
   useEffect(() => {
@@ -30,15 +52,17 @@ export default function Player({ track, audio, onPrevious, onNext }) {
   useEffect(() => {
     if (audio) {
       const updateProgress = () => {
-        setCurrentTime(audio.currentTime);
-        setDuration(audio.duration);
+        if (!isSeeking) {
+          setCurrentTime(audio.currentTime);
+          setDuration(audio.duration);
+        }
       };
       audio.addEventListener('timeupdate', updateProgress);
       return () => {
         audio.removeEventListener('timeupdate', updateProgress);
       };
     }
-  }, [audio]);
+  }, [audio, isSeeking]);
 
   const togglePlayPause = () => {
     if (audio) {
@@ -78,7 +102,16 @@ export default function Player({ track, audio, onPrevious, onNext }) {
               <div id="current-time">{formatTime(currentTime)}</div>
               <div id="track-length">{formatTime(duration)}</div>
             </div>
-            <div id="seek-bar-container" onClick={handleSeek}>
+            <div 
+              id="seek-bar-container" 
+              onMouseDown={onSeekStart} 
+              onMouseMove={onSeekMove} 
+              onMouseUp={onSeekEnd}
+              onMouseLeave={onSeekEnd}
+              onTouchStart={onSeekStart}
+              onTouchMove={onSeekMove}
+              onTouchEnd={onSeekEnd}
+            >
               <div id="seek-time">{formatTime(currentTime)}</div>
               <div id="s-hover"></div>
               <div id="seek-bar" style={{ width: `${seekBarWidth}%` }}></div>
