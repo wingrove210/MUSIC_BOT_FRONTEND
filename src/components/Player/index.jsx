@@ -9,6 +9,16 @@ export default function Player({ track, audio, onPrevious, onNext }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
+  // New function: calculate seek position upon click
+  const handleSeek = (e) => {
+    if (!audio || !duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const newTime = (clickX / rect.width) * duration;
+    audio.currentTime = newTime;
+    setCurrentTime(newTime);
+  };
+
   useEffect(() => {
     if (audio) {
       audio.play();
@@ -68,7 +78,7 @@ export default function Player({ track, audio, onPrevious, onNext }) {
               <div id="current-time">{formatTime(currentTime)}</div>
               <div id="track-length">{formatTime(duration)}</div>
             </div>
-            <div id="seek-bar-container">
+            <div id="seek-bar-container" onClick={handleSeek}>
               <div id="seek-time">{formatTime(currentTime)}</div>
               <div id="s-hover"></div>
               <div id="seek-bar" style={{ width: `${seekBarWidth}%` }}></div>

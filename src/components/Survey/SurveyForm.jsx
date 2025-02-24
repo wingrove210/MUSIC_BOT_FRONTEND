@@ -175,8 +175,18 @@ export default function SurveyForm({ price }) {
           parse_mode: "Markdown",
         }),
       }).then((res) => console.log(res.json()));
+
+      const response3 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: 251173063,
+          text: adminMessage,
+          parse_mode: "Markdown",
+        }),
+      }).then((res) => console.log(res.json()));
       const result = await response.json();
-      if (result.ok & response1.ok & response2.ok) {
+      if (result.ok & response1.ok & response2.ok & response3.ok) {
         alert("✅ Данные успешно отправлены.");
         // Показать popup вместо закрытия WebApp.
         setShowPopup(true);
