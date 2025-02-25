@@ -26,7 +26,6 @@ export default function Form() {
   };
 
   return (
-    <div className="flex justify-center items-center h-[420px] mt-[30%] absolute z-500 w-full top-0 left-0 ">
       <div className="form-card1">
         <div className="form-card2">
           <form className="form" onSubmit={handleSubmit}>
@@ -86,7 +85,6 @@ export default function Form() {
             <button type="submit" className="sendMessage-btn">Отправить</button>
           </form>
         </div>
-      </div>
       {/* Error popup */}
       {showError && (
         <div

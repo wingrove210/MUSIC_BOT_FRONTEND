@@ -20,6 +20,7 @@
   /* bottom: 20%; */
   /* margin-top: 35px; */
   width: 210px;
+  margin-top: 20px;
 }
   
 .button_generate::before {
@@ -130,6 +131,15 @@
   
   color: hsl(0, 0%, 100%);
 }
+
+.button_generate:hover .sparkle .path {
+  fill: currentColor;
+  stroke: currentColor;
+  
+  transform-origin: center;
+  
+  color: hsla(0 0% 12% / 1);
+}
   
 .button_generate:is(:hover, :focus) .sparkle .path {
   animation: path 1.5s linear 0.5s infinite;
@@ -176,4 +186,33 @@
   
   font-size: 1rem;
   color: transparent;
+}
+.button_generate:hover .text_button {
+  position: relative;
+  z-index: 24;
+  
+  background-image: linear-gradient(
+    90deg,
+    hsla(0 0% 100% / 1) 0%,
+    hsla(0 0% 100% / var(--active, 0)) 120%
+  );
+  background-clip: text;
+  
+  font-size: 1rem;
+  color: black;
+}
+
+.button_generate:hover .sparkle {
+  position: relative;
+  z-index: 24;
+  
+  background-image: linear-gradient(
+    90deg,
+    hsla(0 0% 100% / 1) 0%,
+    hsla(0 0% 100% / var(--active, 0)) 120%
+  );
+  background-clip: text;
+  
+  font-size: 1rem;
+  color: black;
 }

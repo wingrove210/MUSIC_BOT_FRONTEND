@@ -35,7 +35,7 @@
 /* Placeholder text color */
 .survey-form input::placeholder,
 .survey-form textarea::placeholder {
-  color: black;
+  color: white;
 }
 
 .survey-form button {
@@ -54,9 +54,9 @@
   background-color: #0056b3;
 }
 
-label {
-  color: black;
-}
+/* label {
+  color: white;
+} */
 
 .white_label{
   color: white;

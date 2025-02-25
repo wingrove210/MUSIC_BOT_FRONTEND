@@ -60,8 +60,10 @@ export default function Button() {
   <div
     className="backdrop-blur-xs z-201 bg-transparent bg-opacity-50 top-0 left-0 w-full h-full flex justify-center items-center fixed"
     onClick={handleCloseModal}>
-    <div onClick={(e) => e.stopPropagation()}>
-      <Form />
+      <div className="flex justify-center items-center h-[420px] mt-[30%] absolute z-500 w-full top-0 left-0 ">
+        <div onClick={(e) => e.stopPropagation()}>
+        <Form />
+      </div>
     </div>
   </div>
 )}

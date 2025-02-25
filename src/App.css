@@ -16,6 +16,9 @@ input{
 }
 textarea{
   color: black;
+  background-color: white;
+  outline-color: #7CA200 !important;
+  border-color: #7CA200 !important;
 }
 
 .menu ul {

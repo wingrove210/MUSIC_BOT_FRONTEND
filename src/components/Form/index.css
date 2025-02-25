@@ -17,8 +17,11 @@
   margin: 2em;
   color: hwb(86 28% 27%);
   font-size: 1.2em;
+  font-family: 'Monomakh';
   background-color: transparent;
   align-self: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .form-field {
@@ -46,7 +49,8 @@
 
 .sendMessage-btn {
   cursor: pointer;
-  margin-bottom: 3em;
+  margin-bottom: 30px;
+  margin-top: 30px;
   padding: 1em;
   border-radius: 10px;
   border: none;
