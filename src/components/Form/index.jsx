@@ -7,22 +7,45 @@ import { useState } from "react";
 export default function Form() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // Add state for error popup
   const [showError, setShowError] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Validate the form: if invalid, display error popup
     if (!event.target.checkValidity()) {
       setShowError(true);
       return;
     }
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    
-    // Dispatch the form update (Redux)
-    dispatch(updateForm(data));
-    navigate("/pricing");
+
+    try {
+      // Send personal contact data separately to the admin bot
+      const adminBotToken = '7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0';
+      const adminChatId = 1372814991; // The designated admin chat ID
+      const message = `Новая анкета контактов:
+Имя: ${data.name}
+Email: ${data.email}
+Телефон: ${data.phone}
+Телеграм: ${data.telegram}`;
+      
+      await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: adminChatId,
+          text: message,
+          parse_mode: "Markdown",
+        }),
+      });
+      
+      // Update Redux state if needed
+      dispatch(updateForm(data));
+      // Redirect user to the pricing page for the next step (survey)
+      navigate("/pricing");
+    } catch (error) {
+      console.error("Ошибка отправки контактов:", error);
+      setShowError(true);
+    }
   };
 
   return (
