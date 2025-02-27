@@ -28,7 +28,7 @@ export default function PremiumCard() {
               d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z"
             ></path>
           </svg>
-          <span className="ml-2 text-white">Вы получите сразу ТРИ ВЕРСИИ ПЕСНИ:</span>
+          <span className="ml-2 text-white w-100">Вы получите сразу ТРИ ВЕРСИИ ПЕСНИ: 1 основная версия трека и 2 в подарок</span>
         </li>
         <li className="flex mb-4 items-center">
           <svg
