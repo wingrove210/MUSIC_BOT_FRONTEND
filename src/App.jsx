@@ -10,6 +10,12 @@ const tg = window.Telegram ? window.Telegram.WebApp : null;
 
 function App() {
   useEffect(() => {
+    if (tg) {
+      tg.expand(); // Разворачивает веб-приложение на весь экран
+      tg.ready(); // Говорим Telegram, что приложение готово
+    }
+  }, []);
+  useEffect(() => {
     tg.ready();
     tg.setHeaderColor("#4a592c")
     }, []);
