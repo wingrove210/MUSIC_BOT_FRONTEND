@@ -94,7 +94,6 @@ Email: ${data.email}
             </div>
             <div className="form-field">
               <input
-                required
                 placeholder="Телеграм"
                 className="input-field"
                 type="text"

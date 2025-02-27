@@ -6,7 +6,7 @@ export default function BaseCard() {
     <div className="w-full pt-10 px-8 pb-8 mt-5" style={{ backgroundColor: 'rgba(28, 28, 29, 0.55)', borderRadius: '1.5rem' }}>
       <div className="text-center mb-6">
         <h5 className="text-2xl font-semibold text-white mb-3 font_monarch_1">«Базовый»</h5>
-        <span className="block text-5xl font-bold text-white mb-3">5 990₽</span>
+        <span className="block text-5xl font-bold text-white mb-3">4 990₽</span>
         <span className="block text-gray-300 font-medium mb-6">Для тех, кто хочет простой, но душевный музыкальный подарок.</span>
         <Link
           className="relative group inline-block w-full py-4 px-6 text-center text-gray-50 hover:text-gray-900 bg-[#7CA200] font-semibold rounded-full overflow-hidden transition duration-200"
