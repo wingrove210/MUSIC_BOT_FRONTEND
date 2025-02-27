@@ -17,7 +17,7 @@ function App() {
   }, []);
   useEffect(() => {
     tg.ready();
-    tg.setHeaderColor("transparent"); // set the header transparent
+    tg.setHeaderColor("#474C2B"); // set the header transparent
     }, []);
   return (
           <Router>
