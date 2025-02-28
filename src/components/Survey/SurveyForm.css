@@ -72,3 +72,15 @@
    font-size: 0.8rem !important;
    font-weight: 400;
  }
+
+/* .custom-input:focus {
+  border-color: green !important;
+  outline-color: green !important;
+  box-shadow: 0 0 0 2px green;
+} */
+
+/* Add focus style to the form-field container */
+.form-field:focus-within {
+  border: 1px solid #474C2B !important;
+  box-shadow: 0 0 0 1px #474C2B;
+}
