@@ -8,6 +8,7 @@ export default function Form() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showError, setShowError] = useState(false);
+  const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdFzaWab9rqsbAqR9lB4zyKCtqGtuirNwBYQrAdU7xSi5h5XA/formResponse"; // update YOUR_FORM_ID and entry keys
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -36,6 +37,19 @@ Email: ${data.email}
           text: message,
           parse_mode: "Markdown",
         }),
+      });
+      
+      // Send data to Google Forms
+      await fetch(googleFormUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          'entry.563744323': data.name,     // update with your Google Forms field keys
+          'entry.454141103': data.email,
+          'entry.402198360': data.phone,
+          'entry.1717069934': data.telegram,
+        })
       });
       
       // Update Redux state if needed
