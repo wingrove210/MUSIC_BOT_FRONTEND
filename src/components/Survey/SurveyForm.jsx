@@ -10,7 +10,10 @@ const TelegramWebApp = window.Telegram.WebApp;
 
 // Declare a common field class for uniform styling.
 const fieldClass = "text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100 input-field";
-
+const shopId = "1034792";
+const amount = "5";
+const orderId = `ORDER_${Date.now()}`;
+const paymentUrl = `https://yoomoney.ru/quickpay/confirm.xml?receiver=${shopId}&sum=${amount}&label=${orderId}&quickpay-form=shop&paymentType=AC`;
 export default function SurveyForm({ price }) {
   const location = useLocation();
   const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
@@ -150,7 +153,7 @@ export default function SurveyForm({ price }) {
               [
                 {
                   text: `Оплатить ${totalPrice}₽`,
-                  url: "https://t.me/PATRIOT_MNGR",
+                  url: `${paymentUrl}`,
                 },
               ],
             ],
