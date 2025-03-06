@@ -201,11 +201,12 @@ export default function SurveyForm({ price }) {
   const payload = {
      title: "Title",
      description: "Description",
-     payload: `${message}`,
+     payload: "Hello",
      currency: 'RUB',
      prices: '10',
   } 
-  TelegramWebApp.sendData(`${payload}`)
+  // TelegramWebApp.sendData(`${payload}`)
+  console.log(payload)
     } catch (error) {
       console.error("Ошибка:", error);
       // alert("❌ Не удалось отправить данные.");
