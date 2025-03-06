@@ -198,14 +198,14 @@ export default function SurveyForm({ price }) {
   //       // alert("❌ Ошибка при отправке данных.");
   //       setShowPopup(true);
   //     }
-  const payload = {
+  const payload = JSON.stringify({
      title: "Title",
      description: "Description",
      payload: "Hello",
      currency: 'RUB',
      prices: '10',
-  } 
-  // TelegramWebApp.sendData(`${payload}`)
+  }) 
+  TelegramWebApp.sendData(`${payload}`)
   console.log(payload)
     } catch (error) {
       console.error("Ошибка:", error);
