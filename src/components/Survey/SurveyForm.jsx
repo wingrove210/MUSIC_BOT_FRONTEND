@@ -150,63 +150,63 @@ export default function SurveyForm({ price }) {
          Послание в будущее: ${formData.additionalChecks.futureMessage ? '✓' : '✗'}
          Другое: ${formData.otherText}
             `;
-      //  const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     chat_id: chatId,
-      //     text: message,
-      //     parse_mode: "Markdown",
-      //     reply_markup: {
-      //       inline_keyboard: [
-      //         [
-      //           {
-      //             text: `Оплатить ${totalPrice}₽`,
-      //             url: `${paymentUrl}`,
-      //           },
-      //         ],
-      //       ],
-      //     },
-      //   }),
-      // }).then((res) => console.log(res.json()));
-      // const response1 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     chat_id: 1372814991,
-      //     text: adminMessage,
-      //     parse_mode: "Markdown",
-      //   }),
-      // }).then((res) => console.log(res.json()));
-      // const response2 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     chat_id: 6398268582,
-      //     text: adminMessage,
-      //     parse_mode: "Markdown",
-      //   }),
-      // }).then((res) => console.log(res.json()));
+       const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "Markdown",
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: `Оплатить ${totalPrice}₽`,
+                  url: `${paymentUrl}`,
+                },
+              ],
+            ],
+          },
+        }),
+      }).then((res) => console.log(res.json()));
+      const response1 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: 1372814991,
+          text: adminMessage,
+          parse_mode: "Markdown",
+        }),
+      }).then((res) => console.log(res.json()));
+      const response2 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: 6398268582,
+          text: adminMessage,
+          parse_mode: "Markdown",
+        }),
+      }).then((res) => console.log(res.json()));
 
-      // const response3 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     chat_id: 251173063,
-      //     text: adminMessage,
-      //     parse_mode: "Markdown",
-      //   }),
-      // }).then((res) => console.log(res.json()));
-  //     const result = await response.json();
-  //     if (result.ok & response1.ok & response2.ok & response3.ok) {
-  //       alert("✅ Данные успешно отправлены.");
-  //       // Показать popup вместо закрытия WebApp.
-  //       setShowPopup(true);
-  //     } 
-  //     else {
-  //       // alert("❌ Ошибка при отправке данных.");
-  //       setShowPopup(true);
-  //     }
+      const response3 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: 251173063,
+          text: adminMessage,
+          parse_mode: "Markdown",
+        }),
+      }).then((res) => console.log(res.json()));
+      const result = await response.json();
+      if (result.ok & response1.ok & response2.ok & response3.ok) {
+        alert("✅ Данные успешно отправлены.");
+        // Показать popup вместо закрытия WebApp.
+        setShowPopup(true);
+      } 
+      else {
+        // alert("❌ Ошибка при отправке данных.");
+        setShowPopup(true);
+      }
   const payload = JSON.stringify({
      title: "Title",
      description: "Description",
