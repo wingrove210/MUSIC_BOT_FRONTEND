@@ -16,6 +16,13 @@ const orderId = `ORDER_${Date.now()}`;
 const paymentUrl = `https://yoomoney.ru/quickpay/confirm.xml?receiver=${shopId}&sum=${amount}&label=${orderId}&quickpay-form=shop&paymentType=AC`;
 export default function SurveyForm({ price }) {
   const location = useLocation();
+
+  // New useEffect to ensure Telegram WebApp is ready
+  useEffect(() => {
+    TelegramWebApp.ready();
+    console.log('TelegramWebApp is ready', TelegramWebApp.initDataUnsafe);
+  }, []);
+
   const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
   const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
   console.log('User data:', formDataFromRedux);
@@ -71,7 +78,9 @@ export default function SurveyForm({ price }) {
       const adminBotToken = '7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0';
 
       const botToken = '8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k';
-      const chatId = TelegramWebApp.initDataUnsafe.user?.id; // Получаем ID пользователя
+      // Use fallback: try to get user_id from URL query if not present in initDataUnsafe
+      const queryParams = new URLSearchParams(location.search);
+      const chatId = TelegramWebApp.initDataUnsafe.user?.id || queryParams.get('user_id');
       if (!chatId) {
         alert("Ошибка: Не удалось получить ваш Telegram ID.");
         return;
