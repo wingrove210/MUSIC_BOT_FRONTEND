@@ -76,55 +76,95 @@ export default function SurveyForm({ price }) {
     description = "Оплата услуги",
     currency = "RUB"
   ) => {
-    if (!amount) {
-      console.error("Ошибка: сумма платежа должна быть положительным числом");
+    if (!amount || isNaN(amount)) {
+      console.error("❌ Ошибка: сумма платежа должна быть положительным числом", amount);
       return null;
     }
-
+  
     try {
       const params = new URLSearchParams({
         amount: parseFloat(amount),
         currency,
         description,
       });
-
+  
+      console.log("📢 Отправка запроса на создание платежа:", params.toString());
+  
       const response = await axios.post(
         `http://127.0.0.1:8000/api/payment/create?${params.toString()}`
       );
-
-      console.log("Ссылка на оплату:", response.data.payment_link);
-      // return response.data.payment_link;
-      // window.location.href = response.data.payment_link;
-      setPaymentId(response.data.payment_response.id);
+  
+      console.log("📩 Ответ от API:", response.data);
+  
+      if (response.data && response.data.payment_link && response.data.payment_response?.id) {
+        console.log("✅ Получена ссылка на оплату:", response.data.payment_link);
+        setPaymentId(response.data.payment_response.id);
+  
+        // return {
+        //   paymentId: response.data.payment_response.id,
+        //   paymentLink: response.data.payment_link,
+        // };
+        // window.location.href = response.data.payment_link;
+        return response.data.payment_link;
+      } else {
+        console.error("❌ Ошибка: Некорректный ответ от API", response.data);
+        return null;
+      }
     } catch (error) {
-      console.error("Ошибка при создании платежа:", error);
+      console.error("🔥 Ошибка при создании платежа:", error.message);
       return null;
     }
   };
 
-
-  const checkPaymentStatus = async () => {
+  
+  // Проверяем оплату и отправляем форму только после подтверждения
+  const checkPaymentStatus = async (paymentId) => {
+    if (!paymentId) {
+      console.error("Ошибка: paymentId отсутствует.");
+      return;
+    }
+  
     try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/payment/check?payment_id=${paymentId}`
-      );
-      const paymentStatus = response.data.status; // Ожидаемый статус "succeeded"
-
-      if (paymentStatus === "succeeded") {
-        console.log("✅ Оплата прошла успешно!");
-        setIsPaymentPending(false);
-        handleSubmit()
-      } else {
-        console.log(
-          "⏳ Оплата еще не завершена, повторная проверка через 5 секунд..."
+      while (true) {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/payment/check?payment_id=${paymentId}`
         );
-        setTimeout(checkPaymentStatus, 5000); // Повторная проверка через 5 секунд
+        const paymentStatus = response.data.status;
+  
+        if (paymentStatus === "succeeded") {
+          console.log("✅ Оплата прошла успешно!");
+          setIsPaymentPending(false);
+  
+          // Теперь отправляем форму после успешной оплаты
+          handleSubmit();
+          break;
+        } else {
+          console.log("⏳ Оплата ещё не завершена, повторяем проверку через 5 секунд...");
+          await new Promise((resolve) => setTimeout(resolve, 5000));
+        }
       }
     } catch (error) {
       console.error("Ошибка при проверке статуса платежа:", error);
     }
   };
 
+  const processPaymentAndSubmit = async () => {
+    console.log("🛠 Начинаем процесс оплаты...");
+    
+    const paymentData = await createPaymentLink(totalPrice);
+    console.log("paymentData", paymentData);
+  
+    if (paymentData && paymentData.paymentLink) {
+      console.log("🔗 Ссылка на оплату получена:", paymentData.paymentLink);
+      
+      window.open(paymentData.paymentLink, "_blank"); // Открываем ссылку
+    
+      setIsPaymentPending(true);
+      checkPaymentStatus(paymentData.paymentId);
+    } else {
+      console.error("❌ Ошибка: paymentData не получены.");
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -307,7 +347,7 @@ export default function SurveyForm({ price }) {
         <div className="h-15">
           <BackButton />
         </div>
-        <form className="px-5 py-10 pb-[550px]">
+        <form className="px-5 py-10 pb-[550px]" onSubmit={handleSubmit}>
           {/* Updated custom radio group for formRole */}
           <h2 className="text-2xl text-center mb-5 font-header_form">
             Для кого
@@ -765,7 +805,7 @@ export default function SurveyForm({ price }) {
           <button
             type="submit"
             className="relative group inline-block w-full py-4 px-6 text-center text-gray-50 hover:text-gray-900 bg-[#7CA200] font-semibold rounded-full overflow-hidden transition duration-200"
-            onClick={handleSubmit}
+            onClick={processPaymentAndSubmit}
           >
             Отправить
           </button>
