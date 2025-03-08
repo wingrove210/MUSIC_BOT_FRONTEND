@@ -104,11 +104,6 @@ export default function SurveyForm({ price }) {
 
 
   const checkPaymentStatus = async () => {
-    // if (!paymentId) {
-    //   console.error("Нет paymentId для проверки статуса оплаты");
-    //   return;
-    // }
-
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/payment/check?payment_id=${paymentId}`
@@ -118,7 +113,7 @@ export default function SurveyForm({ price }) {
       if (paymentStatus === "succeeded") {
         console.log("✅ Оплата прошла успешно!");
         setIsPaymentPending(false);
-        // handleSubmit()
+        handleSubmit()
       } else {
         console.log(
           "⏳ Оплата еще не завершена, повторная проверка через 5 секунд..."
@@ -129,12 +124,6 @@ export default function SurveyForm({ price }) {
       console.error("Ошибка при проверке статуса платежа:", error);
     }
   };
-
-  // useEffect(() => {
-  //   if (paymentId) {
-  //     checkPaymentStatus();
-  //   }
-  // }, [paymentId, isPaymentPending]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -298,10 +287,13 @@ export default function SurveyForm({ price }) {
       setShowPopup(true);
     }
   };
-  // const sendFormData = () => {
-  //   if (isPaymentPending === false) {
-  //     handleSubmit();
-  //     console.log("Отправляем данные формы");
+  // const processPaymentAndSubmit = async () => {
+  //   const paymentId = await createPaymentLink(totalPrice);
+  //   if (paymentId) {
+  //     setIsPaymentPending(true);
+  //     checkPaymentStatus(paymentId);
+  //   } else {
+  //     console.error("❌ Ошибка: paymentId не получен.");
   //   }
   // };
   useEffect(() => {
@@ -315,7 +307,7 @@ export default function SurveyForm({ price }) {
         <div className="h-15">
           <BackButton />
         </div>
-        <form className="px-5 py-10 pb-[550px]" onSubmit={handleSubmit}>
+        <form className="px-5 py-10 pb-[550px]">
           {/* Updated custom radio group for formRole */}
           <h2 className="text-2xl text-center mb-5 font-header_form">
             Для кого
@@ -773,6 +765,7 @@ export default function SurveyForm({ price }) {
           <button
             type="submit"
             className="relative group inline-block w-full py-4 px-6 text-center text-gray-50 hover:text-gray-900 bg-[#7CA200] font-semibold rounded-full overflow-hidden transition duration-200"
+            onClick={handleSubmit}
           >
             Отправить
           </button>
