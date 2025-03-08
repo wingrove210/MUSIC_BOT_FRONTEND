@@ -169,10 +169,33 @@ export default function SurveyForm({ price, name }) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const message_data = {
+      "name": formDataFromRedux.name || "Не указано",
+      "email": formDataFromRedux.email || "Не указано",
+      "phone": formDataFromRedux.phone || "Не указано",
+      "telegram": formDataFromRedux.telegram || "Не указано",
+      "formRole": formData.formRole,
+      "songFor": formData.songFor,
+      "heroName": formData.heroName,
+      "heroOrigin": formData.heroOrigin,
+      "heroItem": formData.heroItem,
+      "job": formData.job,
+      "equipment": formData.equipment,
+      "motivation": formData.motivation,
+      "comrades": formData.comrades,
+      "moments": formData.moments,
+      "words": formData.words,
+      "additionalChecks": formData.additionalChecks,
+      "remembranceText": formData.remembranceText,
+      "personalMessageText": formData.personalMessageText,
+      "specialPhrasesText": formData.specialPhrasesText,
+      "futureMessageText": formData.futureMessageText,
+      "otherText": formData.otherText,
+    }
     const data = {
       "title": "Новая анкета",
 		"description": `Покупка песни. Тариф "${queryName}"`,
-		"payload": `${totalPrice}_amount`,
+		"payload": `${message_data}`,
 		"currency": "RUB",
 		"prices": `${totalPrice}`
     }
