@@ -6,7 +6,8 @@ import Reciepie from "../Reciepie"; // new import
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { selectForm } from "../../redux/form/selectors";
-import axios from "axios";
+import axios from "axios";\
+import { v4 as uuid4 } from "uuid";
 const TelegramWebApp = window.Telegram.WebApp;
 
 // Declare a common field class for uniform styling.
@@ -170,6 +171,7 @@ export default function SurveyForm({ price, name }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message_data = {
+      "id": `${uuid4()}`,
       "name": formDataFromRedux.name || "Не указано",
       "email": formDataFromRedux.email || "Не указано",
       "phone": formDataFromRedux.phone || "Не указано",
