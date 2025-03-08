@@ -195,7 +195,7 @@ export default function SurveyForm({ price, name }) {
     const data = {
       "title": "Новая анкета",
 		"description": `Покупка песни. Тариф "${queryName}"`,
-		"payload": `${message_data}`,
+		"payload": JSON.stringify(message_data),
 		"currency": "RUB",
 		"prices": `${totalPrice}`
     }
