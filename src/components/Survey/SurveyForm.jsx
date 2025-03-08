@@ -12,7 +12,7 @@ const TelegramWebApp = window.Telegram.WebApp;
 // Declare a common field class for uniform styling.
 const fieldClass =
   "text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100 input-field";
-export default function SurveyForm({ price }) {
+export default function SurveyForm({ price, name }) {
   const location = useLocation();
 
   // New useEffect to ensure Telegram WebApp is ready
@@ -21,8 +21,8 @@ export default function SurveyForm({ price }) {
     console.log("TelegramWebApp is ready", TelegramWebApp.initDataUnsafe);
   }, []);
 
-  const queryPrice =
-    Number(new URLSearchParams(location.search).get("price")) || price;
+  const queryPrice = Number(new URLSearchParams(location.search).get("price")) || price;
+  const queryName = new URLSearchParams(location.search).get("name") || name;
   const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
   console.log("User data:", formDataFromRedux);
   const [showPopup, setShowPopup] = useState(false);
@@ -171,7 +171,7 @@ export default function SurveyForm({ price }) {
     e.preventDefault();
     const data = {
       "title": "Новая анкета",
-		"description": "Покупка песни",
+		"description": `Покупка песни. Тариф "${queryName}"`,
 		"payload": `${totalPrice}_amount`,
 		"currency": "RUB",
 		"prices": `${totalPrice}`
