@@ -176,13 +176,9 @@ export default function SurveyForm({ price }) {
 		"currency": "RUB",
 		"prices": totalPrice
     }
-    axios.post(`${API_URL}/api/create-invoice`, {
-    params: {
-      web_app_data: `${data}`
-    }
-    }).finally((res) => {
+    axios.post(`${API_URL}/api/create-invoice?web_app_data=${data}`)
+    .finally((res) => {
       const invoice_url = res.data
-
       TelegramWebApp.openInvoice(invoice_url)
     })
 
