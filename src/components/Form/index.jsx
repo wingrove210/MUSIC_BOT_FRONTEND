@@ -8,7 +8,6 @@ export default function Form() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showError, setShowError] = useState(false);
-  const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdFzaWab9rqsbAqR9lB4zyKCtqGtuirNwBYQrAdU7xSi5h5XA/formResponse"; // update YOUR_FORM_ID and entry keys
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,16 +19,11 @@ export default function Form() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      // Send personal contact data separately to the admin bot
       const adminBotToken = '7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0';
-      const adminChatId = 1372814991; // The designated admin chat ID
-      const message = `Новая анкета контактов:
-Имя: ${data.name}
-Email: ${data.email}
-Телефон: ${data.phone}
-Телеграм: ${data.telegram}`;
+      const adminChatId = 1372814991;
+      const message = `🔔 *Новая заявка!*\n\n👤 *Контактные данные:*\n\n▫️ Имя: ${data.name}\n▫️ Email: ${data.email}\n▫️ Телефон: ${data.phone}\n▫️ Телеграм: ${data.telegram || 'Не указан'}`;
       
-      await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+      const response = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -38,26 +32,17 @@ Email: ${data.email}
           parse_mode: "Markdown",
         }),
       });
-      
-      // Send data to Google Forms
-      await fetch(googleFormUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          'entry.563744323': data.name,     // update with your Google Forms field keys
-          'entry.454141103': data.email,
-          'entry.402198360': data.phone,
-          'entry.1717069934': data.telegram,
-        })
-      });
-      
-      // Update Redux state if needed
+
+      if (!response.ok) {
+        throw new Error('Ошибка при отправке сообщения');
+      }
+
+      // Обновляем состояние Redux
       dispatch(updateForm(data));
-      // Redirect user to the pricing page for the next step (survey)
+      // Перенаправляем на страницу с ценами
       navigate("/pricing");
     } catch (error) {
-      console.error("Ошибка отправки контактов:", error);
+      console.error("Ошибка отправки данных:", error);
       setShowError(true);
     }
   };

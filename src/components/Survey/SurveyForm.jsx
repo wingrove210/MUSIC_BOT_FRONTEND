@@ -6,14 +6,12 @@ import Reciepie from '../Reciepie'; // new import
 import PropTypes from "prop-types";
 import { useSelector } from 'react-redux';
 import { selectForm } from '../../redux/form/selectors';
+import axios from 'axios';
 const TelegramWebApp = window.Telegram.WebApp;
+
 
 // Declare a common field class for uniform styling.
 const fieldClass = "text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100 input-field";
-const shopId = "1034792";
-const amount = "5.0";
-const orderId = `ORDER_${Date.now()}`;
-const paymentUrl = `https://yoomoney.ru/quickpay/confirm.xml?receiver=${shopId}&sum=${amount}&label=${orderId}&quickpay-form=shop&paymentType=AC`;
 export default function SurveyForm({ price }) {
   const location = useLocation();
 
@@ -22,6 +20,7 @@ export default function SurveyForm({ price }) {
     TelegramWebApp.ready();
     console.log('TelegramWebApp is ready', TelegramWebApp.initDataUnsafe);
   }, []);
+
 
   const queryPrice = Number(new URLSearchParams(location.search).get('price')) || price;
   const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
@@ -70,6 +69,34 @@ export default function SurveyForm({ price }) {
   //   }));
   // };
 
+  const createPaymentLink = async (amount, description = "Оплата услуги", currency = "RUB") => {
+    if (!amount || isNaN(amount) || amount <= 0) {
+        console.error("Ошибка: сумма платежа должна быть положительным числом");
+        return null;
+    }
+
+    try {
+        const params = new URLSearchParams({
+            amount: parseFloat(amount),
+            currency,
+            description
+        });
+
+        const response = await axios.post(`http://127.0.0.1:8000/api/payment/create?${params.toString()}`);
+        
+        console.log("Ссылка на оплату:", response.data.payment_link);
+        return response.data.payment_link;
+    } catch (error) {
+        console.error("Ошибка при создании платежа:", error);
+        return null;
+    }
+};
+
+  // useEffect(() => {
+  //     createPaymentLink(totalPrice);
+  // }, [totalPrice]);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -81,20 +108,14 @@ export default function SurveyForm({ price }) {
       // Use fallback: try to get user_id from URL query if not present in initDataUnsafe
       const queryParams = new URLSearchParams(location.search);
       const chatId = TelegramWebApp.initDataUnsafe.user?.id || queryParams.get('user_id');
-      if (!chatId) {
-        alert("Ошибка: Не удалось получить ваш Telegram ID.");
-        return;
-      }
 
-
-      
+      // Отправляем сообщения в Telegram
       const adminMessage = `
       📋 *Новая анкета*  
-      Имя: ${formDataFromRedux.name}
-      Email: ${formDataFromRedux.email}
-      Телефон: ${formDataFromRedux.phone}
-      Телеграм: ${formDataFromRedux.telegram}
-
+      Имя: ${formDataFromRedux.name || 'Не указано'}
+      Email: ${formDataFromRedux.email || 'Не указано'}
+      Телефон: ${formDataFromRedux.phone || 'Не указано'}
+      Телеграм: ${formDataFromRedux.telegram || 'Не указано'}
 
       • Кто заполняет форму: ${formData.formRole}  
       • Для кого создаётся песня: ${formData.songFor}  
@@ -157,16 +178,6 @@ export default function SurveyForm({ price }) {
           chat_id: chatId,
           text: message,
           parse_mode: "Markdown",
-          reply_markup: {
-            inline_keyboard: [
-              [
-                {
-                  text: `Оплатить ${totalPrice}₽`,
-                  url: `${paymentUrl}`,
-                },
-              ],
-            ],
-          },
         }),
       }).then((res) => console.log(res.json()));
       const response1 = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
@@ -199,14 +210,15 @@ export default function SurveyForm({ price }) {
       }).then((res) => console.log(res.json()));
       const result = await response.json();
       if (result.ok & response1.ok & response2.ok & response3.ok) {
-        alert("✅ Данные успешно отправлены.");
-        // Показать popup вместо закрытия WebApp.
+        // После успешной отправки данных перенаправляем на страницу оплаты
+        // window.location.href = paymentLink;
+      } else {
         setShowPopup(true);
       } 
-      else {
-        // alert("❌ Ошибка при отправке данных.");
-        setShowPopup(true);
-      }
+      // else {
+      //   // alert("❌ Ошибка при отправке данных.");
+      //   setShowPopup(true);
+      // }
   const payload = JSON.stringify({
      title: "Title",
      description: "Description",
@@ -215,10 +227,10 @@ export default function SurveyForm({ price }) {
      prices: '10',
   }) 
   TelegramWebApp.sendData(`${payload}`)
+
   console.log(payload)
     } catch (error) {
       console.error("Ошибка:", error);
-      // alert("❌ Не удалось отправить данные.");
       setShowPopup(true);
     }
   }
@@ -226,6 +238,7 @@ export default function SurveyForm({ price }) {
     setTotalPrice(queryPrice);
     console.log('Total price:', totalPrice);
   }, [queryPrice, totalPrice]);
+
   return (
     <>
       <div className={showPopup ? "blur-background" : ""}>
@@ -589,7 +602,12 @@ export default function SurveyForm({ price }) {
               </div>
             </div>   
           </div>
-          <button type="submit" className='relative group inline-block w-full py-4 px-6 text-center text-gray-50 hover:text-gray-900 bg-[#7CA200] font-semibold rounded-full overflow-hidden transition duration-200'>Отправить</button>
+          <button 
+            type="submit" 
+            className='relative group inline-block w-full py-4 px-6 text-center text-gray-50 hover:text-gray-900 bg-[#7CA200] font-semibold rounded-full overflow-hidden transition duration-200'
+          >
+            Отправить
+          </button>
         </form>
       </div>
       {showPopup && (
