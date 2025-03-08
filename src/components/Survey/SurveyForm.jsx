@@ -6,7 +6,7 @@ import Reciepie from "../Reciepie"; // new import
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { selectForm } from "../../redux/form/selectors";
-import axios from "axios";\
+import axios from "axios";
 import { v4 as uuid4 } from "uuid";
 const TelegramWebApp = window.Telegram.WebApp;
 
