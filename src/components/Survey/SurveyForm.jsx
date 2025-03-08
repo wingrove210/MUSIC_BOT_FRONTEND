@@ -174,7 +174,7 @@ export default function SurveyForm({ price }) {
 		"description": "Покупка песни",
 		"payload": `${totalPrice}_amount`,
 		"currency": "RUB",
-		"prices": totalPrice
+		"prices": `${totalPrice}`
     }
     axios.post(`${API_URL}/api/create-invoice?web_app_data=` + JSON.stringify(data))
     .then((res) => {
