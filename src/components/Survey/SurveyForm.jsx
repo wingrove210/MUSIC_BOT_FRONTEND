@@ -805,7 +805,7 @@ export default function SurveyForm({ price }) {
           <button
             type="submit"
             className="relative group inline-block w-full py-4 px-6 text-center text-gray-50 hover:text-gray-900 bg-[#7CA200] font-semibold rounded-full overflow-hidden transition duration-200"
-            onClick={processPaymentAndSubmit}
+            // onClick={handleSubmit}
           >
             Отправить
           </button>
