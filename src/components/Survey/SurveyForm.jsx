@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { selectForm } from "../../redux/form/selectors";
 import axios from "axios";
 const TelegramWebApp = window.Telegram.WebApp;
+const TelegramWebView = window.Telegram.WebView;
 
 // Declare a common field class for uniform styling.
 const fieldClass =
@@ -339,6 +340,12 @@ export default function SurveyForm({ price }) {
   useEffect(() => {
     setTotalPrice(queryPrice);
     console.log("Total price:", totalPrice);
+    // paymentEvent = TelegramWebView.recieveEvent("invoice_closed", {slug: "", status: ""});
+    window.addEventListener("invoice_closed", ({ event }) => {
+      const { slug, status } = JSON.parse(event);
+      console.log("Invoice closed:", slug, status);
+    })
+    
   }, [queryPrice, totalPrice]);
 
   return (
