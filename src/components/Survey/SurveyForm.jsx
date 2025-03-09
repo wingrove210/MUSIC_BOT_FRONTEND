@@ -380,7 +380,10 @@ export default function SurveyForm({ price, name }) {
     setTotalPrice(queryPrice);
     console.log("Total price:", totalPrice);
     // paymentEvent = TelegramWebView.recieveEvent("invoice_closed", {slug: "", status: ""});
-    console.log(TelegramWebView);
+    window.addEventListener("invoice_closed", ({ event }) => {
+      const { slug, status } = JSON.parse(event);
+      console.log("Invoice closed:", slug, status);
+    })
     
   }, [queryPrice, totalPrice]);
 
