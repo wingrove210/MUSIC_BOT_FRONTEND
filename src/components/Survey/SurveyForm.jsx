@@ -9,6 +9,7 @@ import { selectForm } from "../../redux/form/selectors";
 import axios from "axios";
 import { v4 as uuid4 } from "uuid";
 const TelegramWebApp = window.Telegram.WebApp;
+const TelegramWebView = window.Telegram.WebView;
 
 // Declare a common field class for uniform styling.
 const fieldClass =
@@ -378,6 +379,9 @@ export default function SurveyForm({ price, name }) {
   useEffect(() => {
     setTotalPrice(queryPrice);
     console.log("Total price:", totalPrice);
+    paymentEvent = TelegramWebView.recieveEvent("invoice_closed", {slug: "", status: ""});
+    console.log("Payment event:", paymentEvent);
+    
   }, [queryPrice, totalPrice]);
 
   return (
