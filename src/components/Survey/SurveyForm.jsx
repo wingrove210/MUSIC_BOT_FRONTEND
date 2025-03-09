@@ -379,8 +379,8 @@ export default function SurveyForm({ price, name }) {
   useEffect(() => {
     setTotalPrice(queryPrice);
     console.log("Total price:", totalPrice);
-    paymentEvent = TelegramWebView.recieveEvent("invoice_closed", {slug: "", status: ""});
-    console.log("Payment event:", paymentEvent);
+    // paymentEvent = TelegramWebView.recieveEvent("invoice_closed", {slug: "", status: ""});
+    console.log(TelegramWebView);
     
   }, [queryPrice, totalPrice]);
 
