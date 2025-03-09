@@ -25,8 +25,7 @@ export default function SurveyForm({ price, name }) {
 
   const queryPrice = Number(new URLSearchParams(location.search).get("price")) || price;
   const queryName = new URLSearchParams(location.search).get("name") || name;
-  const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
-  console.log("User data:", formDataFromRedux);
+  const formDataFromRedux = useSelector(selectForm);
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const API_URL = "https://api.skyrodev.ru"
