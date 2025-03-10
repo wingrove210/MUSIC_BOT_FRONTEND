@@ -101,7 +101,7 @@ export default function SurveyForm({ price, name }) {
                  "value": `${totalPrice}.00`,
                  "currency": "RUB"
               },
-              "vat_code": "1"
+              "vat_code": 1
             }
           ]
        }
