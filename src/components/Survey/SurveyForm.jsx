@@ -7,13 +7,14 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { selectForm } from "../../redux/form/selectors";
 import axios from "axios";
+import { v4 as uuid4 } from "uuid";
 const TelegramWebApp = window.Telegram.WebApp;
 const TelegramWebView = window.Telegram.WebView;
 
 // Declare a common field class for uniform styling.
 const fieldClass =
   "text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100 input-field";
-export default function SurveyForm({ price }) {
+export default function SurveyForm({ price, name }) {
   const location = useLocation();
 
   // New useEffect to ensure Telegram WebApp is ready
@@ -24,10 +25,11 @@ export default function SurveyForm({ price }) {
 
   const queryPrice = Number(new URLSearchParams(location.search).get("price")) || price;
   const queryName = new URLSearchParams(location.search).get("name") || name;
-  const formDataFromRedux = useSelector(selectForm);
+  const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
+  console.log("User data:", formDataFromRedux);
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
-  const [paymentId, setPaymentId] = useState(null);
+  const API_URL = "https://api.skyrodev.ru"
   const [isPaymentPending, setIsPaymentPending] = useState(false);
   const [formData, setFormData] = useState({
     formRole: "", // Кто заполняет форму?
@@ -91,7 +93,7 @@ export default function SurveyForm({ price }) {
       console.log("📢 Отправка запроса на создание платежа:", params.toString());
   
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/payment/create?${params.toString()}`
+        `${API_URL}/api/payment/create?${params.toString()}`
       );
   
       console.log("📩 Ответ от API:", response.data);
@@ -127,8 +129,10 @@ export default function SurveyForm({ price }) {
     try {
       while (true) {
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/payment/check?payment_id=${paymentId}`
-        );
+          `${API_URL}/api/payment/check?payment_id=${paymentId}`
+        ).then((res) => {
+          const status = res.data.status
+        });
         const paymentStatus = response.data.status;
   
         if (paymentStatus === "succeeded") {
@@ -167,165 +171,201 @@ export default function SurveyForm({ price }) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      // Define adminBotToken before using it
-      const adminBotToken = "7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0";
-
-      const botToken = "8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k";
-      // Use fallback: try to get user_id from URL query if not present in initDataUnsafe
-      const queryParams = new URLSearchParams(location.search);
-      const chatId =
-        TelegramWebApp.initDataUnsafe.user?.id || queryParams.get("user_id");
-      createPaymentLink(totalPrice);
-      // Отправляем сообщения в Telegram
-      const adminMessage = `
-      📋 *Новая анкета*  
-      Имя: ${formDataFromRedux.name || "Не указано"}
-      Email: ${formDataFromRedux.email || "Не указано"}
-      Телефон: ${formDataFromRedux.phone || "Не указано"}
-      Телеграм: ${formDataFromRedux.telegram || "Не указано"}
-
-      • Кто заполняет форму: ${formData.formRole}  
-      • Для кого создаётся песня: ${formData.songFor}  
-      
-      *О герое*  
-      1. Имя и позывное: ${formData.heroName}  
-      2. Родина: ${formData.heroOrigin}  
-      3. Особая вещь/символ: ${formData.heroItem}  
-      
-      *О службе*  
-      4. Чем занимается на передовой: ${formData.job}  
-      5. Техника/оружие: ${formData.equipment}  
-      
-      *О характере, мотивации и команде*  
-      6. Что даёт силу и мотивацию: ${formData.motivation}  
-      7. Боевые товарищи: ${formData.comrades}  
-      
-      *Личное послание в песню*  
-      8. Моменты из жизни героя: ${formData.moments}  
-      9. Важные слова или цитаты: ${formData.words}  
-      10. Дополнительно: 
-         Воспоминания о службе: ${
-           formData.additionalChecks.remembrance ? "✓" : "✗"
-         }
-         Личное обращение: ${
-           formData.additionalChecks.personalMessage ? "✓" : "✗"
-         }
-         Особые фразы: ${formData.additionalChecks.specialPhrases ? "✓" : "✗"}
-         Послание в будущее: ${
-           formData.additionalChecks.futureMessage ? "✓" : "✗"
-         }
-         Другое: ${formData.otherText}
-            `;
-      const message = `
-      📋 *Ваша анкета*  
-      • Кто заполняет форму: ${formData.formRole}  
-      • Для кого создаётся песня: ${formData.songFor}  
-      
-      *О герое*  
-      1. Имя и позывное: ${formData.heroName}  
-      2. Родина: ${formData.heroOrigin}  
-      3. Особая вещь/символ: ${formData.heroItem}  
-      
-      *О службе*  
-      4. Чем занимается на передовой: ${formData.job}  
-      5. Техника/оружие: ${formData.equipment}  
-      
-      *О характере, мотивации и команде*  
-      6. Что даёт силу и мотивацию: ${formData.motivation}  
-      7. Боевые товарищи: ${formData.comrades}  
-      
-      *Личное послание в песню*  
-      8. Моменты из жизни героя: ${formData.moments}  
-      9. Важные слова или цитаты: ${formData.words}  
-      10. Дополнительно: 
-         Воспоминания о службе: ${
-           formData.additionalChecks.remembrance ? "✓" : "✗"
-         }
-         Личное обращение: ${
-           formData.additionalChecks.personalMessage ? "✓" : "✗"
-         }
-         Особые фразы: ${formData.additionalChecks.specialPhrases ? "✓" : "✗"}
-         Послание в будущее: ${
-           formData.additionalChecks.futureMessage ? "✓" : "✗"
-         }
-         Другое: ${formData.otherText}
-            `;
-      const response = await fetch(
-        `https://api.telegram.org/bot${botToken}/sendMessage`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: "Markdown",
-          }),
-        }
-      ).then((res) => console.log(res.json()));
-      const response1 = await fetch(
-        `https://api.telegram.org/bot${adminBotToken}/sendMessage`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: 1372814991,
-            text: adminMessage,
-            parse_mode: "Markdown",
-          }),
-        }
-      ).then((res) => console.log(res.json()));
-      const response2 = await fetch(
-        `https://api.telegram.org/bot${adminBotToken}/sendMessage`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: 6398268582,
-            text: adminMessage,
-            parse_mode: "Markdown",
-          }),
-        }
-      ).then((res) => console.log(res.json()));
-
-      const response3 = await fetch(
-        `https://api.telegram.org/bot${adminBotToken}/sendMessage`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: 251173063,
-            text: adminMessage,
-            parse_mode: "Markdown",
-          }),
-        }
-      ).then((res) => console.log(res.json()));
-      const result = await response.json();
-      if (result.ok & response1.ok & response2.ok & response3.ok) {
-        // После успешной отправки данных перенаправляем на страницу оплаты
-        // window.location.href = paymentLink;
-      } else {
-        setShowPopup(true);
-      }
-      // else {
-      //   // alert("❌ Ошибка при отправке данных.");
-      //   setShowPopup(true);
-      // }
-      const payload = JSON.stringify({
-        title: "Title",
-        description: "Description",
-        payload: "Hello",
-        currency: "RUB",
-        prices: "10",
-      });
-      TelegramWebApp.sendData(`${payload}`);
-
-      console.log(payload);
-    } catch (error) {
-      console.error("Ошибка:", error);
-      setShowPopup(true);
+    const message_data = {
+      "id": `${uuid4()}`,
+      "name": formDataFromRedux.name || "Не указано",
+      "email": formDataFromRedux.email || "Не указано",
+      "phone": formDataFromRedux.phone || "Не указано",
+      "telegram": formDataFromRedux.telegram || "Не указано",
+      "formRole": formData.formRole,
+      "songFor": formData.songFor,
+      "heroName": formData.heroName,
+      "heroOrigin": formData.heroOrigin,
+      "heroItem": formData.heroItem,
+      "job": formData.job,
+      "equipment": formData.equipment,
+      "motivation": formData.motivation,
+      "comrades": formData.comrades,
+      "moments": formData.moments,
+      "words": formData.words,
+      "additionalChecks": formData.additionalChecks,
+      "remembranceText": formData.remembranceText,
+      "personalMessageText": formData.personalMessageText,
+      "specialPhrasesText": formData.specialPhrasesText,
+      "futureMessageText": formData.futureMessageText,
+      "otherText": formData.otherText,
     }
+    const data = {
+      "title": "Новая анкета",
+		"description": `Покупка песни. Тариф "${queryName}"`,
+		"payload": JSON.stringify(message_data),
+		"currency": "RUB",
+		"prices": `${totalPrice}`
+    }
+    axios.post(`${API_URL}/api/create-invoice?web_app_data=` + JSON.stringify(data))
+    .then((res) => {
+      const invoice_url = res.data
+      TelegramWebApp.openInvoice(invoice_url)
+    })
+
+    // try {
+    //   // Define adminBotToken before using it
+    //   const adminBotToken = "7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0";
+
+    //   const botToken = "8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k";
+    //   // Use fallback: try to get user_id from URL query if not present in initDataUnsafe
+    //   const queryParams = new URLSearchParams(location.search);
+    //   const chatId =
+    //     TelegramWebApp.initDataUnsafe.user?.id || queryParams.get("user_id");
+    //   createPaymentLink(totalPrice);
+    //   // Отправляем сообщения в Telegram
+    //   const adminMessage = `
+    //   📋 *Новая анкета*  
+    //   Имя: ${formDataFromRedux.name || "Не указано"}
+    //   Email: ${formDataFromRedux.email || "Не указано"}
+    //   Телефон: ${formDataFromRedux.phone || "Не указано"}
+    //   Телеграм: ${formDataFromRedux.telegram || "Не указано"}
+
+    //   • Кто заполняет форму: ${formData.formRole}  
+    //   • Для кого создаётся песня: ${formData.songFor}  
+      
+    //   *О герое*  
+    //   1. Имя и позывное: ${formData.heroName}  
+    //   2. Родина: ${formData.heroOrigin}  
+    //   3. Особая вещь/символ: ${formData.heroItem}  
+      
+    //   *О службе*  
+    //   4. Чем занимается на передовой: ${formData.job}  
+    //   5. Техника/оружие: ${formData.equipment}  
+      
+    //   *О характере, мотивации и команде*  
+    //   6. Что даёт силу и мотивацию: ${formData.motivation}  
+    //   7. Боевые товарищи: ${formData.comrades}  
+      
+    //   *Личное послание в песню*  
+    //   8. Моменты из жизни героя: ${formData.moments}  
+    //   9. Важные слова или цитаты: ${formData.words}  
+    //   10. Дополнительно: 
+    //      Воспоминания о службе: ${
+    //        formData.additionalChecks.remembrance ? "✓" : "✗"
+    //      }
+    //      Личное обращение: ${
+    //        formData.additionalChecks.personalMessage ? "✓" : "✗"
+    //      }
+    //      Особые фразы: ${formData.additionalChecks.specialPhrases ? "✓" : "✗"}
+    //      Послание в будущее: ${
+    //        formData.additionalChecks.futureMessage ? "✓" : "✗"
+    //      }
+    //      Другое: ${formData.otherText}
+    //         `;
+    //   const message = `
+    //   📋 *Ваша анкета*  
+    //   • Кто заполняет форму: ${formData.formRole}  
+    //   • Для кого создаётся песня: ${formData.songFor}  
+      
+    //   *О герое*  
+    //   1. Имя и позывное: ${formData.heroName}  
+    //   2. Родина: ${formData.heroOrigin}  
+    //   3. Особая вещь/символ: ${formData.heroItem}  
+      
+    //   *О службе*  
+    //   4. Чем занимается на передовой: ${formData.job}  
+    //   5. Техника/оружие: ${formData.equipment}  
+      
+    //   *О характере, мотивации и команде*  
+    //   6. Что даёт силу и мотивацию: ${formData.motivation}  
+    //   7. Боевые товарищи: ${formData.comrades}  
+      
+    //   *Личное послание в песню*  
+    //   8. Моменты из жизни героя: ${formData.moments}  
+    //   9. Важные слова или цитаты: ${formData.words}  
+    //   10. Дополнительно: 
+    //      Воспоминания о службе: ${
+    //        formData.additionalChecks.remembrance ? "✓" : "✗"
+    //      }
+    //      Личное обращение: ${
+    //        formData.additionalChecks.personalMessage ? "✓" : "✗"
+    //      }
+    //      Особые фразы: ${formData.additionalChecks.specialPhrases ? "✓" : "✗"}
+    //      Послание в будущее: ${
+    //        formData.additionalChecks.futureMessage ? "✓" : "✗"
+    //      }
+    //      Другое: ${formData.otherText}
+    //         `;
+    //   const response = await fetch(
+    //     `https://api.telegram.org/bot${botToken}/sendMessage`,
+    //     {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({
+    //         chat_id: chatId,
+    //         text: message,
+    //         parse_mode: "Markdown",
+    //       }),
+    //     }
+    //   ).then((res) => console.log(res.json()));
+    //   const response1 = await fetch(
+    //     `https://api.telegram.org/bot${adminBotToken}/sendMessage`,
+    //     {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({
+    //         chat_id: 1372814991,
+    //         text: adminMessage,
+    //         parse_mode: "Markdown",
+    //       }),
+    //     }
+    //   ).then((res) => console.log(res.json()));
+    //   const response2 = await fetch(
+    //     `https://api.telegram.org/bot${adminBotToken}/sendMessage`,
+    //     {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({
+    //         chat_id: 6398268582,
+    //         text: adminMessage,
+    //         parse_mode: "Markdown",
+    //       }),
+    //     }
+    //   ).then((res) => console.log(res.json()));
+
+    //   const response3 = await fetch(
+    //     `https://api.telegram.org/bot${adminBotToken}/sendMessage`,
+    //     {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({
+    //         chat_id: 251173063,
+    //         text: adminMessage,
+    //         parse_mode: "Markdown",
+    //       }),
+    //     }
+    //   ).then((res) => console.log(res.json()));
+    //   const result = await response.json();
+    //   if (result.ok & response1.ok & response2.ok & response3.ok) {
+    //     // После успешной отправки данных перенаправляем на страницу оплаты
+    //     // window.location.href = paymentLink;
+    //   } else {
+    //     setShowPopup(true);
+    //   }
+    //   // else {
+    //   //   // alert("❌ Ошибка при отправке данных.");
+    //   //   setShowPopup(true);
+    //   // }
+    //   const payload = JSON.stringify({
+    //     title: "Title",
+    //     description: "Description",
+    //     payload: "Hello",
+    //     currency: "RUB",
+    //     prices: "10",
+    //   });
+    //   TelegramWebApp.sendData(`${payload}`);
+
+    //   console.log(payload);
+    // } catch (error) {
+    //   console.error("Ошибка:", error);
+    //   setShowPopup(true);
+    // }
   };
   // const processPaymentAndSubmit = async () => {
   //   const paymentId = await createPaymentLink(totalPrice);
