@@ -96,9 +96,9 @@ export default function SurveyForm({ price, name }) {
           "items": [
             {
               "description": `Покупка песни. Тариф "${queryName}"`,
-              "quantity": "1.00",
+              "quantity": 1,
               "amount": {
-                 "value": `${totalPrice.toFixed(2)}`,
+                 "value": totalPrice,
                  "currency": "RUB"
               },
               "vat_code": 1

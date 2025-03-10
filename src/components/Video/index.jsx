@@ -19,7 +19,7 @@ function Video() {
   // Initialize Plyr once the video URL is available.
   useEffect(() => {
     if (!videoUrl) return;
-    const player = new Plyr('#player', { autoplay: true });
+    const player = new Plyr('#player', { autoplay: false });
     window.player = player;
     // Bind event listeners.
     function on(selector, type, callback) {
@@ -38,7 +38,7 @@ function Video() {
   return (
     <div className="container">
       <video controls crossOrigin="anonymous" playsInline poster="/poster.png" id="player">
-        <source src={videoUrl} type="video/mp4" size="576" />
+        <source src={videoUrl} type="video/mp4" size="576" au/>
       </video>
     </div>
   );
