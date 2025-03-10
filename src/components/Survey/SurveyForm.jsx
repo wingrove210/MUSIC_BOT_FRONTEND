@@ -9,7 +9,6 @@ import { selectForm } from "../../redux/form/selectors";
 import axios from "axios";
 import { v4 as uuid4 } from "uuid";
 const TelegramWebApp = window.Telegram.WebApp;
-const TelegramWebView = window.Telegram.WebView;
 
 // Declare a common field class for uniform styling.
 const fieldClass =
@@ -26,11 +25,9 @@ export default function SurveyForm({ price, name }) {
   const queryPrice = Number(new URLSearchParams(location.search).get("price")) || price;
   const queryName = new URLSearchParams(location.search).get("name") || name;
   const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
-  console.log("User data:", formDataFromRedux);
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const API_URL = "https://api.skyrodev.ru"
-  const [isPaymentPending, setIsPaymentPending] = useState(false);
   const [formData, setFormData] = useState({
     formRole: "", // Кто заполняет форму?
     songFor: "", // Для кого создаётся песня?
@@ -62,113 +59,6 @@ export default function SurveyForm({ price, name }) {
     setFormData({ ...formData, [name]: value });
   };
 
-  // const handleCheckboxChange = (e) => {
-  //   const { name, checked } = e.target;
-  //   setFormData(prev => ({
-  //     ...prev,
-  //     additionalChecks: {
-  //       ...prev.additionalChecks,
-  //       [name]: checked
-  //     }
-  //   }));
-  // };
-
-  const createPaymentLink = async (
-    amount,
-    description = "Оплата услуги",
-    currency = "RUB"
-  ) => {
-    if (!amount || isNaN(amount)) {
-      console.error("❌ Ошибка: сумма платежа должна быть положительным числом", amount);
-      return null;
-    }
-  
-    try {
-      const params = new URLSearchParams({
-        amount: parseFloat(amount),
-        currency,
-        description,
-      });
-  
-      console.log("📢 Отправка запроса на создание платежа:", params.toString());
-  
-      const response = await axios.post(
-        `${API_URL}/api/payment/create?${params.toString()}`
-      );
-  
-      console.log("📩 Ответ от API:", response.data);
-  
-      if (response.data && response.data.payment_link && response.data.payment_response?.id) {
-        console.log("✅ Получена ссылка на оплату:", response.data.payment_link);
-        setPaymentId(response.data.payment_response.id);
-  
-        // return {
-        //   paymentId: response.data.payment_response.id,
-        //   paymentLink: response.data.payment_link,
-        // };
-        // window.location.href = response.data.payment_link;
-        return response.data.payment_link;
-      } else {
-        console.error("❌ Ошибка: Некорректный ответ от API", response.data);
-        return null;
-      }
-    } catch (error) {
-      console.error("🔥 Ошибка при создании платежа:", error.message);
-      return null;
-    }
-  };
-
-  
-  // Проверяем оплату и отправляем форму только после подтверждения
-  const checkPaymentStatus = async (paymentId) => {
-    if (!paymentId) {
-      console.error("Ошибка: paymentId отсутствует.");
-      return;
-    }
-  
-    try {
-      while (true) {
-        const response = await axios.get(
-          `${API_URL}/api/payment/check?payment_id=${paymentId}`
-        ).then((res) => {
-          const status = res.data.status
-        });
-        const paymentStatus = response.data.status;
-  
-        if (paymentStatus === "succeeded") {
-          console.log("✅ Оплата прошла успешно!");
-          setIsPaymentPending(false);
-  
-          // Теперь отправляем форму после успешной оплаты
-          handleSubmit();
-          break;
-        } else {
-          console.log("⏳ Оплата ещё не завершена, повторяем проверку через 5 секунд...");
-          await new Promise((resolve) => setTimeout(resolve, 5000));
-        }
-      }
-    } catch (error) {
-      console.error("Ошибка при проверке статуса платежа:", error);
-    }
-  };
-
-  const processPaymentAndSubmit = async () => {
-    console.log("🛠 Начинаем процесс оплаты...");
-    
-    const paymentData = await createPaymentLink(totalPrice);
-    console.log("paymentData", paymentData);
-  
-    if (paymentData && paymentData.paymentLink) {
-      console.log("🔗 Ссылка на оплату получена:", paymentData.paymentLink);
-      
-      window.open(paymentData.paymentLink, "_blank"); // Открываем ссылку
-    
-      setIsPaymentPending(true);
-      checkPaymentStatus(paymentData.paymentId);
-    } else {
-      console.error("❌ Ошибка: paymentData не получены.");
-    }
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message_data = {
@@ -200,182 +90,29 @@ export default function SurveyForm({ price, name }) {
 		"description": `Покупка песни. Тариф "${queryName}"`,
 		"payload": JSON.stringify(message_data),
 		"currency": "RUB",
-		"prices": `${totalPrice}`
+		"prices": `${totalPrice}`,
+    "provider_data" : {
+       "receipt": {
+          "items": [
+            {
+              "description": `Покупка песни. Тариф "${queryName}"`,
+              "quantity": "1.00",
+              "amount": {
+                 "value": `${totalPrice}.00`,
+                 "currency": "RUB"
+              },
+              "vat_code": "1"
+            }
+          ]
+       }
+    }
     }
     axios.post(`${API_URL}/api/create-invoice?web_app_data=` + JSON.stringify(data))
     .then((res) => {
       const invoice_url = res.data
       TelegramWebApp.openInvoice(invoice_url)
     })
-
-    // try {
-    //   // Define adminBotToken before using it
-    //   const adminBotToken = "7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0";
-
-    //   const botToken = "8151650888:AAFSJqYDHUtrii-7WS8sBDgi0MGtmYosg9k";
-    //   // Use fallback: try to get user_id from URL query if not present in initDataUnsafe
-    //   const queryParams = new URLSearchParams(location.search);
-    //   const chatId =
-    //     TelegramWebApp.initDataUnsafe.user?.id || queryParams.get("user_id");
-    //   createPaymentLink(totalPrice);
-    //   // Отправляем сообщения в Telegram
-    //   const adminMessage = `
-    //   📋 *Новая анкета*  
-    //   Имя: ${formDataFromRedux.name || "Не указано"}
-    //   Email: ${formDataFromRedux.email || "Не указано"}
-    //   Телефон: ${formDataFromRedux.phone || "Не указано"}
-    //   Телеграм: ${formDataFromRedux.telegram || "Не указано"}
-
-    //   • Кто заполняет форму: ${formData.formRole}  
-    //   • Для кого создаётся песня: ${formData.songFor}  
-      
-    //   *О герое*  
-    //   1. Имя и позывное: ${formData.heroName}  
-    //   2. Родина: ${formData.heroOrigin}  
-    //   3. Особая вещь/символ: ${formData.heroItem}  
-      
-    //   *О службе*  
-    //   4. Чем занимается на передовой: ${formData.job}  
-    //   5. Техника/оружие: ${formData.equipment}  
-      
-    //   *О характере, мотивации и команде*  
-    //   6. Что даёт силу и мотивацию: ${formData.motivation}  
-    //   7. Боевые товарищи: ${formData.comrades}  
-      
-    //   *Личное послание в песню*  
-    //   8. Моменты из жизни героя: ${formData.moments}  
-    //   9. Важные слова или цитаты: ${formData.words}  
-    //   10. Дополнительно: 
-    //      Воспоминания о службе: ${
-    //        formData.additionalChecks.remembrance ? "✓" : "✗"
-    //      }
-    //      Личное обращение: ${
-    //        formData.additionalChecks.personalMessage ? "✓" : "✗"
-    //      }
-    //      Особые фразы: ${formData.additionalChecks.specialPhrases ? "✓" : "✗"}
-    //      Послание в будущее: ${
-    //        formData.additionalChecks.futureMessage ? "✓" : "✗"
-    //      }
-    //      Другое: ${formData.otherText}
-    //         `;
-    //   const message = `
-    //   📋 *Ваша анкета*  
-    //   • Кто заполняет форму: ${formData.formRole}  
-    //   • Для кого создаётся песня: ${formData.songFor}  
-      
-    //   *О герое*  
-    //   1. Имя и позывное: ${formData.heroName}  
-    //   2. Родина: ${formData.heroOrigin}  
-    //   3. Особая вещь/символ: ${formData.heroItem}  
-      
-    //   *О службе*  
-    //   4. Чем занимается на передовой: ${formData.job}  
-    //   5. Техника/оружие: ${formData.equipment}  
-      
-    //   *О характере, мотивации и команде*  
-    //   6. Что даёт силу и мотивацию: ${formData.motivation}  
-    //   7. Боевые товарищи: ${formData.comrades}  
-      
-    //   *Личное послание в песню*  
-    //   8. Моменты из жизни героя: ${formData.moments}  
-    //   9. Важные слова или цитаты: ${formData.words}  
-    //   10. Дополнительно: 
-    //      Воспоминания о службе: ${
-    //        formData.additionalChecks.remembrance ? "✓" : "✗"
-    //      }
-    //      Личное обращение: ${
-    //        formData.additionalChecks.personalMessage ? "✓" : "✗"
-    //      }
-    //      Особые фразы: ${formData.additionalChecks.specialPhrases ? "✓" : "✗"}
-    //      Послание в будущее: ${
-    //        formData.additionalChecks.futureMessage ? "✓" : "✗"
-    //      }
-    //      Другое: ${formData.otherText}
-    //         `;
-    //   const response = await fetch(
-    //     `https://api.telegram.org/bot${botToken}/sendMessage`,
-    //     {
-    //       method: "POST",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify({
-    //         chat_id: chatId,
-    //         text: message,
-    //         parse_mode: "Markdown",
-    //       }),
-    //     }
-    //   ).then((res) => console.log(res.json()));
-    //   const response1 = await fetch(
-    //     `https://api.telegram.org/bot${adminBotToken}/sendMessage`,
-    //     {
-    //       method: "POST",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify({
-    //         chat_id: 1372814991,
-    //         text: adminMessage,
-    //         parse_mode: "Markdown",
-    //       }),
-    //     }
-    //   ).then((res) => console.log(res.json()));
-    //   const response2 = await fetch(
-    //     `https://api.telegram.org/bot${adminBotToken}/sendMessage`,
-    //     {
-    //       method: "POST",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify({
-    //         chat_id: 6398268582,
-    //         text: adminMessage,
-    //         parse_mode: "Markdown",
-    //       }),
-    //     }
-    //   ).then((res) => console.log(res.json()));
-
-    //   const response3 = await fetch(
-    //     `https://api.telegram.org/bot${adminBotToken}/sendMessage`,
-    //     {
-    //       method: "POST",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify({
-    //         chat_id: 251173063,
-    //         text: adminMessage,
-    //         parse_mode: "Markdown",
-    //       }),
-    //     }
-    //   ).then((res) => console.log(res.json()));
-    //   const result = await response.json();
-    //   if (result.ok & response1.ok & response2.ok & response3.ok) {
-    //     // После успешной отправки данных перенаправляем на страницу оплаты
-    //     // window.location.href = paymentLink;
-    //   } else {
-    //     setShowPopup(true);
-    //   }
-    //   // else {
-    //   //   // alert("❌ Ошибка при отправке данных.");
-    //   //   setShowPopup(true);
-    //   // }
-    //   const payload = JSON.stringify({
-    //     title: "Title",
-    //     description: "Description",
-    //     payload: "Hello",
-    //     currency: "RUB",
-    //     prices: "10",
-    //   });
-    //   TelegramWebApp.sendData(`${payload}`);
-
-    //   console.log(payload);
-    // } catch (error) {
-    //   console.error("Ошибка:", error);
-    //   setShowPopup(true);
-    // }
   };
-  // const processPaymentAndSubmit = async () => {
-  //   const paymentId = await createPaymentLink(totalPrice);
-  //   if (paymentId) {
-  //     setIsPaymentPending(true);
-  //     checkPaymentStatus(paymentId);
-  //   } else {
-  //     console.error("❌ Ошибка: paymentId не получен.");
-  //   }
-  // };
   useEffect(() => {
     setTotalPrice(queryPrice);
     console.log("Total price:", totalPrice);
@@ -891,4 +628,5 @@ export default function SurveyForm({ price, name }) {
 
 SurveyForm.propTypes = {
   price: PropTypes.number,
+  name: PropTypes.string
 };
