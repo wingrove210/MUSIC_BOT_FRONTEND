@@ -101,9 +101,12 @@ export default function SurveyForm({ price, name }) {
                  "value": totalPrice,
                  "currency": "RUB"
               },
-              "vat_code": 1
+              "vat_code": 3,
+              "payment_mode": "full_payment",
+              "payment_subject": "commodity"
             }
-          ]
+          ],
+          "tax_system_code": 1
        }
     }
     }
