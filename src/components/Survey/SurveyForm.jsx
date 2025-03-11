@@ -115,7 +115,7 @@ export default function SurveyForm({ price, name }) {
         }
     }
     }
-    axios.post(`${API_URL}/api/create-invoice?web_app_data=` + JSON.stringify(data))
+    await axios.post(`${API_URL}/api/create-invoice?web_app_data=` + JSON.stringify(data))
     .then((res) => {
       const invoice_url = res.data
       TelegramWebApp.openInvoice(invoice_url)
