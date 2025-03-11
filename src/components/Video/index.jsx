@@ -8,7 +8,7 @@ function Video() {
 
   // Fetch video URL on mount.
   useEffect(() => {
-    fetch('https://patriot-music.online/videos/2')
+    fetch('https://patriot-music.online/api/videos/2')
       .then(response => response.json())
       .then(data => {
         setVideoUrl(data.url);
@@ -38,7 +38,7 @@ function Video() {
   return (
     <div className="container">
       <video controls crossOrigin="anonymous" playsInline poster="/poster.png" id="player">
-        <source src={videoUrl} type="video/mp4" size="576" au/>
+        <source src={videoUrl} type="video/mp4" size="576"/>
       </video>
     </div>
   );

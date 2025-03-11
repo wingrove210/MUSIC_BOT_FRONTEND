@@ -11,7 +11,7 @@ export default function Button() {
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
+    setIsModalOpen(false)
     console.log('close modal');
   };
 

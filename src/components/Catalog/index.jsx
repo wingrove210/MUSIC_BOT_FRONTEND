@@ -16,7 +16,7 @@ export default function Catalog() {
   const [showLoadingScreen, setShowLoadingScreen] = useState(true);
 
   useEffect(() => {
-    axios.get("https://patriot-music.online/tracks")
+    axios.get("https://patriot-music.online/api/tracks")
       .then((response) => {
         setProducts(response.data);
         setLoading(false);

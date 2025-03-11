@@ -27,7 +27,7 @@ export default function SurveyForm({ price, name }) {
   const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
-  const API_URL = "https://api.skyrodev.ru"
+  const API_URL = "https://patriot-music.online"
   const [formData, setFormData] = useState({
     formRole: "", // Кто заполняет форму?
     songFor: "", // Для кого создаётся песня?
