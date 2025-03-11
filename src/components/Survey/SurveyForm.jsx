@@ -84,6 +84,7 @@ export default function SurveyForm({ price, name }) {
       "specialPhrasesText": formData.specialPhrasesText,
       "futureMessageText": formData.futureMessageText,
       "otherText": formData.otherText,
+      "planName": queryName
     }
     const data = {
       "title": "Новая анкета",
