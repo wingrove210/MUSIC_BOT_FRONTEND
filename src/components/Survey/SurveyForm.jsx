@@ -87,26 +87,27 @@ export default function SurveyForm({ price, name }) {
     }
     const data = {
       "title": "Новая анкета",
-		"description": `Покупка песни. Тариф "${queryName}"`,
-		"payload": JSON.stringify(message_data),
-		"currency": "RUB",
-		"prices": `${totalPrice}`,
-    "provider_data" : {
-       "receipt": {
-          "items": [
-            {
-              "description": `Покупка песни. Тариф "${queryName}"`,
-              "quantity": 1,
-              "amount": {
-                 "value": `${totalPrice}.00`,
-                 "currency": "RUB"
-              },
-              "vat_code": 1,
-              "payment_mode": "full_prepayment",
-              "payment_subject": "service"
-            }
-          ]
-       }
+      "description": `Покупка песни. Тариф "${queryName}"`,
+      "payload": JSON.stringify(message_data),
+      "currency": "RUB",
+      "prices": `${totalPrice}`,
+      "provider_data" : {
+        "receipt" : {
+            "items" : [
+                {
+                  "description": `Покупка песни. Тариф "${queryName}"`,
+                    "quantity" : 1,
+                    "amount" : {
+                        "value" : totalPrice,
+                        "currency" : "RUB"
+                },
+                    "vat_code" : 1,
+                    "payment_mode" : "full_payment",
+                    "payment_subject" : "commodity"
+                }
+            ],
+            "tax_system_code" : 1
+        }
     }
     }
     axios.post(`${API_URL}/api/create-invoice?web_app_data=` + JSON.stringify(data))
