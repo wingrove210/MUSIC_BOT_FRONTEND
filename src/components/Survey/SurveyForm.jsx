@@ -7,12 +7,13 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { selectForm } from "../../redux/form/selectors";
 import axios from "axios";
+import { v4 as uuid4 } from "uuid";
 const TelegramWebApp = window.Telegram.WebApp;
 
 // Declare a common field class for uniform styling.
 const fieldClass =
   "text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100 input-field";
-export default function SurveyForm({ price }) {
+export default function SurveyForm({ price, name }) {
   const location = useLocation();
 
   // New useEffect to ensure Telegram WebApp is ready
@@ -21,14 +22,12 @@ export default function SurveyForm({ price }) {
     console.log("TelegramWebApp is ready", TelegramWebApp.initDataUnsafe);
   }, []);
 
-  const queryPrice =
-    Number(new URLSearchParams(location.search).get("price")) || price;
+  const queryPrice = Number(new URLSearchParams(location.search).get("price")) || price;
+  const queryName = new URLSearchParams(location.search).get("name") || name;
   const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
-  console.log("User data:", formDataFromRedux);
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
-  const [paymentId, setPaymentId] = useState(null);
-  const [isPaymentPending, setIsPaymentPending] = useState(false);
+  const API_URL = "https://api.skyrodev.ru"
   const [formData, setFormData] = useState({
     formRole: "", // Кто заполняет форму?
     songFor: "", // Для кого создаётся песня?
@@ -60,111 +59,6 @@ export default function SurveyForm({ price }) {
     setFormData({ ...formData, [name]: value });
   };
 
-  // const handleCheckboxChange = (e) => {
-  //   const { name, checked } = e.target;
-  //   setFormData(prev => ({
-  //     ...prev,
-  //     additionalChecks: {
-  //       ...prev.additionalChecks,
-  //       [name]: checked
-  //     }
-  //   }));
-  // };
-
-  const createPaymentLink = async (
-    amount,
-    description = "Оплата услуги",
-    currency = "RUB"
-  ) => {
-    if (!amount || isNaN(amount)) {
-      console.error("❌ Ошибка: сумма платежа должна быть положительным числом", amount);
-      return null;
-    }
-  
-    try {
-      const params = new URLSearchParams({
-        amount: parseFloat(amount),
-        currency,
-        description,
-      });
-  
-      console.log("📢 Отправка запроса на создание платежа:", params.toString());
-  
-      const response = await axios.post(
-        `http://127.0.0.1:8000/api/payment/create?${params.toString()}`
-      );
-  
-      console.log("📩 Ответ от API:", response.data);
-  
-      if (response.data && response.data.payment_link && response.data.payment_response?.id) {
-        console.log("✅ Получена ссылка на оплату:", response.data.payment_link);
-        setPaymentId(response.data.payment_response.id);
-  
-        // return {
-        //   paymentId: response.data.payment_response.id,
-        //   paymentLink: response.data.payment_link,
-        // };
-        // window.location.href = response.data.payment_link;
-        return response.data.payment_link;
-      } else {
-        console.error("❌ Ошибка: Некорректный ответ от API", response.data);
-        return null;
-      }
-    } catch (error) {
-      console.error("🔥 Ошибка при создании платежа:", error.message);
-      return null;
-    }
-  };
-
-  
-  // Проверяем оплату и отправляем форму только после подтверждения
-  const checkPaymentStatus = async (paymentId) => {
-    if (!paymentId) {
-      console.error("Ошибка: paymentId отсутствует.");
-      return;
-    }
-  
-    try {
-      while (true) {
-        const response = await axios.get(
-          `http://127.0.0.1:8000/api/payment/check?payment_id=${paymentId}`
-        );
-        const paymentStatus = response.data.status;
-  
-        if (paymentStatus === "succeeded") {
-          console.log("✅ Оплата прошла успешно!");
-          setIsPaymentPending(false);
-  
-          // Теперь отправляем форму после успешной оплаты
-          handleSubmit();
-          break;
-        } else {
-          console.log("⏳ Оплата ещё не завершена, повторяем проверку через 5 секунд...");
-          await new Promise((resolve) => setTimeout(resolve, 5000));
-        }
-      }
-    } catch (error) {
-      console.error("Ошибка при проверке статуса платежа:", error);
-    }
-  };
-
-  const processPaymentAndSubmit = async () => {
-    console.log("🛠 Начинаем процесс оплаты...");
-    
-    const paymentData = await createPaymentLink(totalPrice);
-    console.log("paymentData", paymentData);
-  
-    if (paymentData && paymentData.paymentLink) {
-      console.log("🔗 Ссылка на оплату получена:", paymentData.paymentLink);
-      
-      window.open(paymentData.paymentLink, "_blank"); // Открываем ссылку
-    
-      setIsPaymentPending(true);
-      checkPaymentStatus(paymentData.paymentId);
-    } else {
-      console.error("❌ Ошибка: paymentData не получены.");
-    }
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message_data = {
@@ -204,15 +98,14 @@ export default function SurveyForm({ price }) {
               "description": `Покупка песни. Тариф "${queryName}"`,
               "quantity": 1,
               "amount": {
-                 "value": totalPrice,
+                 "value": `${totalPrice}.00`,
                  "currency": "RUB"
               },
-              "vat_code": 3,
-              "payment_mode": "full_payment",
-              "payment_subject": "commodity"
+              "vat_code": 1,
+              "payment_mode": "full_prepayment",
+              "payment_subject": "service"
             }
-          ],
-          "tax_system_code": 1
+          ]
        }
     }
     }
@@ -225,6 +118,12 @@ export default function SurveyForm({ price }) {
   useEffect(() => {
     setTotalPrice(queryPrice);
     console.log("Total price:", totalPrice);
+    // paymentEvent = TelegramWebView.recieveEvent("invoice_closed", {slug: "", status: ""});
+    window.addEventListener("invoice_closed", ({ event }) => {
+      const { slug, status } = JSON.parse(event);
+      console.log("Invoice closed:", slug, status);
+    })
+    
   }, [queryPrice, totalPrice]);
 
   return (
@@ -731,4 +630,5 @@ export default function SurveyForm({ price }) {
 
 SurveyForm.propTypes = {
   price: PropTypes.number,
+  name: PropTypes.string
 };
