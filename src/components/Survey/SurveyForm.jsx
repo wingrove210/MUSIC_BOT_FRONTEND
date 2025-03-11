@@ -92,6 +92,10 @@ export default function SurveyForm({ price, name }) {
       "currency": "RUB",
       "prices": `${totalPrice}`,
       "provider_data" : {
+        "customer": {
+          "full_name": message_data.name,
+          "email": message_data.email
+        },
         "receipt" : {
             "items" : [
                 {
