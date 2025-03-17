@@ -82,3 +82,10 @@ img {
 .song p {
   opacity: 0.8;
 }
+
+.track-divider {
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  margin: 20px 0;
+}
