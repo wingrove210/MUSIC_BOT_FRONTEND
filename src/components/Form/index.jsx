@@ -20,7 +20,7 @@ export default function Form() {
 
     try {
       const adminBotToken = '7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0';
-      const adminChatIds = [1372814991, 640128457, 251173063];
+      const adminChatIds = [1372814991, 251173063];
       const message = `🔔 *Новая заявка!*\n\n👤 *Контактные данные:*\n\n▫️ Имя: ${data.name}\n▫️ Email: ${data.email}\n▫️ Телефон: ${data.phone}\n▫️ Телеграм: ${data.telegram || 'Не указан'}`;
       
       // Отправляем сообщение всем администраторам
