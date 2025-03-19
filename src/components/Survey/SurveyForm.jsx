@@ -49,10 +49,10 @@ export default function SurveyForm({ price, name }) {
     moments: "",
     words: "", // already used in question 9
     additionalChecks: {
-      remembrance: "",
-      personalMessage: "",
-      specialPhrases: "",
-      futureMessage: "",
+      remembrance: false,
+      personalMessage: false,
+      specialPhrases: false,
+      futureMessage: false,
     },
     // New fields for "Что ещё нужно передать?"
     remembranceText: "",
