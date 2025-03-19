@@ -91,7 +91,7 @@ export default function Catalog() {
                 />
                 {index === 1 && <div className="section-price">5 000₽</div>}
                 {index === 3 && <div className="section-price">10 000₽</div>}
-                {index === 5 && <div className="section-price">85 000₽</div>}
+                {index === 5 && <div className="section-price"></div>}
               </div>
               {(index + 1) % 2 === 0 && index !== products.length - 1 && (
                 <div className="track-divider" />
