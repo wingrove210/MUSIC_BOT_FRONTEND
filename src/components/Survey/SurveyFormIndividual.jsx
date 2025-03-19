@@ -98,7 +98,7 @@ export default function SurveyForm({ price, name }) {
 
     try {
       const adminBotToken = '7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0';
-      const adminChatIds = [1372814991, 251173063];
+      const adminChatIds = [1372814991, 251173063, 6398268582];
 
       // Формируем сообщение для отправки
       const messageText = `🎵 *Новая анкета для песни!*\n\n` +
