@@ -20,21 +20,27 @@ export default function Form() {
 
     try {
       const adminBotToken = '7683789001:AAGw-K5_wWnvmHPvtC6fRX-Cm7H45B-Gmf0';
-      const adminChatId = 1372814991;
+      const adminChatIds = [1372814991, 640128457, 251173063];
       const message = `🔔 *Новая заявка!*\n\n👤 *Контактные данные:*\n\n▫️ Имя: ${data.name}\n▫️ Email: ${data.email}\n▫️ Телефон: ${data.phone}\n▫️ Телеграм: ${data.telegram || 'Не указан'}`;
       
-      const response = await fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: adminChatId,
-          text: message,
-          parse_mode: "Markdown",
-        }),
-      });
+      // Отправляем сообщение всем администраторам
+      const sendPromises = adminChatIds.map(chatId => 
+        fetch(`https://api.telegram.org/bot${adminBotToken}/sendMessage`, {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: "Markdown",
+          }),
+        })
+      );
 
-      if (!response.ok) {
-        throw new Error('Ошибка при отправке сообщения');
+      const responses = await Promise.all(sendPromises);
+      const failedResponses = responses.filter(response => !response.ok);
+      
+      if (failedResponses.length > 0) {
+        throw new Error('Ошибка при отправке некоторых сообщений');
       }
 
       // Обновляем состояние Redux
