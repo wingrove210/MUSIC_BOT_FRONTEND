@@ -10,6 +10,12 @@ import axios from "axios";
 import { v4 as uuid4 } from "uuid";
 const TelegramWebApp = window.Telegram.WebApp;
 
+function ErrorMessage({ message }) {
+  return (
+    <div className="text-red-500 text-sm font-semibold mt-2 fixed px-1 w-full">{message}</div>
+  );
+}
+
 // Declare a common field class for uniform styling.
 const fieldClass =
   "text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100 input-field";
@@ -22,12 +28,14 @@ export default function SurveyForm({ price, name }) {
     console.log("TelegramWebApp is ready", TelegramWebApp.initDataUnsafe);
   }, []);
 
-  const queryPrice = Number(new URLSearchParams(location.search).get("price")) || price;
+  const queryPrice =
+    Number(new URLSearchParams(location.search).get("price")) || price;
   const queryName = new URLSearchParams(location.search).get("name") || name;
   const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
-  const API_URL = "https://patriot-music.online"
+  const [error, setError] = useState(null);
+  const API_URL = "https://patriot-music.online";
   const [formData, setFormData] = useState({
     formRole: "", // Кто заполняет форму?
     songFor: "", // Для кого создаётся песня?
@@ -41,10 +49,10 @@ export default function SurveyForm({ price, name }) {
     moments: "",
     words: "", // already used in question 9
     additionalChecks: {
-      remembrance: false,
-      personalMessage: false,
-      specialPhrases: false,
-      futureMessage: false,
+      remembrance: "",
+      personalMessage: "",
+      specialPhrases: "",
+      futureMessage: "",
     },
     // New fields for "Что ещё нужно передать?"
     remembranceText: "",
@@ -62,64 +70,80 @@ export default function SurveyForm({ price, name }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message_data = {
-      "id": `${uuid4()}`,
-      "name": formDataFromRedux.name || "Не указано",
-      "email": formDataFromRedux.email || "Не указано",
-      "phone": formDataFromRedux.phone || "Не указано",
-      "telegram": formDataFromRedux.telegram || "Не указано",
-      "formRole": formData.formRole,
-      "songFor": formData.songFor,
-      "heroName": formData.heroName,
-      "heroOrigin": formData.heroOrigin,
-      "heroItem": formData.heroItem,
-      "job": formData.job,
-      "equipment": formData.equipment,
-      "motivation": formData.motivation,
-      "comrades": formData.comrades,
-      "moments": formData.moments,
-      "words": formData.words,
-      "additionalChecks": formData.additionalChecks,
-      "remembranceText": formData.remembranceText,
-      "personalMessageText": formData.personalMessageText,
-      "specialPhrasesText": formData.specialPhrasesText,
-      "futureMessageText": formData.futureMessageText,
-      "otherText": formData.otherText,
-      "planName": queryName
-    }
-    const data = {
-      "title": "Новая анкета",
-      "description": `Покупка песни. Тариф "${queryName}"`,
-      "payload": JSON.stringify(message_data),
-      "currency": "RUB",
-      "prices": `${totalPrice}`,
-      "provider_data" : {
-        "customer": {
-          "full_name": message_data.name,
-          "email": message_data.email
-        },
-        "receipt" : {
-            "items" : [
+      id: `${uuid4()}`,
+      name: formDataFromRedux.name || "Не указано",
+      email: formDataFromRedux.email || "Не указано",
+      phone: formDataFromRedux.phone || "Не указано",
+      telegram: formDataFromRedux.telegram || "Не указано",
+      formRole: formData.formRole || "Не указано",
+      songFor: formData.songFor || "Не указано",
+      heroName: formData.heroName || "Не указано",
+      heroOrigin: formData.heroOrigin || "Не указано",
+      heroItem: formData.heroItem || "Не указано",
+      job: formData.job || "Не указано",
+      equipment: formData.equipment || "Не указано",
+      motivation: formData.motivation || "Не указано",
+      comrades: formData.comrades || "Не указано",
+      moments: formData.moments || "Не указано",
+      words: formData.words || "Не указано",
+      additionalChecks: formData.additionalChecks || "Не указано",
+      remembranceText: formData.remembranceText || "Не указано",
+      personalMessageText: formData.personalMessageText || "Не указано",
+      specialPhrasesText: formData.specialPhrasesText || "Не указано",
+      futureMessageText: formData.futureMessageText || "Не указано",
+      otherText: formData.otherText || "Не указано",
+      planName: queryName || "Не указано",
+    };
+    
+    await axios
+      .post(`${API_URL}/api/save-data`, message_data)
+      .then(async (e) => {
+        const response = e.data;
+        console.log("Response:", response.payload);
+        const data = {
+          title: "Новая анкета",
+          description: `Покупка песни. Тариф "${queryName}"`,
+          payload: response.payload,
+          currency: "RUB",
+          prices: `${totalPrice}`,
+          provider_data: {
+            customer: {
+              full_name: message_data.name,
+              email: message_data.email,
+            },
+            receipt: {
+              items: [
                 {
-                  "description": `Покупка песни. Тариф "${queryName}"`,
-                    "quantity" : 1,
-                    "amount" : {
-                        "value" : totalPrice,
-                        "currency" : "RUB"
+                  description: `Покупка песни. Тариф "${queryName}"`,
+                  quantity: 1,
+                  amount: {
+                    value: totalPrice,
+                    currency: "RUB",
+                  },
+                  vat_code: 1,
+                  payment_mode: "full_payment",
+                  payment_subject: "commodity",
                 },
-                    "vat_code" : 1,
-                    "payment_mode" : "full_payment",
-                    "payment_subject" : "commodity"
-                }
-            ],
-            "tax_system_code" : 1
+              ],
+              tax_system_code: 1,
+            },
+          },
+        };
+        if (response.ok) {
+          await axios
+            .post(
+              `${API_URL}/api/create-invoice?web_app_data=` +
+                JSON.stringify(data)
+            )
+            .then((res) => {
+              const invoice_url = res.data;
+              TelegramWebApp.openInvoice(invoice_url);
+            });
+        } else {
+          console.error("Error:", response.error);
+          setError(response.error);
         }
-    }
-    }
-    await axios.post(`${API_URL}/api/create-invoice?web_app_data=` + JSON.stringify(data))
-    .then((res) => {
-      const invoice_url = res.data
-      TelegramWebApp.openInvoice(invoice_url)
-    })
+      });
   };
   useEffect(() => {
     setTotalPrice(queryPrice);
@@ -128,13 +152,13 @@ export default function SurveyForm({ price, name }) {
     window.addEventListener("invoice_closed", ({ event }) => {
       const { slug, status } = JSON.parse(event);
       console.log("Invoice closed:", slug, status);
-    })
-    
+    });
   }, [queryPrice, totalPrice]);
 
   return (
     <>
       <div className={showPopup ? "blur-background" : ""}>
+        {error && <ErrorMessage message={error} />}
         <div className="h-15">
           <BackButton />
         </div>
@@ -636,5 +660,5 @@ export default function SurveyForm({ price, name }) {
 
 SurveyForm.propTypes = {
   price: PropTypes.number,
-  name: PropTypes.string
+  name: PropTypes.string,
 };
