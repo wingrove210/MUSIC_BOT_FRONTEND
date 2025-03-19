@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./SurveyForm.css";
 import BackButton from "../ButtonBack";
 import Reciepie from "../Reciepie"; // new import
@@ -21,6 +21,7 @@ const fieldClass =
   "text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100 input-field";
 export default function SurveyForm({ price, name }) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   // New useEffect to ensure Telegram WebApp is ready
   useEffect(() => {
@@ -148,9 +149,6 @@ export default function SurveyForm({ price, name }) {
       // Сохраняем данные в API
       await axios.post(`${API_URL}/api/save-data`, message_data);
       
-      // Показываем уведомление об успешной отправке
-      alert('Анкета успешно отправлена!');
-      
       // Очищаем форму
       setFormData({
         formRole: "",
@@ -176,6 +174,9 @@ export default function SurveyForm({ price, name }) {
         futureMessageText: "",
         otherText: "",
       });
+
+      // Перенаправляем на страницу pricing
+      navigate("/pricing");
 
     } catch (error) {
       console.error("Ошибка отправки данных:", error);
