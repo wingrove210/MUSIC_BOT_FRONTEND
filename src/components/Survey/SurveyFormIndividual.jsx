@@ -10,11 +10,6 @@ import axios from "axios";
 import { v4 as uuid4 } from "uuid";
 const TelegramWebApp = window.Telegram.WebApp;
 
-function ErrorMessage({ message }) {
-  return (
-    <div className="text-red-500 text-sm font-semibold mt-2 fixed px-1 w-full">{message}</div>
-  );
-}
 
 // Declare a common field class for uniform styling.
 const fieldClass =
@@ -36,7 +31,8 @@ export default function SurveyForm({ price, name }) {
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [error, setError] = useState(null);
-  const API_URL = "https://patriot-music.online";
+  // const API_URL = "https://patriot-music.online";
+  const API_URL = "https://api.skyrodev.ru"
   const [formData, setFormData] = useState({
     formRole: "", // Кто заполняет форму?
     songFor: "", // Для кого создаётся песня?
@@ -196,7 +192,7 @@ export default function SurveyForm({ price, name }) {
   return (
     <>
       <div className={showPopup ? "blur-background" : ""}>
-        {error && <ErrorMessage message={error} />}
+        
         <div className="h-15">
           <BackButton />
         </div>
