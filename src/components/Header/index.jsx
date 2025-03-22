@@ -21,7 +21,7 @@ export default function Header() {
         </label>
       </div>
       <div className='logo-container'>
-        <img src={logo} alt="Logo" className='logo'/>
+        <img src={logo || null} alt="Logo" className='logo'/>
       </div>
       <Menu isOpen={isMenuOpen} />
     </div>

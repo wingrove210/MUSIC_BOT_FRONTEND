@@ -120,9 +120,9 @@ export default function Player({ track, audio, onPrevious, onNext }) {
           <div id="player-content">
             <div id="album-art">
               {track.image ? (
-                <img src={track.image} className="active" alt={track.name} onError={(e) => e.target.src = svo_photo} />
+                <img src={track.image || null} className="active" alt={track.name} onError={(e) => e.target.src = svo_photo} />
               ) : (
-                <img src={svo_photo} className="placeholder" alt="default" />
+                <img src={svo_photo || null} className="placeholder" alt="default" />
               )}
               <div id="buffer-box">Buffering ...</div>
             </div>

@@ -7,9 +7,13 @@ import Player from "../components/Player";
 import '../index.css';
 // import Button from "../components/Button";
 import Layout from '../components/Layout';
+import LoadingScreen from "../components/LoadingScreen";
+import { useDispatch, useSelector } from "react-redux";
+import { setTracks } from "../redux/tracks/slice";
+import { selectTracks } from "../redux/tracks/selectors"
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -19,15 +23,16 @@ export default function Home() {
     axios
       .get("https://patriot-music.online/api/tracks")
       .then((response) => {
-        setProducts(response.data);
+        dispatch(setTracks(response.data));
         setLoading(false);
       })
       .catch((err) => {
         setError("Ошибка при загрузке товаров");
         setLoading(false);
-        console.log(err);
       });
-  }, []);
+  }, [dispatch]);
+  
+  const tracks = useSelector(selectTracks);
 
   const playTrack = (track) => {
     if (currentTrack) {
@@ -48,19 +53,21 @@ export default function Home() {
   }, [currentTrack]);
 
   return (
-    <Layout>
+
       <div className="">
-        <Video />
         {loading ? (
-          <p>Загрузка товаров...</p>
+          // <p>Загрузка товаров...</p>
+          <LoadingScreen/>
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          <Catalog products={products} playTrack={playTrack} />
+          <Layout>
+              <Video />
+              <Catalog products={tracks} playTrack={playTrack} />
+          </Layout>
         )}
         {/* <Button /> */}
         <Player/>
       </div>
-    </Layout>
   );
 }

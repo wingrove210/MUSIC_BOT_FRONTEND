@@ -33,7 +33,7 @@ export default function Detail() {
       <p><strong>Album:</strong> {product.album}</p>
       <p><strong>Genre:</strong> {product.genre}</p>
       <audio controls className="w-full mt-4">
-        <source src={`https://patriot-music.online/api/${product.url}`} type="audio/mpeg" />
+        <source src={`https://patriot-music.online/api/${product.url || null}`} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
       {/* Добавим другие детали товара */}

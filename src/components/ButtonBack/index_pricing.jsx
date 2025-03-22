@@ -22,7 +22,7 @@ export default function BackButton_Pricing() {
         </Link>
       </div>
       <div className='flex-grow text-center'>
-        <img src={logo} alt="Logo" className='inline-block' style={{ height: '80px', width: 'auto' }}/>
+        <img src={logo || null} alt="Logo" className='inline-block' style={{ height: '80px', width: 'auto' }}/>
       </div>
     </div>
   );

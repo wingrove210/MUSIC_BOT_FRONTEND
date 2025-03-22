@@ -11,7 +11,7 @@ function TrackBlock({ product, onClick, isPlaying }) {
   return (
     <div className={`song ${isPlaying ? 'playing' : ''}`} onClick={onClick}>
       <div className="song-img">
-        <img src={product.image} alt={product.name} className="h-12 w-full bg-black" />
+        <img src={product.image || null} alt={product.name} className="h-12 w-full bg-black" />
         <div className="overlay">
           <i className="fa-solid fa-play"></i>
         </div>

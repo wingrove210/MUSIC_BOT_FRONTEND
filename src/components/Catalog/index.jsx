@@ -1,39 +1,22 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import './index.css';
 import TrackBlock from "../TrackBlock";
 import Player from "../Player";
-import LoadingScreen from "../LoadingScreen";
-import ErrorPreloader from "../ErrorPreloader"; // Import the new ErrorPreloader component
-import EmptyItems from "../EmptyItems";
 import Button from "../Button";
-export default function Catalog() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+import EmptyItems from "../EmptyItems";
+
+export default function Catalog(products) {
+  const [tracks, setTracks] = useState(products.products); 
   const [currentTrack, setCurrentTrack] = useState(null);
   const [currentTrackDetails, setCurrentTrackDetails] = useState({});
-  const [showLoadingScreen, setShowLoadingScreen] = useState(true);
 
-  useEffect(() => {
-    axios.get("https://patriot-music.online/api/tracks")
-      .then((response) => {
-        setProducts(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(true); // Set error to true
-        setLoading(false);
-        console.log(err);
-      });
-  }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLoadingScreen(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowLoadingScreen(false);
+  //   }, 3000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   const playTrack = (track) => {
     if (currentTrack) {
@@ -47,18 +30,18 @@ export default function Catalog() {
 
   const playPreviousTrack = () => {
     if (currentTrackDetails) {
-      const currentIndex = products.findIndex(product => product.id === currentTrackDetails.id);
+      const currentIndex = tracks.findIndex(product => product.id === currentTrackDetails.id);
       if (currentIndex > 0) {
-        playTrack(products[currentIndex - 1]);
+        playTrack(tracks[currentIndex - 1]);
       }
     }
   };
 
   const playNextTrack = () => {
     if (currentTrackDetails) {
-      const currentIndex = products.findIndex(product => product.id === currentTrackDetails.id);
-      if (currentIndex < products.length - 1) {
-        playTrack(products[currentIndex + 1]);
+      const currentIndex = tracks.findIndex(product => product.id === currentTrackDetails.id);
+      if (currentIndex < tracks.length - 1) {
+        playTrack(tracks[currentIndex + 1]);
       }
     }
   };
@@ -71,17 +54,17 @@ export default function Catalog() {
     };
   }, [currentTrack]);
 
-  if (showLoadingScreen || (loading && products.length === 0)) return <LoadingScreen />;
-  if (error) return <ErrorPreloader />;
-  if(products.length === 0) console.log('No products found');
+  // if (showLoadingScreen || (loading && products.length === 0)) return <LoadingScreen />;
+  // if (error) return <ErrorPreloader />;
+  if(tracks.length === 0) console.log('No products found');
   return (
     <div className="recommended-songs">
-      <h1 className="text-2xl all_songs_text">Примеры наших работ :</h1>
+<h1 className="text-2xl all_songs_text">Примеры наших работ :</h1>
       <div className="song-container">
-        {products.length === 0 ? (
+        {tracks.length === 0 ? (
           <EmptyItems />
         ) : (
-          products.map((product, index) => (
+          tracks.map((product, index) => (
             <div key={product.id}>
               <div className="section-container">
                 <TrackBlock
@@ -93,7 +76,7 @@ export default function Catalog() {
                 {index === 3 && <div className="section-price">10 000₽</div>}
                 {index === 5 && <div className="section-price"></div>}
               </div>
-              {(index + 1) % 2 === 0 && index !== products.length - 1 && (
+              {(index + 1) % 2 === 0 && index !== tracks.length - 1 && (
                 <div className="track-divider" />
               )}
             </div>
@@ -101,14 +84,14 @@ export default function Catalog() {
         )}
       </div>
       <Button />
-      {currentTrackDetails && (
+      {/* {currentTrackDetails && (
         <Player
           track={currentTrackDetails}
           audio={currentTrack}
           onPrevious={playPreviousTrack}
           onNext={playNextTrack}
         />
-      )}
+      )} */}
     </div>
   );
 }

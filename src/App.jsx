@@ -18,10 +18,10 @@ function App() {
   }, []);
   useEffect(() => {
     tg.ready();
-    tg.setHeaderColor("#474C2B"); // set the header transparent
+    tg.setHeaderColor("transparent"); // set the header transparent
     }, []);
   return (
-          <Router>
+      <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="details/:id" element={<Detail/>}></Route>

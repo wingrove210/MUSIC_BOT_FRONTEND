@@ -1,0 +1,1 @@
+export const selectTracks = (state) => state.track.list;
