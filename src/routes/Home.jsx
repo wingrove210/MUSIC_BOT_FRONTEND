@@ -4,9 +4,9 @@ import "../App.css";
 import Video from "../components/Video";
 import Catalog from "../components/Catalog";
 import Player from "../components/Player";
-import '../index.css';
+import "../index.css";
 // import Button from "../components/Button";
-import Layout from '../components/Layout';
+import Layout from "../components/Layout";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -48,19 +48,19 @@ export default function Home() {
   }, [currentTrack]);
 
   return (
-    <Layout>
-      <div className="">
-        <Video />
-        {loading ? (
-          <p>Загрузка товаров...</p>
-        ) : error ? (
-          <p className="text-red-500">{error}</p>
-        ) : (
+    <div className="">
+      {loading ? (
+        <p></p>
+      ) : error ? (
+        <p className="text-red-500">{error}</p>
+      ) : (
+        <Layout>
+          <Video />
           <Catalog products={products} playTrack={playTrack} />
-        )}
-        {/* <Button /> */}
-        <Player/>
-      </div>
-    </Layout>
+          <Player />
+        </Layout>
+      )}
+      {/* <Button /> */}
+    </div>
   );
 }

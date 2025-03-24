@@ -30,6 +30,7 @@ export default function SurveyForm({ price, name }) {
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [error, setError] = useState(null);
+  const [buttonState, setButtonState] = useState(null)
   const API_URL = "https://patriot-music.online";
   const [formData, setFormData] = useState({
     formRole: "", // Кто заполняет форму?
