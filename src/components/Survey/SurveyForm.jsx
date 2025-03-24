@@ -10,7 +10,6 @@ import axios from "axios";
 import { v4 as uuid4 } from "uuid";
 const TelegramWebApp = window.Telegram.WebApp;
 
-
 // Declare a common field class for uniform styling.
 const fieldClass =
   "text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-100 input-field";
@@ -30,7 +29,7 @@ export default function SurveyForm({ price, name }) {
   const [showPopup, setShowPopup] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
   const [error, setError] = useState(null);
-  const [buttonState, setButtonState] = useState(null)
+  const [requestState, setRequestState] = useState("");
   const API_URL = "https://patriot-music.online";
   const [formData, setFormData] = useState({
     formRole: "", // Кто заполняет форму?
@@ -64,6 +63,7 @@ export default function SurveyForm({ price, name }) {
   };
 
   const handleSubmit = async (e) => {
+    setRequestState("pending");
     e.preventDefault();
     const message_data = {
       id: `${uuid4()}`,
@@ -90,7 +90,7 @@ export default function SurveyForm({ price, name }) {
       otherText: formData.otherText || "Не указано",
       planName: queryName || "Не указано",
     };
-    
+
     await axios
       .post(`${API_URL}/api/save-data`, message_data)
       .then(async (e) => {
@@ -133,6 +133,7 @@ export default function SurveyForm({ price, name }) {
             )
             .then((res) => {
               const invoice_url = res.data;
+              setRequestState("ready");
               TelegramWebApp.openInvoice(invoice_url);
             });
         } else {
@@ -617,7 +618,11 @@ export default function SurveyForm({ price, name }) {
             className="relative group inline-block w-full py-4 px-6 text-center text-gray-50 hover:text-gray-900 bg-[#7CA200] font-semibold rounded-full overflow-hidden transition duration-200"
             // onClick={handleSubmit}
           >
-            Отправить
+            {requestState === "pending" ? (
+            <div className="spinner icon-spinner-5" aria-hidden="true"></div>
+             ) : (
+              "Отправить"
+             )}
           </button>
         </form>
       </div>
