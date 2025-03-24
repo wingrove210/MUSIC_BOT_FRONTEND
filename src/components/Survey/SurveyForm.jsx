@@ -377,7 +377,7 @@ export default function SurveyForm({ price, name }) {
           <div>
             <div className="w-full p-5 bg-[rgba(44,44,44,0.8)] rounded-lg mt-5 mb-5">
               <label className="font-semibold text-lg">
-                1.Как его зовут? Какое у него позывное?
+                1.Как его зовут? Какой у него позывной?
               </label>
               <div className="form-field mt-6">
                 <input
