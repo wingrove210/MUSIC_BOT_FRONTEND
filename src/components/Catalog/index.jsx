@@ -81,7 +81,7 @@ export default function Catalog() {
         {products.length === 0 ? (
           <EmptyItems />
         ) : (
-          products.map((product, index) => (
+          products.map((product) => (
             <div key={product.id}>
               <div className="section-container">
                 <TrackBlock
@@ -89,13 +89,10 @@ export default function Catalog() {
                   onClick={() => playTrack(product)}
                   isPlaying={currentTrackDetails && currentTrackDetails.id === product.id}
                 />
-                {index === 1 && <div className="section-price"></div>}
-                {index === 3 && <div className="section-price"></div>}
-                {index === 5 && <div className="section-price"></div>}
               </div>
-              {(index + 1) % 2 === 0 && index !== products.length - 1 && (
+              {/* {(index + 1) % 2 === 0 && index !== products.length - 1 && (
                 <div className="track-divider" />
-              )}
+              )} */}
             </div>
           ))
         )}
