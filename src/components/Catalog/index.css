@@ -8,8 +8,8 @@ img {
 .recommended-songs {
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 120px;
-  min-height: 100vh;
+  /* padding-bottom: 120px; */
+  min-height: 65vh;
 }
 
 .recommended-songs h1 {

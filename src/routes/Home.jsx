@@ -7,7 +7,7 @@ import Player from "../components/Player";
 import "../index.css";
 // import Button from "../components/Button";
 import Layout from "../components/Layout";
-
+import FeedBack from "../components/FeedBack";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -57,6 +57,7 @@ export default function Home() {
         <Layout>
           <Video />
           <Catalog products={products} playTrack={playTrack} />
+          <FeedBack/>
           <Player />
         </Layout>
       )}

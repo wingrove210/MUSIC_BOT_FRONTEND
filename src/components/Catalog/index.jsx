@@ -98,6 +98,9 @@ export default function Catalog() {
         )}
       </div>
       <Button />
+      <div className="w-full flex justify-center">
+        <span className="h-[2px] w-full bg-white opacity-50 flex left-0 mt-20"></span>
+      </div>
       {currentTrackDetails && (
         <Player
           track={currentTrackDetails}

@@ -18,7 +18,7 @@ function TrackBlock({ product, onClick, isPlaying }) {
       </div>
       <div className="song-title">
         <h2>{product.name}</h2>
-        <p>{product.artist}</p>
+        <p>{product.artist} | {product.artist === 'Базовый' ? '5000₽' : product.artist === 'Расширенный' ? '10000₽' : 'По договоренности'}</p>
       </div>
       <span>{formatDuration(product.duration)}</span>
     </div>
