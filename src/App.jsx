@@ -13,13 +13,13 @@ function App() {
   useEffect(() => {
     if (tg) {
       tg.expand();
-      tg.requestFullscreen(); // Разворачивает веб-приложение на весь экран
-      tg.ready(); // Говорим Telegram, что приложение готово
+      // tg.requestFullscreen();
+      tg.ready(); 
     }
   }, []);
   useEffect(() => {
     tg.ready();
-    tg.setHeaderColor("#474C2B"); // set the header transparent
+    tg.setHeaderColor("#474C2B");
     }, []);
   return (
           <Router>
