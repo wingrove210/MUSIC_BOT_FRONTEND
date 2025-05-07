@@ -12,7 +12,8 @@ const tg = window.Telegram ? window.Telegram.WebApp : null;
 function App() {
   useEffect(() => {
     if (tg) {
-      tg.expand(); // Разворачивает веб-приложение на весь экран
+      tg.expand();
+      tg.requestFullscreen(); // Разворачивает веб-приложение на весь экран
       tg.ready(); // Говорим Telegram, что приложение готово
     }
   }, []);
