@@ -75,6 +75,9 @@ export default function FeedBack() {
           </div>
         ))}
       </Slider>
+      <div className="w-full flex justify-center">
+          <button className="sendMessage-btn">Оставить отзыв</button>
+      </div>
     </div>
   );
 }
