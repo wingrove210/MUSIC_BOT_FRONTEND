@@ -76,7 +76,7 @@ export default function FeedBack() {
         ))}
       </Slider>
       <div className="w-full flex justify-center">
-          <button className="sendMessage-btn">Оставить отзыв</button>
+          <a href="https://t.me/patriotComments" className="sendMessage-btn">Оставить отзыв</a>
       </div>
     </div>
   );
