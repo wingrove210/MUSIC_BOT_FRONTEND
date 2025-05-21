@@ -92,7 +92,7 @@ export default function SurveyForm({ price, name }) {
     };
 
     await axios
-      .post(`${API_URL}/api/save-data`, message_data)
+      .post(`${API_URL}/save-data`, message_data)
       .then(async (e) => {
         const response = e.data;
         console.log("Response:", response.payload);
@@ -128,7 +128,7 @@ export default function SurveyForm({ price, name }) {
         if (response.ok) {
           await axios
             .post(
-              `${API_URL}/api/create-invoice?web_app_data=` +
+              `${API_URL}/create-invoice?web_app_data=` +
                 JSON.stringify(data)
             )
             .then((res) => {

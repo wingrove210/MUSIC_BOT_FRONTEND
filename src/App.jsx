@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     if (tg) {
       tg.expand();
-      tg.requestFullscreen();
+      // tg.requestFullscreen();
       tg.ready(); 
     }
   }, []);

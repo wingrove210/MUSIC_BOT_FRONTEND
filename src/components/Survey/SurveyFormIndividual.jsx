@@ -142,7 +142,7 @@ export default function SurveyForm({ price, name }) {
       }
 
       // Сохраняем данные в API
-      await axios.post(`${API_URL}/api/save-data`, message_data);
+      await axios.post(`${API_URL}/save-data`, message_data);
       
       // Очищаем форму
       setFormData({
