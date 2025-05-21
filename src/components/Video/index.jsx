@@ -8,7 +8,7 @@ function Video() {
 
   // Fetch video URL on mount.
   useEffect(() => {
-    fetch('https://patriot-music.online/videos/2')
+    fetch('https://patriot-music.online/api/videos/2')
       .then(response => response.json())
       .then(data => {
         setVideoUrl(data.url);

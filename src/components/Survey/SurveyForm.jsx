@@ -92,7 +92,7 @@ export default function SurveyForm({ price, name }) {
     };
 
     await axios
-      .post(`${API_URL}/save-data`, message_data)
+      .post(`${API_URL}/api/save-data`, message_data)
       .then(async (e) => {
         const response = e.data;
         console.log("Response:", response.payload);
