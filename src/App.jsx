@@ -17,10 +17,6 @@ function App() {
       tg.ready(); 
     }
   }, []);
-  useEffect(() => {
-    tg.ready();
-    tg.setHeaderColor("#474C2B");
-    }, []);
   return (
           <Router>
         <Routes>
