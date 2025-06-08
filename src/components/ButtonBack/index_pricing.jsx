@@ -1,8 +1,31 @@
 import './index.css';
 import { Link } from 'react-router-dom';
 import logo from '/Logo.png';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+
+const tg = window.Telegram ? window.Telegram.WebApp : null;
 
 export default function BackButton_Pricing() {
+  const navigate = useNavigate();
+    useEffect(() => {
+    if (tg) {
+      tg.expand();
+      tg.ready();
+      if (tg.BackButton) {
+        tg.BackButton.show();
+        tg.BackButton.onClick(() => {
+          if (tg.MainButton) tg.MainButton.hide();
+          tg.BackButton?.hide();
+          navigate(-1);
+        });
+      }
+    }
+    // Очистка обработчика при размонтировании
+    return () => {
+      if (tg?.BackButton) tg.BackButton.onClick(() => {});
+    };
+  }, [navigate]);
   return (
     <div className='flex items-center justify-between h-[70px]'>
       <div className='flex items-center'>
