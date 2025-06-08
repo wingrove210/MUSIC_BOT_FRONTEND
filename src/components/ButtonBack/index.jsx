@@ -15,7 +15,7 @@ export default function BackButton() {
         tg.BackButton.onClick(() => {
           if (tg.MainButton) tg.MainButton.hide();
           tg.BackButton?.hide();
-          navigate(-1);
+          navigate('/pricing');
         });
       }
     }
