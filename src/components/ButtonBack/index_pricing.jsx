@@ -1,5 +1,4 @@
 import './index.css';
-import { Link } from 'react-router-dom';
 import logo from '/Logo.png';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -27,8 +26,8 @@ export default function BackButton_Pricing() {
     };
   }, [navigate]);
   return (
-    <div className='flex items-center justify-between h-[70px]'>
-      <div className='flex items-center'>
+    <div className='flex items-center justify-between h-[70px] mt-[25px]'>
+      {/* <div className='flex items-center'>
         <Link to="/" className="button_back">
           <div className="button_back-box">
             <span className="button_back-elem">
@@ -43,7 +42,7 @@ export default function BackButton_Pricing() {
             </span>
           </div>
         </Link>
-      </div>
+      </div> */}
       <div className='flex-grow text-center'>
         <img src={logo} alt="Logo" className='inline-block' style={{ height: '80px', width: 'auto' }}/>
       </div>

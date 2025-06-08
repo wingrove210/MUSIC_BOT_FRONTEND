@@ -155,9 +155,9 @@ export default function SurveyForm({ price, name }) {
   return (
     <>
       <div className={showPopup ? "blur-background" : ""}>
-        <div className="h-15">
+        {/* <div className="h-15"> */}
           <BackButton />
-        </div>
+        {/* </div> */}
         <form className="px-5 py-10 pb-[550px]" onSubmit={handleSubmit}>
           {/* Updated custom radio group for formRole */}
           <h2 className="text-2xl text-center mb-5 font-header_form">
