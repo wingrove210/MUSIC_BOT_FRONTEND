@@ -28,9 +28,9 @@ export default function SurveyForm({ price, name }) {
     Number(new URLSearchParams(location.search).get("price")) || price;
   const queryName = new URLSearchParams(location.search).get("name") || name;
   const formDataFromRedux = useSelector(selectForm); // Use selector to get form data from Redux
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup,] = useState(false);
   const [totalPrice, setTotalPrice] = useState(queryPrice);
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
   const API_URL = "https://patriot-music.online";
   const [formData, setFormData] = useState({
     formRole: "", // Кто заполняет форму?
