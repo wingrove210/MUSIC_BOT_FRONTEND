@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("https://patriot-music.online/api/tracks")
+      .get("https://patriotmusic.site/api/tracks")
       .then((response) => {
         setProducts(response.data);
         setLoading(false);
@@ -33,7 +33,7 @@ export default function Home() {
     if (currentTrack) {
       currentTrack.pause();
     }
-    const audio = new Audio(`https://patriot-music.online/api/${track.url}`);
+    const audio = new Audio(`https://patriotmusic.site/api/${track.url}`);
     audio.play();
     setCurrentTrack(audio);
     // setCurrentTrackDetails(track);
